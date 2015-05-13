@@ -1,0 +1,64 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Alarmdisplay</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="page-header">
+                <h1>Einsätze</h1>
+            </div>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                        Kategorie
+                        <span class="caret"></span>
+                    </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/alarmlist">-</a></li>
+                    {% for category in categories %}
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/alarmlist/{{ category[0] }}">{{ category[0] }}</a>
+                    {% endfor %}
+                </ul>
+            </div>
+            <hr>
+                <table class="table table-bordered table-striped table-responsive">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Address</th>
+                            <th>Alarmnumber</th>
+                            <th>Keyword</th>
+                            <th>Date</th>
+                            <th>Street</th>
+                            <th>Street Addition</th>
+                            <th>Country</th>
+                            <th>Caller</th>
+                            <th>Message</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for alarm in alarms %}
+                            <tr>
+                                <td>{{ alarm[0] }}</td>
+                                <td>{{ alarm[1] }}</td>
+                                <td><a href='#'>{{ alarm[2] }}</a></td>
+                                <td>{{ alarm[4] }}</td>
+                                <td>{{ alarm[5] }}</td>
+                                <td>{{ alarm[6] }}</td>
+                                <td>{{ alarm[7] }}</td>
+                                <td>{{ alarm[8] }}</td>
+                                <td>{{ alarm[9] }}</td>
+                                <td>{{ alarm[10] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+        <!-- Bootstrap-JavaScript ================================================== -->
+        <!-- Am Ende des Dokuments platziert, damit Seiten schneller laden -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    </body>
+</html>
+                            
