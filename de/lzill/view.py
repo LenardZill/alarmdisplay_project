@@ -25,6 +25,7 @@ def index():
 @app.route('/display')
 def display():
     conn = sqlite3.connect(database)
+    conn.text_factory = str
     c = conn.cursor()
     c.execute('SELECT * FROM alarmitems ORDER BY id DESC')
     alarm = c.fetchone()
@@ -35,6 +36,7 @@ def display():
 @app.route('/alarmlist')
 def alarmlist_all():
     conn = sqlite3.connect(database)
+    conn.text_factory = str
     c = conn.cursor()
     c.execute('SELECT * FROM alarmitems ORDER BY id DESC')
     alarms = c.fetchall()
@@ -47,6 +49,7 @@ def alarmlist_all():
 def alarmlist_category(category):
     if category <> '-':
         conn = sqlite3.connect(database)
+        conn.text_factory = str
         c = conn.cursor()
         c.execute('SELECT * FROM alarmitems WHERE category ="' + category+'"  ORDER BY id DESC')
         alarms = c.fetchall()
