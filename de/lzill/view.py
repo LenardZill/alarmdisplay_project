@@ -12,7 +12,11 @@ import sqlite3
 
 app = Flask(__name__)
 
-database = 'data/alarmdisplay.db'
+# Only on Raspberry
+database = '/var/www/alarmdisplay_project/de/lzill/data/alarmdisplay.db'
+
+# Only on PC
+#database = 'data/alarmdisplay.db'
 
 @app.route('/')
 def index():
@@ -54,4 +58,4 @@ def alarmlist_category(category):
         return redirect('/alarmlist')
         
 if __name__ == '__main__':
-    app.run(port=8080, debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=True)

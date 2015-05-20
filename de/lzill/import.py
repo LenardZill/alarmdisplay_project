@@ -14,14 +14,14 @@ import os
 
 
 # Only on Raspberry
-#database = '/var/www/alarmdisplay_project/de/lzill/data/alarmdisplay.db'
-#offlineFile = '/var/www/alarmdisplay_project/de/lzill/data/169-890M.txt'
-#onlineFile = 'http://se8sen3y5utitvix.myfritz.net/pager/169-890M.txt'
+database = '/var/www/alarmdisplay_project/de/lzill/data/alarmdisplay.db'
+offlineFile = '/var/www/alarmdisplay_project/de/lzill/data/169-890M.txt'
+onlineFile = 'http://se8sen3y5utitvix.myfritz.net/pager/169-890M.txt'
 
 # Only on PC
-database = 'data/alarmdisplay.db'
-offlineFile = 'data/169-890M.txt'
-onlineFile = 'http://se8sen3y5utitvix.myfritz.net/pager/169-890M.txt'
+#database = 'data/alarmdisplay.db'
+#offlineFile = 'data/169-890M.txt'
+#onlineFile = 'http://se8sen3y5utitvix.myfritz.net/pager/169-890M.txt'
 
 def createTable():
     conn = sqlite3.connect(database)
