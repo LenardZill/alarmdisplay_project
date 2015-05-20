@@ -7,7 +7,7 @@ Created on 11.05.2015
 @author: LZill
 '''
 
-from flask import Flask, render_template, redirect, escape
+from flask import Flask, render_template, redirect
 import sqlite3
 
 app = Flask(__name__)
@@ -54,4 +54,4 @@ def alarmlist_category(category):
         return redirect('/alarmlist')
         
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=8080, debug=True)
