@@ -1,8 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>Alarmdisplay</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     </head>
     <body>
         <div class="container">
@@ -55,10 +54,8 @@
                     </tbody>
                 </table>
         </div>
-        <!-- Bootstrap-JavaScript ================================================== -->
-        <!-- Am Ende des Dokuments platziert, damit Seiten schneller laden -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     </body>
 </html>
                             

@@ -13,10 +13,10 @@ import sqlite3
 app = Flask(__name__)
 
 # Only on Raspberry
-database = '/var/www/alarmdisplay_project/de/lzill/data/alarmdisplay.db'
+#database = '/var/www/alarmdisplay_project/de/lzill/data/alarmdisplay.db'
 
 # Only on PC
-#database = 'data/alarmdisplay.db'
+database = 'data/alarmdisplay.db'
 
 @app.route('/')
 def index():
@@ -27,7 +27,7 @@ def display():
     conn = sqlite3.connect(database)
     conn.text_factory = str
     c = conn.cursor()
-    c.execute('SELECT * FROM alarmitems ORDER BY id DESC')
+    c.execute('SELECT * FROM alarmitems WHERE address = 1685474 ORDER BY id DESC')
     alarm = c.fetchone()
     conn.close()
     

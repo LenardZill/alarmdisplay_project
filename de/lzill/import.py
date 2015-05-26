@@ -14,19 +14,19 @@ import os
 
 
 # Only on Raspberry
-database = '/var/www/alarmdisplay_project/de/lzill/data/alarmdisplay.db'
-offlineFile = '/var/www/alarmdisplay_project/de/lzill/data/169-890M.txt'
-onlineFile = 'http://se8sen3y5utitvix.myfritz.net/pager/169-890M.txt'
+#database = '/var/www/alarmdisplay_project/de/lzill/data/alarmdisplay.db'
+#offlineFile = '/var/www/alarmdisplay_project/de/lzill/data/169-890M.txt'
+#onlineFile = 'http://se8sen3y5utitvix.myfritz.net/pager/169-890M.txt'
 
 # Only on PC
-#database = 'data/alarmdisplay.db'
-#offlineFile = 'data/169-890M.txt'
-#onlineFile = 'http://se8sen3y5utitvix.myfritz.net/pager/169-890M.txt'
+database = 'data/alarmdisplay.db'
+offlineFile = 'data/169-890M.txt'
+onlineFile = 'http://se8sen3y5utitvix.myfritz.net/pager/169-890M.txt'
 
 def createTable():
     conn = sqlite3.connect(database)
-    c = conn.cursor()
     conn.text_factory = str
+    c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS alarmitems
                 (id INTEGER PRIMARY KEY, address TEXT, alarmnumber TEXT, category TEXT, keyword TEXT, alarmdate TEXT, 
                 street TEXT, street_addition TEXT, country TEXT, caller TEXT, message TEXT, created_at DATETIME)''')
@@ -58,6 +58,7 @@ def insertRecord(address, alarmnumber, category, keyword, alarmdate, street, str
     
 def rowCount():
     conn = sqlite3.connect(database)
+    conn.text_factory = str
     c = conn.cursor()
     c.execute('SELECT COALESCE(MAX(id)+1, 0) FROM alarmitems')
     print c.fetchone()
