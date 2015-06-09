@@ -14,14 +14,14 @@ import os
 
 
 # Only on Raspberry
-#database = '/var/www/alarmdisplay_project/de/lzill/data/alarmdisplay.db'
-#offlineFile = '/var/www/alarmdisplay_project/de/lzill/data/169-890M.txt'
-#onlineFile = 'http://se8sen3y5utitvix.myfritz.net/pager/169-890M.txt'
+database = '/var/www/alarmdisplay_project/de/lzill/data/alarmdisplay.db'
+offlineFile = '/var/www/alarmdisplay_project/de/lzill/data/169-890M.txt'
+onlineFile = 'http://se8sen3y5utitvix.myfritz.net/pager/169-890M.txt'
 
 # Only on PC
-database = 'data/alarmdisplay.db'
-offlineFile = 'data/169-890M.txt'
-onlineFile = 'http://se8sen3y5utitvix.myfritz.net/pager/169-890M.txt'
+#database = 'data/alarmdisplay.db'
+#offlineFile = 'data/169-890M.txt'
+#onlineFile = 'http://se8sen3y5utitvix.myfritz.net/pager/169-890M.txt'
 
 def createTable():
     conn = sqlite3.connect(database)
@@ -36,10 +36,10 @@ def createTable():
 def removeEntrys(limit):
     conn = sqlite3.connect(database)
     c = conn.cursor()
-    c.execute('DELETE FROM alarmitems WHERE id NOT IN (SELECT id FROM alarmitems ORDER BY id ASC LIMIT ?)', (limit))
+    c.execute('DELETE FROM alarmitems WHERE id NOT IN (SELECT id FROM alarmitems ORDER BY id ASC LIMIT ?)', (limit,))
     conn.commit()
     conn.close()
-    print 'the latest ' + limit + ' records were removed'
+    print 'the latest ' + str(limit) + ' records were removed'
 
 
 def insertRecord(address, alarmnumber, category, keyword, alarmdate, street, street_addition, country, caller, message):
@@ -57,8 +57,12 @@ def rowCount():
     conn = sqlite3.connect(database)
     c = conn.cursor()
     c.execute('SELECT COALESCE(MAX(id)+1, 0) FROM alarmitems')
-    print c.fetchone()
+    records = c.fetchone()
     conn.close
+    
+    print records
+    if records > 1500:
+        removeEntrys(1000)
 
 def readOfflineFile():
     if (os.path.exists(offlineFile)): 
@@ -93,7 +97,7 @@ def splitLine(line):
             street_addition = split[2].split(':')[1].split('(')[0].strip()
             country = split[2].split(':')[0].strip()
             caller = split[2].split('(')[-1].replace(')', '').strip()
-            
+                
             message = ''
             messagelist = split[4:]
             for entry in messagelist:
@@ -111,9 +115,9 @@ def splitLine(line):
             caller = caller.decode('utf-8')
             message = message.decode('utf-8')
             
-            print type(message)
-            
-            insertRecord(address, alarmnumber, category, keyword, alarmdate, street, street_addition, country, caller, message)
+            if category == 'B' or category == 'H' or category == 'K' or category == 'P' or category == 'R' or category == 'S' or category == 'T':
+                insertRecord(address, alarmnumber, category, keyword, alarmdate, street, street_addition, country, caller, message)
+                
     except IndexError:
         pass
 
@@ -122,5 +126,4 @@ if __name__ == '__main__':
     print 'process started <' + time.strftime("%Y-%m-%d %H:%M:%S") + '>'
     createTable()
     readOnlineFile()
-    #readOfflineFile()
     print 'process completed <' + time.strftime("%Y-%m-%d %H:%M:%S") + '>'

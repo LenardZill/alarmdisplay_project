@@ -7,33 +7,33 @@
         <div class="container">
             <div class="page-header">
                 <h1>Einsätze</h1>
-            </div>
                 <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                        Kategorie
-                        <span class="caret"></span>
-                    </button>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/alarmlist">-</a></li>
-                    {% for category in categories %}
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/alarmlist/{{ category[0] }}">{{ category[0] }}</a>
-                    {% endfor %}
-                </ul>
+            		<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                		Kategorie
+                    	<span class="caret"></span>
+                	</button>
+             		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                		<li role="presentation"><a role="menuitem" tabindex="-1" href="/alarmlist">-</a></li>
+                    	{% for category in categories %}
+                        	<li role="presentation"><a role="menuitem" tabindex="-1" href="/alarmlist/{{ category[0] }}">{{ category[0] }}</a>
+                    	{% endfor %}
+                	</ul>
+            	</div>
             </div>
-            <hr>
-                <table class="table table-bordered table-striped table-responsive">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Address</th>
-                            <th>Alarmnumber</th>
-                            <th>Keyword</th>
-                            <th>Date</th>
-                            <th>Street</th>
-                            <th>Street Addition</th>
-                            <th>Country</th>
-                            <th>Caller</th>
-                            <th>Message</th>
+            <div class="table-responsive">
+                <table class="table table-striped ">
+                	<thead>
+                    	<tr>
+                        	<th>#</th>
+                            <th>Adresse</th>
+                            <th>Einsatznummer</th>
+                            <th>Stichwort</th>
+                            <th>Uhrzeit</th>
+                            <th>Straße</th>
+                            <th>Straße Zusatz</th>
+                            <th>Ort</th>
+                            <th>Anrufer</th>
+                            <th>Einsatzmeldung</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,10 +41,10 @@
                             <tr>
                                 <td>{{ alarm[0] }}</td>
                                 <td>{{ alarm[1] }}</td>
-                                <td>{{ alarm[2] }}</a></td>
+                                <td>{{ alarm[2] }}</td>
                                 <td>{{ alarm[4] }}</td>
                                 <td>{{ alarm[5] }}</td>
-                                <td>{{ alarm[6] }}</td>
+                                <td>{{ alarm[6] }}</td> 
                                 <td>{{ alarm[7] }}</td>
                                 <td>{{ alarm[8] }}</td>
                                 <td>{{ alarm[9] }}</td>
@@ -53,6 +53,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
+        	</div>
         </div>
         <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
