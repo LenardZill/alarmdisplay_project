@@ -8,6 +8,7 @@ Created on 11.05.2015
 '''
 
 from flask import Flask, render_template, redirect
+from datetime import datetime, timedelta
 import sqlite3
 
 app = Flask(__name__)
@@ -25,7 +26,11 @@ def display():
     c.execute('SELECT * FROM alarmitems WHERE address = 1685474 ORDER BY id DESC')
     alarm = c.fetchone()
     conn.close()
-    
+
+    #Nach 2 Stunden soll der Einsatz verschwinden
+    if alarm[11] > datetime.now() + timedelta(hours=2):
+        alarm = None
+
     return render_template('display.html', alarm=alarm)
 
 @app.route('/alarmlist')
