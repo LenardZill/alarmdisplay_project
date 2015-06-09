@@ -25,7 +25,6 @@ onlineFile = 'http://se8sen3y5utitvix.myfritz.net/pager/169-890M.txt'
 
 def createTable():
     conn = sqlite3.connect(database)
-    conn.text_factory = str
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS alarmitems
                 (id INTEGER PRIMARY KEY, address TEXT, alarmnumber TEXT, category TEXT, keyword TEXT, alarmdate TEXT, 
@@ -36,7 +35,6 @@ def createTable():
     
 def removeEntrys(limit):
     conn = sqlite3.connect(database)
-    conn.text_factory = str
     c = conn.cursor()
     c.execute('DELETE FROM alarmitems WHERE id NOT IN (SELECT id FROM alarmitems ORDER BY id ASC LIMIT ?)', (limit))
     conn.commit()
@@ -46,7 +44,6 @@ def removeEntrys(limit):
 
 def insertRecord(address, alarmnumber, category, keyword, alarmdate, street, street_addition, country, caller, message):
     conn = sqlite3.connect(database)
-    conn.text_factory = str
     c = conn.cursor()
     c.execute('SELECT id FROM alarmitems WHERE address=?  AND alarmnumber=? AND category=?', (address, alarmnumber, category))
     alarm = c.fetchone()
@@ -58,7 +55,6 @@ def insertRecord(address, alarmnumber, category, keyword, alarmdate, street, str
     
 def rowCount():
     conn = sqlite3.connect(database)
-    conn.text_factory = str
     c = conn.cursor()
     c.execute('SELECT COALESCE(MAX(id)+1, 0) FROM alarmitems')
     print c.fetchone()
@@ -103,6 +99,19 @@ def splitLine(line):
             for entry in messagelist:
                 message += entry.strip() + ' '
             message = message.strip()
+            
+            address = address.decode('utf-8')
+            alarmnumber = alarmnumber.decode('utf-8')
+            category = category.decode('utf-8')
+            keyword = keyword.decode('utf-8')
+            alarmdate = alarmdate.decode('utf-8')
+            street = street.decode('utf-8')
+            street_addition = street_addition.decode('utf-8')
+            country = country.decode('utf-8')
+            caller = caller.decode('utf-8')
+            message = message.decode('utf-8')
+            
+            print type(message)
             
             insertRecord(address, alarmnumber, category, keyword, alarmdate, street, street_addition, country, caller, message)
     except IndexError:

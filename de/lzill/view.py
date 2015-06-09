@@ -18,14 +18,9 @@ app = Flask(__name__)
 # Only on PC
 database = 'data/alarmdisplay.db'
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
 @app.route('/display')
 def display():
     conn = sqlite3.connect(database)
-    conn.text_factory = str
     c = conn.cursor()
     c.execute('SELECT * FROM alarmitems WHERE address = 1685474 ORDER BY id DESC')
     alarm = c.fetchone()
@@ -36,7 +31,6 @@ def display():
 @app.route('/alarmlist')
 def alarmlist_all():
     conn = sqlite3.connect(database)
-    conn.text_factory = str
     c = conn.cursor()
     c.execute('SELECT * FROM alarmitems ORDER BY id DESC')
     alarms = c.fetchall()
@@ -49,7 +43,6 @@ def alarmlist_all():
 def alarmlist_category(category):
     if category <> '-':
         conn = sqlite3.connect(database)
-        conn.text_factory = str
         c = conn.cursor()
         c.execute('SELECT * FROM alarmitems WHERE category ="' + category+'"  ORDER BY id DESC')
         alarms = c.fetchall()
@@ -61,4 +54,4 @@ def alarmlist_category(category):
         return redirect('/alarmlist')
         
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80, debug=True)
+    app.run(host='0.0.0.0', port=88, debug=True)
