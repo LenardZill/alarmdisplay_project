@@ -8,20 +8,18 @@ Created on 11.05.2015
 '''
 
 import sqlite3
-import datetime, time
+from datetime import datetime
 import urllib2
 import os
 
-
-# Only on Raspberry
-database = '/var/www/alarmdisplay_project/de/lzill/data/alarmdisplay.db'
-offlineFile = '/var/www/alarmdisplay_project/de/lzill/data/169-890M.txt'
+offlineFile = 'data/169-890M.txt'
 onlineFile = 'http://se8sen3y5utitvix.myfritz.net/pager/169-890M.txt'
 
+# Only on Raspberry
+#database = '/var/www/alarmdisplay_project/de/lzill/data/alarmdisplay.db'
+
 # Only on PC
-#database = 'data/alarmdisplay.db'
-#offlineFile = 'data/169-890M.txt'
-#onlineFile = 'http://se8sen3y5utitvix.myfritz.net/pager/169-890M.txt'
+database = 'data/alarmdisplay.db'
 
 def createTable():
     conn = sqlite3.connect(database)
@@ -48,9 +46,9 @@ def insertRecord(address, alarmnumber, category, keyword, alarmdate, street, str
     c.execute('SELECT id FROM alarmitems WHERE address=?  AND alarmnumber=? AND category=?', (address, alarmnumber, category))
     alarm = c.fetchone()
     if not alarm:
-        c.execute('INSERT OR IGNORE INTO alarmitems VALUES(?,?,?,?,?,?,?,?,?,?,?,?)', (None,address, alarmnumber, category, keyword, alarmdate, street, street_addition, country, caller, message, datetime.datetime.now()))
+        c.execute('INSERT OR IGNORE INTO alarmitems VALUES(?,?,?,?,?,?,?,?,?,?,?,?)', (None,address, alarmnumber, category, keyword, alarmdate, street, street_addition, country, caller, message, datetime.now()))
         conn.commit()
-        print 'insert <' + address + ';' + alarmdate + ';' + category + ';' + keyword +  ';' + message + '>'
+        print 'insert <' + address + ';' + alarmnumber + ';' + alarmdate + ';' + category + '>'
     conn.close()
     
 def rowCount():
@@ -92,12 +90,12 @@ def splitLine(line):
             alarmnumber = split[0][-6:-1].strip()
             category = split[0][-1:].strip()
             keyword = split[1].split(')')[0].strip()
-            alarmdate = split[1].split(')')[1].strip()
+            alarmdate = datetime.now().strftime('%d.%m.%Y') + ' ' + split[1].split(')')[1].strip()
             street = split[3].replace('(', ' ').replace(')', '').strip()
             street_addition = split[2].split(':')[1].split('(')[0].strip()
             country = split[2].split(':')[0].strip()
             caller = split[2].split('(')[-1].replace(')', '').strip()
-                
+              
             message = ''
             messagelist = split[4:]
             for entry in messagelist:
@@ -123,7 +121,7 @@ def splitLine(line):
 
 
 if __name__ == '__main__':
-    print 'process started <' + time.strftime("%Y-%m-%d %H:%M:%S") + '>'
+    print 'process started <' + datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '>'
     createTable()
     readOnlineFile()
-    print 'process completed <' + time.strftime("%Y-%m-%d %H:%M:%S") + '>'
+    print 'process completed <' + datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '>'

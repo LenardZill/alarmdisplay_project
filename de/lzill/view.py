@@ -14,10 +14,10 @@ import sqlite3
 app = Flask(__name__)
 
 # Only on Raspberry
-database = '/var/www/alarmdisplay_project/de/lzill/data/alarmdisplay.db'
+#database = '/var/www/alarmdisplay_project/de/lzill/data/alarmdisplay.db'
 
 # Only on PC
-#database = 'data/alarmdisplay.db'
+database = 'data/alarmdisplay.db'
 
 @app.route('/display')
 def display():
@@ -27,8 +27,7 @@ def display():
     alarm = c.fetchone()
     conn.close()
 
-    #Nach 2 Stunden soll der Einsatz verschwinden
-    if alarm[11] > datetime.now() + timedelta(hours=2):
+    if alarm[11] < str(datetime.now() - timedelta(hours=2)):
         alarm = None
 
     return render_template('display.html', alarm=alarm)
