@@ -16,10 +16,10 @@ offlineFile = 'data/169-890M.txt'
 onlineFile = 'http://se8sen3y5utitvix.myfritz.net/pager/169-890M.txt'
 
 # Only on Raspberry
-#database = '/var/www/alarmdisplay_project/de/lzill/data/alarmdisplay.db'
+database = '/var/www/alarmdisplay_project/de/lzill/data/alarmdisplay.db'
 
 # Only on PC
-database = 'data/alarmdisplay.db'
+#database = 'data/alarmdisplay.db'
 
 def createTable():
     conn = sqlite3.connect(database)
