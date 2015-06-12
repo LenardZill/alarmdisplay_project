@@ -14,10 +14,10 @@ import sqlite3
 app = Flask(__name__)
 
 # Only on Raspberry
-database = '/var/www/alarmdisplay_project/de/lzill/data/alarmdisplay.db'
+#database = '/var/www/alarmdisplay_project/de/lzill/data/alarmdisplay.db'
 
 # Only on PC
-#database = 'data/alarmdisplay.db'
+database = 'data/alarmdisplay.db'
 
 @app.route('/display')
 def display():
@@ -29,14 +29,14 @@ def display():
 
     if alarm[11] < str(datetime.now() - timedelta(hours=2)):
         alarm = None
-
+        
     return render_template('display.html', alarm=alarm)
 
 @app.route('/alarmlist')
 def alarmlist_all():
     conn = sqlite3.connect(database)
     c = conn.cursor()
-    c.execute('SELECT * FROM alarmitems ORDER BY id DESC LIMIT 500')
+    c.execute('SELECT * FROM alarmitems ORDER BY id DESC LIMIT 300')
     alarms = c.fetchall()
     c.execute('SELECT category FROM alarmitems GROUP BY category')
     categories = c.fetchall()
@@ -48,7 +48,7 @@ def alarmlist_category(category):
     if category <> '-':
         conn = sqlite3.connect(database)
         c = conn.cursor()
-        c.execute('SELECT * FROM alarmitems WHERE category ="' + category+'"  ORDER BY id DESC LIMIT 500')
+        c.execute('SELECT * FROM alarmitems WHERE category ="' + category+'"  ORDER BY id DESC LIMIT 300')
         alarms = c.fetchall()
         c.execute('SELECT category FROM alarmitems GROUP BY category')
         categories = c.fetchall()
