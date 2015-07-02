@@ -80,10 +80,11 @@ try:
                 
                 try:
                     logging.debug('starting multimon-ng')
-                    multimon_ng = subprocess.Popen('multimon-ng -t raw -a POCSAG1200 -f alpha /dev/stdin',
+                    multimon_ng = subprocess.Popen('multimon-ng -t raw -a POCSAG1200 -f alpha -t raw /dev/stdin - ',
                                                    stdin=rtl_fm.stdout,
                                                    stdout=subprocess.PIPE,
-                                                   stderr=open(globals.script_path+"/log/multimon.log","a"),
+                                                   #stderror
+                                                   stdout=open(globals.script_path+"/log/multimon.log","a"),
                                                    shell=True)
                 except:
                     logging.exception('cannot start multimon-ng')
