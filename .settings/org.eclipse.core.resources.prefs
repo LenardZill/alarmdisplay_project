@@ -1,3 +1,12 @@
 eclipse.preferences.version=1
 encoding//de/lzill/import.py=utf-8
 encoding//de/lzill/view.py=utf-8
+encoding//includes/alarmHandler.py=cp1252
+encoding//includes/decoder.py=cp1252
+encoding//includes/decoders/poc.py=cp1252
+encoding//includes/file_to_sql.py=cp1252
+encoding//includes/globals.py=cp1252
+encoding//includes/pluginLoader.py=cp1252
+encoding//includes/poc_to_sql.py=cp1252
+encoding//plugin/sqlite/sqlite.py=cp1252
+encoding/alarmdisplay.py=cp1252

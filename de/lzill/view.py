@@ -14,10 +14,10 @@ import sqlite3
 app = Flask(__name__)
 
 # Only on Raspberry
-database = '/var/www/alarmdisplay_project/de/lzill/data/alarmdisplay.db'
+database = '/var/www/alarmdisplay_project/de/lzill/data/includes.db'
 
 # Only on PC
-#database = 'data/alarmdisplay.db'
+#database = 'data/includes.db'
 
 @app.route('/display')
 def display():

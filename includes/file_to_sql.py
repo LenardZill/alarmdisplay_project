@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*-
+# -*- coding: cp1252 -*-
 
 '''
 Created on 11.05.2015
@@ -21,25 +21,6 @@ database = '/var/www/alarmdisplay_project/de/lzill/data/includes.db'
 # Only on PC
 #database = 'data/includes.db'
 
-def createTable():
-    conn = sqlite3.connect(database)
-    c = conn.cursor()
-    c.execute('''CREATE TABLE IF NOT EXISTS alarmitems
-                (id INTEGER PRIMARY KEY, address TEXT, alarmnumber TEXT, category TEXT, keyword TEXT, alarmdate TEXT, 
-                street TEXT, street_addition TEXT, country TEXT, caller TEXT, message TEXT, created_at DATETIME)''')
-    conn.commit()
-    conn.close()
-    
-    
-def removeEntrys(limit):
-    conn = sqlite3.connect(database)
-    c = conn.cursor()
-    c.execute('DELETE FROM alarmitems WHERE id NOT IN (SELECT id FROM alarmitems ORDER BY id ASC LIMIT ?)', (limit,))
-    conn.commit()
-    conn.close()
-    print 'the latest ' + str(limit) + ' records were removed'
-
-
 def insertRecord(address, alarmnumber, category, keyword, alarmdate, street, street_addition, country, caller, message):
     conn = sqlite3.connect(database)
     c = conn.cursor()
@@ -50,17 +31,7 @@ def insertRecord(address, alarmnumber, category, keyword, alarmdate, street, str
         conn.commit()
         print 'insert <' + address + ';' + alarmnumber + ';' + alarmdate + ';' + category + '>'
     conn.close()
-    
-def rowCount():
-    conn = sqlite3.connect(database)
-    c = conn.cursor()
-    c.execute('SELECT COALESCE(MAX(id)+1, 0) FROM alarmitems')
-    records = c.fetchone()
-    conn.close
-    
-    print records
-    if records > 1500:
-        removeEntrys(1000)
+
 
 def readOfflineFile():
     if (os.path.exists(offlineFile)): 
