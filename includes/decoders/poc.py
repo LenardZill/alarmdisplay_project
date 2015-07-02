@@ -30,7 +30,7 @@ def decode(freq,decoded):
             logging.debug('POCSAG Bitrate: %s', bitrate)
         
             if 'Alpha:' in decoded:
-                poc_text = decoded.split('Alpha:    ')[1].strip().rstrip()('<EOT>').strip()
+                poc_text = decoded.split('Alpha:    ')[1].strip()
             else:
                 poc_text = ''
         
