@@ -23,7 +23,7 @@ def run(type,freq,data):
         else:
             try:
                 logging.debug('insert data')
-                cursor.execute('INSERT INTO alarmdisplay (time,ric,function,text) VALUES(NOW(),%s,%s,%s', (data['ric'], data['function'], data['msg']))
+                cursor.execute('INSERT INTO alarmdisplay (time,ric,function,text) VALUES(NOW(),%s,%s,%s)', (data['ric'], data['function'], data['msg']))
             except:
                 logging.exception('cannot insert data')
     

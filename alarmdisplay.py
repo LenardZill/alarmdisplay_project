@@ -70,7 +70,7 @@ try:
              
             try:
                 logging.debug('starting both')
-                rtl_fm = subprocess.Popen('rtl_fm -f 169.890M -s 22050 | multimon-ng -t raw -a POCSAG1200 -f alpha -t raw /dev/stdin - ',
+                rtl_fm = subprocess.Popen('rtl_fm -f 169.890M -s 22050 | multimon-ng -t raw -a POCSAG1200 -f alpha -t raw /dev/stdin',
                                # stdin=rtl_fm.stdout,
                                stdout=subprocess.PIPE,
                                stderr=open(globals.script_path + '/log/rtl_fm.log', 'a'),
@@ -107,8 +107,6 @@ try:
                     while True:
                         decoded = str(rtl_fm.stdout.readline())
                         
-                        logging.debug('Zeile erfasst: ' + decoded)
-                        
                         from includes import decoder
                         decoder.decode(123,decoded)
                         
@@ -121,7 +119,7 @@ finally:
         logging.debug('Alarmdisplay shutting down')
         rtl_fm.terminate()
         logging.debug('rtl_fm terminated')
-        multimon_ng.terminate()
+        #multimon_ng.terminate()
         logging.debug('multimon_ng terminated')
         logging.debug('exiting Alarmdisplay')
     except:
