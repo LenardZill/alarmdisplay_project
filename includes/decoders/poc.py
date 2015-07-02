@@ -18,6 +18,7 @@ def decode(freq,decoded):
     timestamp = int(time.time())
     
     if 'POCSAG1200' in decoded:
+        logging(decoded)
         bitrate = 12000
         poc_id = decoded[20:27].replace(' ', '').zfill(7)
         logging.debug(decoded[39])
