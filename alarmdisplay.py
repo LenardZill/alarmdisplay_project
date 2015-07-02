@@ -68,13 +68,8 @@ try:
             pluginLoader.loadPlugins() 
                 
             try:
-                web = subprocess.Popen(globals.script_path + '\www\www.py')
-            except:
-                logging.exception('www.py nicht ausführbar')
-                
-            try:
                 logging.debug('starting rtl_fm')
-                rtl_fm = subprocess.Popen('rtl_fm -f 169.890M -M fm -s 22050 -p 37 -E dc -F 0 -g 100',
+                rtl_fm = subprocess.Popen('rtl_fm -f 169.890M -s 22050',
                                # stdin=rtl_fm.stdout,
                                stdout=subprocess.PIPE,
                                stderr=open(globals.script_path + '/log/rtl_fm.log', 'a'),
@@ -85,7 +80,7 @@ try:
                 
                 try:
                     logging.debug('starting multimon-ng')
-                    multimon_ng = subprocess.Popen('multimon-ng -a POCSAG1200 -f alpha -t raw /dev/stdin - ',
+                    multimon_ng = subprocess.Popen('multimon-ng -t raw -a POCSAG1200 -f alpha /dev/stdin',
                                                    stdin=rtl_fm.stdout,
                                                    stdout=subprocess.PIPE,
                                                    stderr=open(globals.script_path+"/log/multimon.log","a"),
