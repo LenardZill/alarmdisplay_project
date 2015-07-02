@@ -42,18 +42,16 @@ try:
     else:
         
         try:
-            #===================================================================
-            # fh.rollover()
-            # rtl_log = open(globals.script_path+'/log/rtl_fm.log', 'w')
-            # mon_log = open(globals.script_path+'/log/multimon.log', 'w')
-            # rtl_log.write('')
-            # mon_log.write('')
-            # rtl_log.close()
-            # mon_log.close()
-            # logging.debug('Alarmdisplay has started')
-            # logging.debug('Logfiles cleared')
-            #===================================================================
-            pass
+            #fh.rollover()
+            rtl_log = open(globals.script_path+'/log/rtl_fm.log', 'w')
+            mon_log = open(globals.script_path+'/log/multimon.log', 'w')
+            rtl_log.write('')
+            mon_log.write('')
+            rtl_log.close()
+            mon_log.close()
+            logging.debug('Alarmdisplay has started')
+            logging.debug('Logfiles cleared')
+            ch.setLevel(logging.DEBUG)
         except:
             logging.exception('cannot clear logfiles')
         else:
@@ -68,6 +66,11 @@ try:
              
             from includes import pluginLoader
             pluginLoader.loadPlugins() 
+                
+            try:
+                web = subprocess.Popen(globals.script_path + '\www\www.py')
+            except:
+                logging.exception('www.py nicht ausführbar')
                 
             try:
                 logging.debug('starting rtl_fm')
@@ -95,6 +98,8 @@ try:
                     
                     while True:
                         decoded = str(multimon_ng.stdout.readline())
+                        
+                        logging.debug('Zeile erfasst: ' + decoded)
                         
                         from includes import decoder
                         decoder.decode(123,decoded)
