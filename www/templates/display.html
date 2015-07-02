@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+    	<title>Alarmdisplay</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% if not alarm %}
+        	<meta http-equiv="refresh" content="10">
+        {% endif %}
+    </head>
+    <body>
+        <div class="container-fluid">
+            {% if alarm %}
+            <div class="row">
+            	<div class="col-md-12">
+            		<div class="jumbotron">
+            			<h1><span class="label label-danger">{{ alarm[4] }}</span></h1>
+           				<h1><span class="label label-danger">{{ alarm[10] }}</span></h1>
+           			</div>
+            	</div>
+            	<div class="col-md-6">
+            		<div class="jumbotron">
+						<iframe width="800"height="600" src="https://maps.google.de/maps?hl=de&q={{ alarm[6] }}, {{ alarm[8] }}&ie=UTF8&t=&z=15&iwloc=B&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" ></iframe>
+            		</div>
+            	</div>
+            	<div class="col-md-6">
+            	    <div class="jumbotron">
+            	    	<h1><span class="label label-danger">{{ alarm[6] }}</span></h1>
+           				<h1><span class="label label-danger">{{ alarm[7] }}</span></h1>
+           				<h1><span class="label label-danger">{{ alarm[8] }}</span></h1>
+            			<br>
+            			<h1><span class="label label-danger">{{ alarm[5] }}</span></h1>
+           				<h1><span class="label label-danger">{{ alarm[9] }}</span></h1>
+           			</div>
+            	</div>
+            </div>
+            {% else %}
+            <div class="row">
+            	<div class="col-md-12">
+            		<div class="jumbotron">
+            			<h1><span class="label label-success">Freiwillige Feuerwehr Grande</span></h1>
+           				<h1><span class="label label-success">Aktuell kein Einsatz</span></h1>
+           			</div>
+            	</div>
+            </div>
+            {% endif %}
+		</div>
+        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    </body>
+</html>
+                            

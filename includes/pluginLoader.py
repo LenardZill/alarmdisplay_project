@@ -67,8 +67,8 @@ def loadPlugin(plugin):
     """
     Imports a single Plugin
 
-    @type    plugin: Plugin Data
-    @param   plugin: Contains the information to import a Plugin
+    @type    plugins: Plugin Data
+    @param   plugins: Contains the information to import a Plugin
     
     
     @return:    nothing

@@ -11,7 +11,10 @@ Global variables
 
 # Global variables
 script_path = ""
-database = ""
+
+#database
+database = ''
+table = 'alarmitems'
 
 # double alarm
 poc_id_old = 0

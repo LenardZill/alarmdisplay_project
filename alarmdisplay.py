@@ -8,15 +8,11 @@ import logging.handlers
 from includes import globals
 from web.utils import subprocess
 
-##
-#
 # This Class extended the TimedRotatingFileHandler with the possibility to change the backupCount after initialization.
-#
-##
 class MyTimedRotatingFileHandler(logging.handlers.TimedRotatingFileHandler):
-    """Extended Version of TimedRotatingFileHandler"""
+    #Extended Version of TimedRotatingFileHandler
     def setBackupCount(self, backupCount):
-        """Set/Change backupCount"""
+        #Set/Change backupCount
         self.backupCount = backupCount
 
 try:
