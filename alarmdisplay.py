@@ -6,7 +6,7 @@ import logging
 import logging.handlers
 
 from includes import globals
-from web.utils import subprocess
+import subprocess
 
 # This Class extended the TimedRotatingFileHandler with the possibility to change the backupCount after initialization.
 class MyTimedRotatingFileHandler(logging.handlers.TimedRotatingFileHandler):
