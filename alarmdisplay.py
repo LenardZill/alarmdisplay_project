@@ -7,6 +7,7 @@ import logging.handlers
 
 from includes import globals
 import subprocess
+from sys import stderr
 
 # This Class extended the TimedRotatingFileHandler with the possibility to change the backupCount after initialization.
 class MyTimedRotatingFileHandler(logging.handlers.TimedRotatingFileHandler):
@@ -83,8 +84,7 @@ try:
                     multimon_ng = subprocess.Popen('multimon-ng -t raw -a POCSAG1200 -f alpha -t raw /dev/stdin - ',
                                                    stdin=rtl_fm.stdout,
                                                    stdout=subprocess.PIPE,
-                                                   #stderror
-                                                   stdout=open(globals.script_path+"/log/multimon.log","a"),
+                                                   stderr=open(globals.script_path+"/log/multimon.log","a"),
                                                    shell=True)
                 except:
                     logging.exception('cannot start multimon-ng')
@@ -93,7 +93,7 @@ try:
                     logging.debug('start decoding')
                     
                     while True:
-                        decoded = str(multimon_ng.stdout.readline())
+                        decoded = str(rtl_fm.stdout.readline())
                         
                         logging.debug('Zeile erfasst: ' + decoded)
                         
