@@ -42,15 +42,18 @@ try:
     else:
         
         try:
-            fh.rollover()
-            rtl_log = open(globals.script_path+'/log/rtl_fm.log', 'w')
-            mon_log = open(globals.script_path+'/log/multimon.log', 'w')
-            rtl_log.write('')
-            mon_log.write('')
-            rtl_log.close()
-            mon_log.close()
-            logging.debug('Alarmdisplay has started')
-            logging.debug('Logfiles cleared')
+            #===================================================================
+            # fh.rollover()
+            # rtl_log = open(globals.script_path+'/log/rtl_fm.log', 'w')
+            # mon_log = open(globals.script_path+'/log/multimon.log', 'w')
+            # rtl_log.write('')
+            # mon_log.write('')
+            # rtl_log.close()
+            # mon_log.close()
+            # logging.debug('Alarmdisplay has started')
+            # logging.debug('Logfiles cleared')
+            #===================================================================
+            pass
         except:
             logging.exception('cannot clear logfiles')
         else:
