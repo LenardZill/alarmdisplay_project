@@ -1,5 +1,16 @@
-'''
-Created on 05.07.2015
+#!/usr/bin/python
+# -*- coding: cp1252 -*-
 
-@author: LenardZill
 '''
+Display Plugin to search for an active alarm
+
+@author: Lenard Zill
+'''
+
+import logging
+
+def run(typ,freq,data):
+    try:
+        pass
+    except:
+        logging.exception('unknown error')
