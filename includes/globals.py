@@ -7,14 +7,13 @@ Global variables
 @author: Lenard Zill
 """
 
-#http://www.funkmeldesystem.de/foren/showthread.php?t=60346
-
 # Global variables
-script_path = ""
+script_path = ''
+log_path = ''
 
 #database
-database = ''
-table = 'alarmitems'
+database_path = ''
+database_table = ''
 
 # double alarm
 poc_id_old = 0
