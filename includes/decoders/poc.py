@@ -27,14 +27,10 @@ def decode(freq,decoded):
             logging.warning('POCSAG Bitrate not found')
             logging.debug(' - (%s)', decoded)
         else:
-            logging.debug('POCSAG Bitrate: %s', bitrate)
-        
             if 'Alpha:' in decoded:
                 poc_text = decoded.split('Alpha:')[1].strip()
             else:
                 poc_text = ''
-            
-            logging.debug('message: ' + poc_text + '[' + str(len(poc_text)) + ']')
             
             if len(poc_text) > 0:
                 if re.search('[0-9]{7}', poc_id):
