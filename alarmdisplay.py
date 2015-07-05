@@ -217,12 +217,14 @@ try:
     logging.debug('start decoding')
                     
     while True:
-        if not args.test:
+        decoded = str(rtl_fm.stdout.readline())
+        logging.debug(decoded)
+        #if not args.test:
             # get line data from multimon stdout
-            decoded = str(rtl_fm.stdout.readline())
-        else:
-            decoded = "POCSAG1200: Address: 1234567 Function: 1 Alpha: Hello World"
-            time.sleep(1)
+            #decoded = str(rtl_fm.stdout.readline())
+        #else:
+            #decoded = "POCSAG1200: Address: 1234567 Function: 1 Alpha: Hello World"
+            #time.sleep(1)
                         
         from includes import decoder
         decoder.decode(args.freq,decoded)
