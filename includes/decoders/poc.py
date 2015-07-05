@@ -38,7 +38,6 @@ def decode(freq,decoded):
                         logging.info('POCSAG%s double alarm: %s within %s second(s)', bitrate, globals.poc_id_old, timestamp-globals.poc_time_old)
                         globals.poc_time_old = timestamp
                     else:
-                        logging.info('POCSAG%s: %s %s %s ', bitrate, poc_id, poc_sub, poc_text)
                         data = {'ric':poc_id, 'function':poc_sub, 'msg': poc_text, 'bitrate':bitrate, 'description':poc_id}
                         data['functionChar'] = data['function'].replace('1', 'a').replace('2', 'b').replace('3', 'c').replace('4', 'd')
                 
