@@ -44,8 +44,8 @@ def decode(freq,decoded):
                     data['functionChar'] = data['function'].replace('1', 'a').replace('2', 'b').replace('3', 'c').replace('4', 'd')
                 
                     from includes import alarmHandler
-                    alarmHandler.processAlarm("POC",freq,data)
-                
+                    #alarmHandler.processAlarm("POC",freq,data)
+                    logging.debug(data['msg'])
                     globals.poc_id_old = poc_id
                     globals.poc_time_old = timestamp
             else:

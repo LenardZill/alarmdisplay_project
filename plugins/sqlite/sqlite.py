@@ -12,7 +12,7 @@ import sqlite3
 
 from includes import globals
 
-def run(type,freq,data):
+def run(typ,freq,data):
     try:
         try:
             logging.debug('connect to sqlite')
