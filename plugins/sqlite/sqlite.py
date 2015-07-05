@@ -18,12 +18,16 @@ def run(typ,freq,data):
             logging.debug('connect to sqlite')
             connection = sqlite3.connect(globals.database_path)
             cursor = connection.cursor()
+            
+            cursor.excecute('CREATE TABLE IF NOT EXISTS alarmitems(ric TEXT, function TEXT, message TEXT)')
+            connection.commit()
         except:
             logging.exception('cannot connect to sqlite')
         else:
             try:
                 logging.debug('insert data')
                 cursor.execute('INSERT INTO ' + globals.database_table + ' VALUES("%s","%s","%s")', (data['ric'], data['function'], data['msg']))
+                connection.commit()
             except:
                 logging.exception('cannot insert data')
     
