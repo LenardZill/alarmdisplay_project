@@ -168,7 +168,7 @@ try:
             rtl_fm = subprocess.Popen('rtl_fm -f 169.890M -s 22050 | multimon-ng -t raw -a POCSAG1200 -f alpha -t raw /dev/stdin',
                             stdout=subprocess.PIPE,
                             stderr=open(globals.log_path + 'rtl_fm.log', 'a'),
-                            shell=False)
+                            shell=True)
             time.sleep(3)
             checkSubprocesses.checkRTL()
         else:
@@ -187,7 +187,7 @@ try:
                             stdin=rtl_fm.stdout,
                             stdout=subprocess.PIPE,
                             stderr=open(globals.log_path + 'multimon.log', 'a'),
-                            shell=False)
+                            shell=True)
             time.sleep(3)
             checkSubprocesses.checkMultimon()
         else:
