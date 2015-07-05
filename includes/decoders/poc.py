@@ -34,7 +34,7 @@ def decode(freq,decoded):
             else:
                 poc_text = ''
             
-            logging.debug('message: ' + poc_text + ' [' + len(poc_text) + ']')
+            logging.debug('message: ' + poc_text + ' [' + str(len(poc_text)) + ']')
             
             if re.search('[0-9]{7}', poc_id):
                 if poc_id == globals.poc_id_old and timestamp < globals.poc_time_old + 5:
