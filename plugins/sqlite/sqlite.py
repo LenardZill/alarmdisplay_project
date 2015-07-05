@@ -19,7 +19,7 @@ def run(typ,freq,data):
             connection = sqlite3.connect(globals.database_path)
             cursor = connection.cursor()
             
-            cursor.excecute('CREATE TABLE IF NOT EXISTS alarmitems(ric TEXT, function TEXT, message TEXT)')
+            cursor.execute('CREATE TABLE IF NOT EXISTS alarmitems(ric TEXT, function TEXT, message TEXT)')
             connection.commit()
         except:
             logging.exception('cannot connect to sqlite')
