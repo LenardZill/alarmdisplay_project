@@ -23,7 +23,7 @@ def run(typ,freq,data):
         else:
             try:
                 logging.debug('insert data')
-                cursor.execute('INSERT INTO ' + globals.database_table + ' (time,ric,function,text) VALUES(%s,%s,%s,%s)', ('',data['ric'], data['function'], data['msg']))
+                #cursor.execute('INSERT INTO ' + globals.database_table + ' (time,ric,function,text) VALUES(%s,%s,%s,%s)', ('',data['ric'], data['function'], data['msg']))
             except:
                 logging.exception('cannot insert data')
     
