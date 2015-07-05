@@ -20,8 +20,8 @@ def decode(freq,decoded):
     if not 'Enabled demodulators:' in decoded:
         if 'POCSAG1200' in decoded:
             bitrate = 12000
-            poc_id = decoded[20:27].replace(' ', '').zfill(7)
-            poc_sub = decoded[39].replace('3', '4').replace('2', '3').replace('1', '2').replace('0', '1')
+            poc_id = decoded[21:28].replace(' ', '').zfill(7)
+            poc_sub = decoded[40].replace('3', '4').replace('2', '3').replace('1', '2').replace('0', '1')
         
         if bitrate == 0:
             logging.warning('POCSAG Bitrate not found')
@@ -29,8 +29,8 @@ def decode(freq,decoded):
         else:
             logging.debug('POCSAG Bitrate: %s', bitrate)
         
-            if 'Alpha:' in decoded:
-                poc_text = decoded.split('Alpha:    ')[1].strip()
+            if 'Alpha:    ' in decoded:
+                poc_text = decoded.split('Alpha:    ')[1].strip().split('<NUL>')[0]
             else:
                 poc_text = ''
         
@@ -44,8 +44,8 @@ def decode(freq,decoded):
                     data['functionChar'] = data['function'].replace('1', 'a').replace('2', 'b').replace('3', 'c').replace('4', 'd')
                 
                     from includes import alarmHandler
-                    #alarmHandler.processAlarm("POC",freq,data)
-                    logging.debug(data['msg'])
+                    alarmHandler.processAlarm("POC",freq,data)
+                    logging.debug('alarmmessage: ' + data['msg'])
                     globals.poc_id_old = poc_id
                     globals.poc_time_old = timestamp
             else:

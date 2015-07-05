@@ -218,7 +218,6 @@ try:
                     
     while True:
         decoded = str(rtl_fm.stdout.readline())
-        logging.debug(decoded)
         #if not args.test:
             # get line data from multimon stdout
             #decoded = str(rtl_fm.stdout.readline())
