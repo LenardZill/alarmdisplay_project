@@ -7,6 +7,7 @@ def decode(freq,decoded):
     try:
         if 'POCSAG' in decoded:
             logging.debug('recieved POCSAG')
+            logging.debug(decoded)
             from includes.decoders import poc
             poc.decode(freq,decoded)
     except:
