@@ -181,8 +181,7 @@ try:
     try:
         if not args.test:
             logging.debug('starting rtl_fm')
-            rtl_fm = subprocess.Popen('rtl_fm = subprocess.Popen("rtl_fm -d ' + str(args.device) + ' -f ' + str(args.freq) + ' -M fm -s 22050 -p 0 -E DC -F 0 -l ' + str(args.squelch) + ' -g 100',
-            #rtl_fm = subprocess.Popen('rtl_fm -f 169.890M -s 22050',
+            rtl_fm = subprocess.Popen('rtl_fm -f 169.890M -s 22050',
                             stdout=subprocess.PIPE,
                             stderr=open(globals.log_path + 'rtl_fm.log', 'a'),
                             shell=True)
@@ -200,8 +199,7 @@ try:
     try:
         if not args.test:
             logging.debug('starting multimon-ng')
-            multimon_ng = subprocess.Popen('multimon-ng -a POCSAG1200 -f alpha -t raw /dev/stdin - ',
-            #multimon_ng = subprocess.Popen('multimon-ng -t raw -a POCSAG1200 -f alpha -t raw /dev/stdin',
+            multimon_ng = subprocess.Popen('multimon-ng -t raw -a POCSAG1200 -f alpha -t raw /dev/stdin',
                             stdin=rtl_fm.stdout,
                             stdout=subprocess.PIPE,
                             stderr=open(globals.log_path + 'multimon.log', 'a'),
