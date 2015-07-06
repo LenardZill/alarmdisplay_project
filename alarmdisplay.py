@@ -123,7 +123,7 @@ try:
             
         logging.debug(' - Frequency: %s', args.freq)
         logging.debug(' - Device: %s', args.device)
-        logging.debug(' - Squelch: %', args.squelch)
+        logging.debug(' - Squelch: %s', args.squelch)
         
         demodulation = '-a POCSAG1200'
         logging.debug(' - Demod: POC1200')
