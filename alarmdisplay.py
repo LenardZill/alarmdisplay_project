@@ -219,7 +219,7 @@ try:
     while True:
         if not args.test:
             #get line data from multimon stdout
-            decoded = str(multimon_ng.stdout.readline())
+            decoded = str(rtl_fm.stdout.readline())
         else:
             decoded = "POCSAG1200: Address: 1234567 Function: 1 Alpha: Hello World"
             time.sleep(1)
