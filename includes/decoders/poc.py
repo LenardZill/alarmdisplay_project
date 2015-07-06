@@ -30,6 +30,7 @@ def decode(freq,decoded):
             if 'Alpha:' in decoded:
                 # clean text
                 poc_text = decoded.split('Alpha:')[1].strip()
+                logging.debug(poc_text[0:5])
                 if re.search('[0-9]{5}', poc_text[0:5]):
                     if '<NUL>' in poc_text:
                         poc_text = poc_text.split('<NUL>')[0].strip()
