@@ -12,5 +12,7 @@ import logging
 def run(typ,freq,data):
     try:
         pass
+    
+        
     except:
         logging.exception('unknown error')

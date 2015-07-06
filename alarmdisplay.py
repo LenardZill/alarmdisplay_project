@@ -161,69 +161,68 @@ try:
         logging.debug("cannot load plugins", exc_info=True)
         exit(1) 
     
-    # start both in one process
-    try:
-        logging.debug('starting both')
-        rtl_fm = subprocess.Popen('rtl_fm -f 169.890M -s 22050 | multimon-ng -t raw -a POCSAG1200 -f alpha -t raw /dev/stdin',
-                               # stdin=rtl_fm.stdout,
-                               stdout=subprocess.PIPE,
-                               stderr=open(globals.script_path + '/log/rtl_fm.log', 'a'),
-                               shell=True)
-    except:
-        # we couldn't work without rtl_fm
-        logging.critical('cannot start rtl_fm')
-        logging.debug('cannot start rtl_fm', exc_info=True)
-        exit(1)
-    
     #===========================================================================
-    # # start rtl_fm         
+    # # start both in one process
     # try:
-    #     if not args.test:
-    #         logging.debug('starting rtl_fm')
-    #         rtl_fm = subprocess.Popen('rtl_fm -f 169.890M -s 22050 | multimon-ng -t raw -a POCSAG1200 -f alpha -t raw /dev/stdin',
-    #                         stdout=subprocess.PIPE,
-    #                         stderr=open(globals.log_path + 'rtl_fm.log', 'a'),
-    #                         shell=True)
-    #         time.sleep(3)
-    #         checkSubprocesses.checkRTL()
-    #     else:
-    #         logging.warning('! Test-Mode: rtl_fm not started !')
+    #     logging.debug('starting both')
+    #     rtl_fm = subprocess.Popen('rtl_fm -f 169.890M -s 22050 | multimon-ng -t raw -a POCSAG1200 -f alpha -t raw /dev/stdin',
+    #                            # stdin=rtl_fm.stdout,
+    #                            stdout=subprocess.PIPE,
+    #                            stderr=open(globals.script_path + '/log/rtl_fm.log', 'a'),
+    #                            shell=True)
     # except:
     #     # we couldn't work without rtl_fm
     #     logging.critical('cannot start rtl_fm')
     #     logging.debug('cannot start rtl_fm', exc_info=True)
     #     exit(1)
-    #     
-    # # start multimon         
-    # try:
-    #     if not args.test:
-    #         logging.debug('starting multimon-ng')
-    #         rtl_fm = subprocess.Popen('rtl_fm -f 169.890M -s 22050 | multimon-ng -t raw -a POCSAG1200 -f alpha -t raw /dev/stdin',
-    #                         stdin=rtl_fm.stdout,
-    #                         stdout=subprocess.PIPE,
-    #                         stderr=open(globals.log_path + 'multimon.log', 'a'),
-    #                         shell=True)
-    #         time.sleep(3)
-    #         checkSubprocesses.checkMultimon()
-    #     else:
-    #         logging.warning('! Test-Mode: multimon-ng not started !')
-    # except:
-    #     # we couldn't work without multimon-ng
-    #     logging.critical('cannot start multimon-ng')
-    #     logging.debug('cannot start multimon-ng', exc_info=True)
-    #     exit(1)
     #===========================================================================
+    
+    # start rtl_fm         
+    try:
+        if not args.test:
+            logging.debug('starting rtl_fm')
+            rtl_fm = subprocess.Popen('rtl_fm -f 169.890M -s 22050',
+                            stdout=subprocess.PIPE,
+                            stderr=open(globals.log_path + 'rtl_fm.log', 'a'),
+                            shell=True)
+            time.sleep(3)
+            checkSubprocesses.checkRTL()
+        else:
+            logging.warning('! Test-Mode: rtl_fm not started !')
+    except:
+        # we couldn't work without rtl_fm
+        logging.critical('cannot start rtl_fm')
+        logging.debug('cannot start rtl_fm', exc_info=True)
+        exit(1)
+         
+    # start multimon         
+    try:
+        if not args.test:
+            logging.debug('starting multimon-ng')
+            multimon_ng = subprocess.Popen('multimon-ng -t raw -a POCSAG1200 -f alpha -t raw /dev/stdin',
+                            stdin=rtl_fm.stdout,
+                            stdout=subprocess.PIPE,
+                            stderr=open(globals.log_path + 'multimon.log', 'a'),
+                            shell=True)
+            time.sleep(3)
+            checkSubprocesses.checkMultimon()
+        else:
+            logging.warning('! Test-Mode: multimon-ng not started !')
+    except:
+        # we couldn't work without multimon-ng
+        logging.critical('cannot start multimon-ng')
+        logging.debug('cannot start multimon-ng', exc_info=True)
+        exit(1)
 
     logging.debug('start decoding')
                     
     while True:
-        decoded = str(rtl_fm.stdout.readline())
-        #if not args.test:
-            # get line data from multimon stdout
-            #decoded = str(rtl_fm.stdout.readline())
-        #else:
-            #decoded = "POCSAG1200: Address: 1234567 Function: 1 Alpha: Hello World"
-            #time.sleep(1)
+        if not args.test:
+            #get line data from multimon stdout
+            decoded = str(multimon_ng.stdout.readline())
+        else:
+            decoded = "POCSAG1200: Address: 1234567 Function: 1 Alpha: Hello World"
+            time.sleep(1)
                         
         from includes import decoder
         decoder.decode(args.freq,decoded)
