@@ -17,6 +17,7 @@ def run(typ,freq,data):
         try:
             logging.debug('connect to sqlite')
             connection = sqlite3.connect(globals.database_path)
+            connection.text_factory = str
             cursor = connection.cursor()
              
             cursor.execute('CREATE TABLE IF NOT EXISTS ' + globals.database_table + '(ric TEXT, function TEXT, message TEXT)')
