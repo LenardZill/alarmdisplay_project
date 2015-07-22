@@ -16,11 +16,12 @@ from smtplib import SMTPException
 def run(typ,freq,data):
     try:
         message = """From: Alarmdisplay <raspberry@lenardzill.de>
-To: To Person <raspberry@lenardzill.de>
+To: All <raspberry@lenardzill.de>
 Subject: Alarmdisplay e-mail test
 
-This is a test e-mail message.
+
 """
+        message += data['msg']        
 
         smtpObj = smtplib.SMTP('smtp.strato.de')
         smtpObj.ehlo()
