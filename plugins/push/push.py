@@ -17,7 +17,7 @@ def run(typ,freq,data):
     try:
         message = """From: Alarmdisplay
         To: Alle
-        Subject: Alarm [%s]
+        Subject: Alarm %s
 
         %s.
         """ % (data['ric'], data['msg'])

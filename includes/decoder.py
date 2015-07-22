@@ -6,8 +6,8 @@ import logging
 def decode(freq,decoded):
     try:
         if "POCSAG" in decoded:
+            logging.debug('recieved pocsag (' + decoded + ')')
             from includes.decoders import poc
-            logging.debug('POCSAG RECIEVED')
             poc.decode(freq,decoded)
     except:
         logging.exception('cannot start decoder')
