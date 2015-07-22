@@ -11,9 +11,15 @@ Global variables
 script_path = ''
 log_path = ''
 
-#database
+# database
 database_path = ''
 database_table = ''
+
+# email
+sender = 'raspberry@lenardzill.de'
+reciever = ['raspberry@lenardzill.de']
+username = 'raspberry@lenardzill.de'
+password = 'Len!9409'
 
 # double alarm
 poc_id_old = 0
