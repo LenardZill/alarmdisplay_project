@@ -186,7 +186,7 @@ try:
                             stderr=open(globals.log_path + 'rtl_fm.log', 'a'),
                             shell=True)
             time.sleep(3)
-            #checkSubprocesses.checkRTL()
+            checkSubprocesses.checkRTL()
         else:
             logging.warning('! Test-Mode: rtl_fm not started !')
     except:
@@ -205,7 +205,7 @@ try:
                             stderr=open(globals.log_path + 'multimon.log', 'a'),
                             shell=True)
             time.sleep(3)
-            #checkSubprocesses.checkMultimon()
+            checkSubprocesses.checkMultimon()
         else:
             logging.warning('! Test-Mode: multimon-ng not started !')
     except:

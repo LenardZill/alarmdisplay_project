@@ -17,10 +17,10 @@ def run(typ,freq,data):
     try:
         message = """From: Alarmdisplay
         To: Alle
-        Subject: Alarm
+        Subject: Alarm [%s]
 
         %s.
-        """ % (data)
+        """ % (data['ric'], data['msg'])
                
         smtpObj = smtplib.SMTP('smtp.strato.de')
         smtpObj.ehlo()
