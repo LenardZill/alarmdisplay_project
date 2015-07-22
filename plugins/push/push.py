@@ -15,11 +15,11 @@ from smtplib import SMTPException
 
 def run(typ,freq,data):
     try:
-        message = """From: Alarmdisplay
-        To: Alle
+        message = """From: Alarmdisplay <raspberry@lenardzill.de>
+        To: Alarmdisplay <raspberry@lenardzill.de>
         Subject: Alarm %s
-
-        %s.
+        
+        %s
         """ % (data['ric'], data['msg'])
                
         smtpObj = smtplib.SMTP('smtp.strato.de')
