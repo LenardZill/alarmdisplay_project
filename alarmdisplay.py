@@ -221,7 +221,7 @@ try:
             #get line data from multimon stdout
             decoded = str(multimon_ng.stdout.readline())
         else:
-            decoded = "POCSAG1200: Address: 1234567 Function: 1 Alpha: Hello World"
+            decoded = 'POCSAG1200: Address: 1694466  Function: 0  Alpha:   01142R/Unfall 2 Pers.) 16:19/Trittau:Kreuzungbereich()/Gro√enseer Stra√e()//VU 2 verletze Personen<NUL><NUL>'
             time.sleep(1)
                         
         from includes import decoder
