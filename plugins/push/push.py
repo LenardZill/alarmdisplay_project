@@ -17,8 +17,7 @@ def run(typ,freq,data):
     try:
         message = """From: Alarmdisplay <raspberry@lenardzill.de>
 To: All <raspberry@lenardzill.de>
-Subject: Alarmdisplay e-mail test
-
+Subject: Alarmdisplay
 
 """
         message += data['msg']        
