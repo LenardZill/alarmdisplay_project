@@ -8,18 +8,24 @@ Global variables
 """
 
 # Global variables
+config = 0
 script_path = ''
 log_path = ''
 
-# database
+# sqlite
 database_path = ''
-database_table = ''
+table = 'alarmitems'
 
 # email
-sender = 'raspberry@lenardzill.de'
-reciever = ['raspberry@lenardzill.de']
-username = 'raspberry@lenardzill.de'
+smtp_server = ''
+user = 'aspberry@lenardzill.de'
 password = 'Len!9409'
+
+sender = 'raspberry@lenardzill.de'
+reciever = 'raspberry@lenardzill.de'
+
+subject = 'Alarm: %RIC%%FUNCCHAR%'
+message = '%DATE% %TIME%: %MSG%'
 
 # double alarm
 poc_id_old = 0

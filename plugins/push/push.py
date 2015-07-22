@@ -16,8 +16,8 @@ from smtplib import SMTPException
 def run(typ,freq,data):
     try:
         message = """From: Alarmdisplay <raspberry@lenardzill.de>
-To: All <raspberry@lenardzill.de>
-Subject: Alarmdisplay
+To: Alarmdisplay <raspberry@lenardzill.de>
+Subject: Alarm
 
 """
         message += data['msg']        

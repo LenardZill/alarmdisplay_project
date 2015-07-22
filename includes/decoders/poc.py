@@ -46,7 +46,9 @@ def decode(freq,decoded):
                     else:
                         data = {'ric':poc_id, 'function':poc_sub, 'msg': poc_text, 'bitrate':bitrate, 'description':poc_id}
                         data['functionChar'] = data['function'].replace('1', 'a').replace('2', 'b').replace('3', 'c').replace('4', 'd')
-                
+                        
+                        
+                        
                         from includes import alarmHandler
                         alarmHandler.processAlarm("POC",freq,data)
                         globals.poc_id_old = poc_id

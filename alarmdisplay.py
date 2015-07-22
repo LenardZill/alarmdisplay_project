@@ -4,8 +4,9 @@
 import logging
 import logging.handlers
 
+import argparse
+import ConfigParser 
 import os
-import argparse 
 import time
 import subprocess
 
@@ -53,10 +54,6 @@ try:
     try:
         # script-path
         globals.script_path = os.path.dirname(os.path.abspath(__file__))
-        
-        # database
-        globals.database_path = globals.script_path + '\sql\alarmdisplay.db'
-        globals.database_table = 'alarmitems'
         
         # log-path
         globals.log_path = globals.script_path + '/log/'
@@ -139,6 +136,27 @@ try:
         logging.debug('cannto display/log args', exc_info=True)
         exit(1)
     
+    # read config.ini and set globals
+    try:
+        logging.debug('reading config file')
+        config = ConfigParser.ConfigParser()
+        config.read(globals.script_path+'/config/config.ini')
+        
+        # EMail
+        globals.sender = config.getString('Email', 'sender')
+        globals.reciever = config.getString('Email', 'reciever')
+        globals.username = config.getString('Email', 'username')
+        globals.password = config.getString('Email', 'password')
+        
+        # SQLite
+        globals.database_path = globals.script_path + '\sql\alarmdisplay.db'
+        globals.database_table = 'alarmitems'
+        
+    except:
+        logging.critical('cannot read config file')
+        logging.debug('cannot read config file', exc_info=True)
+        exit(1)
+    
     # set the loglevel and backupCount of the file handler
     try:
         logging.debug('set loglevel of fileHandler to: %s',10)
@@ -148,7 +166,7 @@ try:
     except:
         # it's an error, but we could work without it
         logging.error('cannot set loglevel of fileHandler')
-        logging.debug('cannto set loglevel of fileHandler', exc_info=True)
+        logging.debug('cannot set loglevel of fileHandler', exc_info=True)
         pass
         
     # load plugins     
