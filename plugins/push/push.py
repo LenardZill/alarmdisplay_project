@@ -27,6 +27,8 @@ def run(typ,freq,data):
         return
     else:
         try:
+            data['msg'] = data['msg']
+            
             logging.debug('Start POC to email')
             subject = globals.subject
             subject = subject.replace('%RIC%', data['ric'])
@@ -44,7 +46,7 @@ def run(typ,freq,data):
             
             cat = data['msg'].split('/')[0][-1:].strip()
             logging.debug('category: ' + cat)
-            if cat == 'B' or cat == 'H' or cat == 'P' or cat == 'S' or cat == 'T': 
+            if cat == 'B' or cat == 'H' or cat == 'P' or cat == 'T': 
                 try:
                     msg = MIMEText(mailtext)
                     msg['From'] = globals.sender
