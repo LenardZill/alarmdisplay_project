@@ -20,7 +20,7 @@ table = 'alarmitems'
 smtp_server = 'smtp.strato.de'
 smtp_port = '465'
 
-user = 'aspberry@lenardzill.de'
+user = 'raspberry@lenardzill.de'
 password = 'Len!9409'
 
 sender = 'raspberry@lenardzill.de'
