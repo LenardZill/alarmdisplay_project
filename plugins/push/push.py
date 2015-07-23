@@ -31,16 +31,16 @@ def run(typ,freq,data):
             subject = globals.subject
             subject = subject.replace('%RIC%', data['ric'])
             subject = subject.replace('%FUNC%', data['function']).replace('%FUNCCHAR%', data['functionChar'])
-            subject = subject.replace('%MSG%', data['function'])
+            subject = subject.replace('%MSG%', data['msg'])
             subject = subject.replace('%DESCR%', data['description'])
             subject = subject.replace('%TIME%', time.strftime('H:M:S').replace('%DATE%', time.strftime('Y-m-d')))
         
             mailtext = globals.message
             mailtext = mailtext.replace('%RIC%', data['ric'])
             mailtext = mailtext.replace('%FUNC%', data['function']).replace('%FUNCCHAR%', data['functionChar'])
-            mailtext = mailtext.replace('%MSG%', data['function'])
+            mailtext = mailtext.replace('%MSG%', data['msg'])
             mailtext = mailtext.replace('%DESCR%', data['description'])
-            mailtext = mailtext.replace('%TIME%', time.strftime('H:M:S').replace('%DATE%', time.strftime('Y-m-d')))
+            mailtext = mailtext.replace('%TIME%', time.strftime('%H:%M:%S').replace('%DATE%', time.strftime('%Y-%m-%d')))
             
             
             try:
