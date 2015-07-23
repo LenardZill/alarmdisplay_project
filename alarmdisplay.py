@@ -143,10 +143,10 @@ try:
         config.read(globals.script_path+'/config/config.ini')
         
         # EMail
-        globals.sender = config.getString('Email', 'sender')
-        globals.reciever = config.getString('Email', 'reciever')
-        globals.username = config.getString('Email', 'username')
-        globals.password = config.getString('Email', 'password')
+        #globals.sender = config.getString('Email', 'sender')
+        #globals.reciever = config.getString('Email', 'reciever')
+        #globals.username = config.getString('Email', 'username')
+        #globals.password = config.getString('Email', 'password')
         
         # SQLite
         globals.database_path = globals.script_path + '\sql\alarmdisplay.db'

@@ -17,12 +17,14 @@ database_path = ''
 table = 'alarmitems'
 
 # email
-smtp_server = ''
+smtp_server = 'smtp.strato.de'
+smtp_port = '465'
+
 user = 'aspberry@lenardzill.de'
 password = 'Len!9409'
 
 sender = 'raspberry@lenardzill.de'
-reciever = 'raspberry@lenardzill.de'
+reciever = 'qtskcxfwfysi@bxc.io'
 
 subject = 'Alarm: %RIC%%FUNCCHAR%'
 message = '%DATE% %TIME%: %MSG%'
