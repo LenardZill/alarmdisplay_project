@@ -43,6 +43,7 @@ def run(typ,freq,data):
             mailtext = mailtext.replace('%TIME%', time.strftime('%H:%M:%S')).replace('%DATE%', time.strftime('%Y-%m-%d'))
             
             cat = data['msg'].split('/')[0][-1:].strip()
+            logging.debug('category: ' + cat)
             if cat == 'B' or cat == 'H' or cat == 'P' or cat == 'S' or cat == 'T': 
                 try:
                     msg = MIMEText(mailtext)
