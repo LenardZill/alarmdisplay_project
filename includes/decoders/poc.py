@@ -28,7 +28,6 @@ def decode(freq,decoded):
             logging.debug(' - (%s)', decoded)
         else:
             if 'Alpha:' in decoded:
-                decoded = decoded.decode('utf-8')
                 # clean text
                 poc_text = decoded.split('Alpha:')[1].strip()
                 if re.search('[0-9]{5}', poc_text[0:5]):
