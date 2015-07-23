@@ -201,7 +201,7 @@ try:
             logging.debug('starting rtl_fm')
             #'rtl_fm -d "+str(args.device)+" -f "+str(args.freq)+" -M fm -s 22050 -p 0 -E DC -F 0 -l 0 -g 100'
             #rtl_fm -f 169.890M -s 22050'
-            rtl_fm = subprocess.Popen('rtl_fm -d "+str(args.device)+" -f "+str(args.freq)+" -M fm -s 22050 -p 0 -E DC -F 0 -l 0 -g 100',
+            rtl_fm = subprocess.Popen('rtl_fm -f 169.890M -s 22050',
                             stdout=subprocess.PIPE,
                             stderr=open(globals.log_path + 'rtl_fm.log', 'a'),
                             shell=True)
