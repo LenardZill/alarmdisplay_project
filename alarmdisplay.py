@@ -225,8 +225,7 @@ try:
     while True:
         if not args.test:
             #get line data from multimon stdout
-            decoded = str(multimon_ng.stdout.readline()).decode('utf-8')
-            print decoded
+            decoded = str(multimon_ng.stdout.readline())
         else:
             decoded = 'POCSAG1200: Address: 1694466  Function: 0  Alpha:   01142R/Unfall 2 Pers.) 16:19/Trittau:Kreuzungbereich()/GroÃenseer StraÃe()//VU 2 verletze Personen<NUL><NUL>'
             time.sleep(1)
