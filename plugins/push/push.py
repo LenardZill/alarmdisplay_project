@@ -40,7 +40,7 @@ def run(typ,freq,data):
             mailtext = mailtext.replace('%FUNC%', data['function']).replace('%FUNCCHAR%', data['functionChar'])
             mailtext = mailtext.replace('%MSG%', data['msg'])
             mailtext = mailtext.replace('%DESCR%', data['description'])
-            mailtext = mailtext.replace('%TIME%', time.strftime('%H:%M:%S').replace('%DATE%', time.strftime('%Y-%m-%d')))
+            mailtext = mailtext.replace('%TIME%', time.strftime('%H:%M:%S')).replace('%DATE%', time.strftime('%Y-%m-%d'))
             
             
             try:
