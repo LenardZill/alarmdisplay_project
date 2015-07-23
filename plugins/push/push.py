@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: cp1252 -*-
+# -*- coding: UTF-8 -*-
 
 '''
 Email Plugin send an alarm via Email.
@@ -42,20 +42,21 @@ def run(typ,freq,data):
             mailtext = mailtext.replace('%DESCR%', data['description'])
             mailtext = mailtext.replace('%TIME%', time.strftime('%H:%M:%S')).replace('%DATE%', time.strftime('%Y-%m-%d'))
             
-            
-            try:
-                msg = MIMEText(mailtext)
-                msg['From'] = globals.sender
-                msg['To'] = globals.reciever
-                msg['Subject'] = subject
-                msg['Date'] = formatdate()
-                msg['Message-Id'] = make_msgid()
-                msg['Priority'] = 'normal'
-                server.sendmail(globals.sender, globals.reciever.split(), msg.as_string())
-            except:
-                logging.error('send email failed')
-                logging.debug('send email failed', exc_info=True)
-                raise
+            cat = data['msg'].split('/')[0][-1:].strip()
+            if cat == 'B' or cat == 'H' or cat == 'P' or cat == 'S' or cat == 'T': 
+                try:
+                    msg = MIMEText(mailtext)
+                    msg['From'] = globals.sender
+                    msg['To'] = globals.reciever
+                    msg['Subject'] = subject
+                    msg['Date'] = formatdate()
+                    msg['Message-Id'] = make_msgid()
+                    msg['Priority'] = 'normal'
+                    server.sendmail(globals.sender, globals.reciever.split(), msg.as_string())
+                except:
+                    logging.error('send email failed')
+                    logging.debug('send email failed', exc_info=True)
+                    raise
         except:
             logging.error('poc to email failed')
             logging.debug('poc to email failed', exc_info=True)
