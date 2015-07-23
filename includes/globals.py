@@ -14,17 +14,17 @@ log_path = ''
 
 # sqlite
 database_path = ''
-table = 'alarmitems'
+database_path = 'alarmitems'
 
 # email
-smtp_server = 'smtp.strato.de'
-smtp_port = '465'
+smtp_server = ''
+smtp_port = ''
 
-user = 'raspberry@lenardzill.de'
-password = 'Len!9409'
+user = ''
+password = ''
 
-sender = 'raspberry@lenardzill.de'
-reciever = 'qtskcxfwfysi@bxc.io'
+sender = ''
+reciever = ''
 
 subject = 'Alarm: %RIC%%FUNCCHAR%'
 message = '%DATE% %TIME%: %MSG%'

@@ -33,7 +33,6 @@ try:
     parser.add_argument("-s", "--squelch", help="Level of squelch", type=int, default=0)
     parser.add_argument("-v", "--verbose", help="Shows more information", action="store_true")
     parser.add_argument("-q", "--quiet", help="Shows no information. Only logfiles", action="store_true")
-    # We need this argument for testing (skip instantiate of rtl-fm and multimon-ng):
     parser.add_argument("-t", "--test", help=argparse.SUPPRESS, action="store_true")
     args = parser.parse_args()
 except SystemExit:
@@ -143,10 +142,13 @@ try:
         config.read(globals.script_path+'/config/config.ini')
         
         # EMail
-        #globals.sender = config.getString('Email', 'sender')
-        #globals.reciever = config.getString('Email', 'reciever')
-        #globals.username = config.getString('Email', 'username')
-        #globals.password = config.getString('Email', 'password')
+        globals.smtp_server = config.getString('push', 'smtp_server')
+        globals.sender = config.getString('push', 'sender')
+        globals.reciever = config.getString('push', 'reciever')
+        globals.username = config.getString('push', 'user')
+        globals.password = config.getString('push', 'password')
+        globals.subject = config.getString('push', 'subject')
+        globals.message = config.getString('push', 'message')
         
         # SQLite
         globals.database_path = globals.script_path + '\sql\alarmdisplay.db'
@@ -178,22 +180,6 @@ try:
         logging.critical("cannot load plugins")
         logging.debug("cannot load plugins", exc_info=True)
         exit(1) 
-    
-    #===========================================================================
-    # # start both in one process
-    # try:
-    #     logging.debug('starting both')
-    #     rtl_fm = subprocess.Popen('rtl_fm -f 169.890M -s 22050 | multimon-ng -t raw -a POCSAG1200 -f alpha -t raw /dev/stdin',
-    #                            # stdin=rtl_fm.stdout,
-    #                            stdout=subprocess.PIPE,
-    #                            stderr=open(globals.script_path + '/log/rtl_fm.log', 'a'),
-    #                            shell=True)
-    # except:
-    #     # we couldn't work without rtl_fm
-    #     logging.critical('cannot start rtl_fm')
-    #     logging.debug('cannot start rtl_fm', exc_info=True)
-    #     exit(1)
-    #===========================================================================
     
     # start rtl_fm         
     try:
