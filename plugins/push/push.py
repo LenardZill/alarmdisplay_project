@@ -46,7 +46,7 @@ def run(typ,freq,data):
             
             cat = data['msg'].split('/')[0][-1:].strip()
             logging.debug('category: ' + cat)
-            if cat == 'B' or cat == 'H' or cat == 'P' or cat == 'T': 
+            if cat == 'B' or cat == 'H' or cat == 'S' or cat == 'P' or cat == 'T': 
                 try:
                     msg = MIMEText(mailtext)
                     msg['From'] = globals.sender
