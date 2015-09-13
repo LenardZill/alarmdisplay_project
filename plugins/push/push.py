@@ -80,7 +80,7 @@ def run(typ,freq,data):
                 msg['Date'] = formatdate()
                 msg['Message-Id'] = make_msgid()
                 if category == 'B' or category == 'H' or category == 'S' or category == 'P' or category == 'T':
-                    msg['Priority'] = 'high'
+                    msg.add_header('X-Priority','1')
                 else:
                     msg['Priority'] = 'normal'
                 server.sendmail(globals.sender, globals.reciever.split(), msg.as_string())
