@@ -12,7 +12,8 @@ import smtplib
 
 from includes import globals
 import time
-from email.mime.multipart import MIMEMultipart
+from email.utils import formatdate # need for confirm to RFC2822 standard
+from email.utils import make_msgid # need for confirm to RFC2822 standard        
 from email.mime.text import MIMEText
 
 def run(typ,freq,data):
@@ -35,14 +36,7 @@ def run(typ,freq,data):
             subject = subject.replace('%MSG%', data['msg'])
             subject = subject.replace('%DESCR%', data['description'])
             subject = subject.replace('%TIME%', time.strftime('H:M:S').replace('%DATE%', time.strftime('Y-m-d')))
-        
-            mailtext = globals.message
-            mailtext = mailtext.replace('%RIC%', data['ric'])
-            mailtext = mailtext.replace('%FUNC%', data['function']).replace('%FUNCCHAR%', data['functionChar'])
-            mailtext = mailtext.replace('%MSG%', data['msg'])
-            mailtext = mailtext.replace('%DESCR%', data['description'])
-            mailtext = mailtext.replace('%TIME%', time.strftime('%H:%M:%S')).replace('%DATE%', time.strftime('%Y-%m-%d'))
-            
+
             split = data['msg'].split('/')
             alarmnumber = split[0][-6:-1].strip()
             category = split[0][-1:].strip()
@@ -72,18 +66,15 @@ def run(typ,freq,data):
             # if cat == 'B' or cat == 'H' or cat == 'S' or cat == 'P' or cat == 'T': 
             
             try:
-                msg = MIMEMultipart('alternative')
+                msg = MIMEText(mailtext)
                 msg['From'] = globals.sender
                 msg['To'] = globals.reciever
                 msg['Subject'] = subject
+                msg['Date'] = formatdate()
+                msg['Message-Id'] = make_msgid()
                 if category == 'B' or category == 'H' or category == 'S' or category == 'P' or category == 'T':
-                    logging.debug('Sending as High Priority')
                     msg['X-Priority'] = '1'
                     msg['X-MSMail-Priority'] =  'High'
-                
-                body = MIMEText(mailtext, 'plain')
-
-                msg.attach(body)
                 
                 server.sendmail(globals.sender, globals.reciever.split(), msg.as_string())
             except:
