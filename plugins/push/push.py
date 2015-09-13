@@ -77,10 +77,8 @@ def run(typ,freq,data):
                 msg['To'] = globals.reciever
                 msg['Subject'] = subject
                 if category == 'B' or category == 'H' or category == 'S' or category == 'P' or category == 'T':
-                    msg['X-Priority'] = '2'
+                    msg['X-Priority'] = '1'
                     msg['X-MSMail-Priority'] =  'High'
-                else:
-                    msg['X-Priority'] = '3'
                 
                 body = MIMEText(mailtext, 'plain')
 
