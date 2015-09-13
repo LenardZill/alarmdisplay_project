@@ -65,7 +65,7 @@ def run(typ,freq,data):
             mailtext += 'Kategorie: ' + category + '\n'
             mailtext += 'Stichwort: ' + keyword + '\n'
             mailtext += 'Nachricht: ' + message + '\n'
-            mailtext += 'Straße: ' + street + ' ' + street_addition + '\n'
+            mailtext += 'Strasse: ' + street + ' ' + street_addition + '\n'
             mailtext += 'Ort: ' + country + '\n'
             mailtext += 'Anrufer : ' + caller + '\n'
             
