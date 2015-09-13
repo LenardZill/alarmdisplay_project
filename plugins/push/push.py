@@ -12,9 +12,8 @@ import smtplib
 
 from includes import globals
 import time
+from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from email.utils import formatdate # need for confirm to RFC2822 standard
-from email.utils import make_msgid # need for confirm to RFC2822 standard
 
 def run(typ,freq,data):
     try:
@@ -73,16 +72,20 @@ def run(typ,freq,data):
             # if cat == 'B' or cat == 'H' or cat == 'S' or cat == 'P' or cat == 'T': 
             
             try:
-                msg = MIMEText(mailtext)
+                msg = MIMEMultipart('alternative')
                 msg['From'] = globals.sender
                 msg['To'] = globals.reciever
                 msg['Subject'] = subject
-                msg['Date'] = formatdate()
-                msg['Message-Id'] = make_msgid()
                 if category == 'B' or category == 'H' or category == 'S' or category == 'P' or category == 'T':
                     msg['X-Priority'] = '2'
+                    msg['X-MSMail-Priority'] =  'High'
                 else:
                     msg['X-Priority'] = '3'
+                
+                body = MIMEText(mailtext, 'plain')
+
+                msg.attach(body)
+                
                 server.sendmail(globals.sender, globals.reciever.split(), msg.as_string())
             except:
                 logging.error('send email failed')
