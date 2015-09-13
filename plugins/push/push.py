@@ -59,15 +59,6 @@ def run(typ,freq,data):
                 message += entry.strip() + ' '
             message = message.strip()
             
-            alarmnumber = alarmnumber.decode('utf-8')
-            category = category.decode('utf-8')
-            keyword = keyword.decode('utf-8')
-            street = street.decode('utf-8')
-            street_addition = street_addition.decode('utf-8')
-            country = country.decode('utf-8')
-            caller = caller.decode('utf-8')
-            message = message.decode('utf-8')
-            
             mailtext = ''
             mailtext += 'Datum: ' + time.strftime('%d.%m.%Y') + ' ' + time.strftime('%H:%M:%S') + '\n'
             mailtext += 'Einsatz-Nr: ' + alarmnumber + '\n'
