@@ -80,9 +80,9 @@ def run(typ,freq,data):
                 msg['Date'] = formatdate()
                 msg['Message-Id'] = make_msgid()
                 if category == 'B' or category == 'H' or category == 'S' or category == 'P' or category == 'T':
-                    msg.add_header('X-Priority','1')
+                    msg['X-Priority'] = '2'
                 else:
-                    msg['Priority'] = 'normal'
+                    msg['X-Priority'] = '3'
                 server.sendmail(globals.sender, globals.reciever.split(), msg.as_string())
             except:
                 logging.error('send email failed')
