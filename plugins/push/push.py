@@ -77,6 +77,7 @@ def run(typ,freq,data):
                 msg['To'] = globals.reciever
                 msg['Subject'] = subject
                 if category == 'B' or category == 'H' or category == 'S' or category == 'P' or category == 'T':
+                    logging.debug('Sending as High Priority')
                     msg['X-Priority'] = '1'
                     msg['X-MSMail-Priority'] =  'High'
                 
