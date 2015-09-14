@@ -49,7 +49,7 @@ def run(typ,freq,data):
                 try:
                     msg = MIMEText(mailtext)
                     msg['From'] = globals.sender
-                    msg['To'] = globals.reciever
+                    msg['Bcc'] = globals.reciever
                     msg['Subject'] = subject
                     msg['Date'] = formatdate()
                     msg['Message-Id'] = make_msgid()
