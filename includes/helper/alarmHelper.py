@@ -39,7 +39,6 @@ def convertAlarm(alarmLine):
             message = ' ' .join(message.split())
             
             alarm = {'alarmnumber': alarmnumber, 'category': category, 'keyword': keyword, 'street': street, 'street_addition': street_addition, 'country': country, 'caller': caller, 'message': message}
-            logging.debug(alarm['alarmnumber'])
             return alarm
     except:
         logging.warning('error in convertAlarm')

@@ -54,8 +54,10 @@ def run(typ,freq,data):
                     msg['Date'] = formatdate()
                     msg['Message-Id'] = make_msgid()
                     if any(alarm['category'] in s for s in {'B', 'H', 'S', 'P', 'T'}):
+                        logging.debug('sending email with URGENT priority')
                         msg['Priority'] = 'urgent'
                     else:
+                        logging.debug('sending email with NORMAL priority')
                         msg['Priority'] = 'normal'
                     server.sendmail(globals.sender, globals.reciever.split(), msg.as_string())
                 except:
