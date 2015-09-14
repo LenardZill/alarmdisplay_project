@@ -225,9 +225,9 @@ try:
     while True:
         if not args.test:
             #get line data from multimon stdout
-            decoded = multimon_ng.stdout.readline().decode(encoding='cp850', error='ignore')
+            decoded = multimon_ng.stdout.readline().decode(encoding='cp850', errors='ignore')
         else:
-            decoded = 'POCSAG1200: Address: 1694466  Function: 0  Alpha:   01142B/Testeinsatz) 00:00/Zuhause:Öhne zÜsÄtz(Max Mustermann)/Teststraße(1)//Testeinsatz züm Prögrämmieren<NUL><NUL>'.decode(encoding='cp850', error='ignore')
+            decoded = 'POCSAG1200: Address: 1694466  Function: 0  Alpha:   01142B/Testeinsatz) 00:00/Zuhause:Öhne zÜsÄtz(Max Mustermann)/Teststraße(1)//Testeinsatz züm Prögrämmieren<NUL><NUL>'.decode(encoding='cp850', errors='ignore')
             time.sleep(1)
                         
         from includes import decoder
