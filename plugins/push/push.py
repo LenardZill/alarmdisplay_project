@@ -30,7 +30,7 @@ def run(typ,freq,data):
         try:
             alarm = alarmHelper.convertAlarm(data['msg'])
             
-            if alarmHelper.checkWhitelist(alarm):
+            if not alarmHelper.checkBlacklist(alarm):
                 subject = 'Alarm: ' + data['ric'] + data['functionChar']
             
                 mailtext = ''

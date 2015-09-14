@@ -9,6 +9,5 @@ encoding//includes/helper/alarmHelper.py=cp1252
 encoding//includes/pluginLoader.py=cp1252
 encoding//plugins/push/push.py=cp1252
 encoding//plugins/sqlite/sqlite.py=cp1252
-encoding//www/www.py=UTF-8
 encoding/alarmdisplay.py=cp1252
 encoding/test.py=utf-8

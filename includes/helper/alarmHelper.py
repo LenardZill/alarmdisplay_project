@@ -45,19 +45,19 @@ def convertAlarm(alarmLine):
         logging.debug('error in convertAlarm', exc_info=True)
         return None
     
-def checkWhitelist(alarm):
+def checkBlacklist(alarm):
     try:
         if not globals.whitelist:
-            logging.debug('there is no Whitelist')
+            logging.debug('there is no Blacklist')
             return True
         
         if any(alarm['category']in s for s in globals.whitelist):
-            logging.debug('Alarm is on Whitelist')
+            logging.debug('Alarm is on Blacklist')
             return True
         else:
-            logging.debug('Alarm is not on Whitelist')
+            logging.debug('Alarm is not on Blacklist')
             return False
     except:
-        logging.warning('error in checkWhitelist')
-        logging.debug('error in checkWhitelist', exc_info=True)
+        logging.warning('error in checkBlacklist')
+        logging.debug('error in checkBlacklist', exc_info=True)
         return False
