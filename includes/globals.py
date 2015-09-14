@@ -14,7 +14,7 @@ log_path = ''
 
 # sqlite
 database_path = ''
-database_path = 'alarmitems'
+database_table = 'alarmitems'
 
 # email
 smtp_server = ''

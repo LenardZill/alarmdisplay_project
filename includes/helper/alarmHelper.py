@@ -47,6 +47,10 @@ def convertAlarm(alarmLine):
     
 def checkWhitelist(alarm):
     try:
+        if not globals.whitelist:
+            logging.debug('there is no Whitelist')
+            return True
+        
         if any(alarm['category']in s for s in globals.whitelist):
             logging.debug('Alarm is on Whitelist')
             return True
