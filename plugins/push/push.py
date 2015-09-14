@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: UTF-8 -*-
+# -*- coding: cp1252 -*-
 
 '''
 Email Plugin send an alarm via Email.
@@ -15,6 +15,7 @@ import time
 from email.utils import formatdate # need for confirm to RFC2822 standard
 from email.utils import make_msgid # need for confirm to RFC2822 standard        
 from email.mime.text import MIMEText
+from includes.helper import lineHandler
 
 def run(typ,freq,data):
     try:
@@ -27,40 +28,19 @@ def run(typ,freq,data):
         return
     else:
         try:
-            data['msg'] = data['msg']
+            alarm = lineHandler.convertAlarm(data['msg'])
             
-            logging.debug('Start POC to email')
-            subject = globals.subject
-            subject = subject.replace('%RIC%', data['ric'])
-            subject = subject.replace('%FUNC%', data['function']).replace('%FUNCCHAR%', data['functionChar'])
-            subject = subject.replace('%MSG%', data['msg'])
-            subject = subject.replace('%DESCR%', data['description'])
-            subject = subject.replace('%TIME%', time.strftime('H:M:S').replace('%DATE%', time.strftime('Y-m-d')))
-
-            split = data['msg'].split('/')
-            alarmnumber = split[0][-6:-1].strip()
-            category = split[0][-1:].strip()
-            keyword = split[1].split(')')[0].strip()
-            street = split[3].replace('(', ' ').replace(')', '').strip()
-            street_addition = split[2].split(':')[1].split('(')[0].strip()
-            country = split[2].split(':')[0].strip()
-            caller = split[2].split('(')[-1].replace(')', '').strip()
-            
-            message = ''
-            messagelist = split[4:]
-            for entry in messagelist:
-                message += entry.strip() + ' '
-            message = message.strip()
+            subject = 'Alarm: ' + data['ric'] + data['functionChar']
             
             mailtext = ''
             mailtext += 'Datum: ' + time.strftime('%d.%m.%Y') + ' ' + time.strftime('%H:%M:%S') + '\n'
-            mailtext += 'Einsatz-Nr: ' + alarmnumber + '\n'
-            mailtext += 'Kategorie: ' + category + '\n'
-            mailtext += 'Stichwort: ' + keyword + '\n'
-            mailtext += 'Nachricht: ' + message + '\n'
-            mailtext += 'Strasse: ' + street + ' ' + street_addition + '\n'
-            mailtext += 'Ort: ' + country + '\n'
-            mailtext += 'Anrufer : ' + caller + '\n'
+            mailtext += 'Einsatz-Nr: ' + alarm['alarmnumber'] + '\n'
+            mailtext += 'Kategorie: ' + alarm['category'] + '\n'
+            mailtext += 'Stichwort: ' + alarm['keyword'] + '\n'
+            mailtext += 'Nachricht: ' + alarm['message'] + '\n'
+            mailtext += 'Strasse: ' + alarm['street'] + ' ' + alarm['street_addition'] + '\n'
+            mailtext += 'Ort: ' + alarm['country'] + '\n'
+            mailtext += 'Anrufer : ' + alarm['caller'] + '\n'
             
             #cat = data['msg'].split('/')[0][-1:].strip() 
             # if cat == 'B' or cat == 'H' or cat == 'S' or cat == 'P' or cat == 'T': 
@@ -72,10 +52,6 @@ def run(typ,freq,data):
                 msg['Subject'] = subject
                 msg['Date'] = formatdate()
                 msg['Message-Id'] = make_msgid()
-                if category == 'B' or category == 'H' or category == 'S' or category == 'P' or category == 'T':
-                    msg['X-Priority'] = '1'
-                    msg['X-MSMail-Priority'] =  'High'
-                
                 server.sendmail(globals.sender, globals.reciever.split(), msg.as_string())
             except:
                 logging.error('send email failed')

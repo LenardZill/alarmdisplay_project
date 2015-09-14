@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: UTF-8 -*-
+# -*- coding: cp1252 -*-
 
 import logging
 import logging.handlers
@@ -227,7 +227,7 @@ try:
             #get line data from multimon stdout
             decoded = str(multimon_ng.stdout.readline())
         else:
-            decoded = 'POCSAG1200: Address: 1694466  Function: 0  Alpha:   01142B/Testeinsatz) 00:00/Zuhause:Kreuzungbereich(Max Mustermann)/Teststra√üe(1)//Testeinsatz zum Programmieren<NUL><NUL>'
+            decoded = 'POCSAG1200: Address: 1694466  Function: 0  Alpha:   01142B/Testeinsatz) 00:00/Zuhause:Kreuzungbereich(Max Mustermann)/Teststraﬂe(1)//Testeinsatz zum Programmieren<NUL><NUL>'
             time.sleep(1)
                         
         from includes import decoder

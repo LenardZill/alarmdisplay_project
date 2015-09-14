@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*-
+# -*- coding: cp1252 -*-
 
 '''
 Created on 11.05.2015
