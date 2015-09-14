@@ -26,12 +26,12 @@ password = ''
 sender = ''
 reciever = ''
 
-subject = 'Alarm: %RIC%%FUNCCHAR%'
-message = '%DATE% %TIME%: %MSG%'
-
 # double alarm
 poc_id_old = 0
 poc_time_old = 0
 
 # pluginLoader
 pluginList = {}
+
+#alarmHelper
+whitelist = {}

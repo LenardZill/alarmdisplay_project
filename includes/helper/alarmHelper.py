@@ -8,6 +8,7 @@ Created on 14.09.2015
 '''
 
 import logging
+from includes import globals
 
 def convertAlarm(alarmLine):
     try:
@@ -43,3 +44,16 @@ def convertAlarm(alarmLine):
         logging.warning('error in convertAlarm')
         logging.debug('error in convertAlarm', exc_info=True)
         return None
+    
+def checkWhitelist(alarm):
+    try:
+        if any(alarm['category']in s for s in globals.whitelist):
+            logging.debug('Alarm is on Whitelist')
+            return True
+        else:
+            logging.debug('Alarm is not on Whitelist')
+            return False
+    except:
+        logging.warning('error in checkWhitelist')
+        logging.debug('error in checkWhitelist', exc_info=True)
+        return False

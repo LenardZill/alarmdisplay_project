@@ -147,13 +147,13 @@ try:
         globals.reciever = config.get('push', 'reciever')
         globals.user = config.get('push', 'user')
         globals.password = config.get('push', 'password')
-        globals.subject = config.get('push', 'subject')
-        globals.message = config.get('push', 'message')
         
         # SQLite
         globals.database_path = globals.script_path + '\sql\alarmdisplay.db'
         globals.database_table = 'alarmitems'
         
+        # Alarmhandler
+        globals.whitelist = config.get('alarmhandler', 'whitelist').split()
     except:
         logging.critical('cannot read config file')
         logging.debug('cannot read config file', exc_info=True)

@@ -15,7 +15,7 @@ import time
 from email.utils import formatdate # need for confirm to RFC2822 standard
 from email.utils import make_msgid # need for confirm to RFC2822 standard        
 from email.mime.text import MIMEText
-from includes.helper import lineHandler
+from includes.helper import alarmHelper
 
 def run(typ,freq,data):
     try:
@@ -28,35 +28,40 @@ def run(typ,freq,data):
         return
     else:
         try:
-            alarm = lineHandler.convertAlarm(data['msg'])
+            alarm = alarmHelper.convertAlarm(data['msg'])
             
-            subject = 'Alarm: ' + data['ric'] + data['functionChar']
+            if alarmHelper.checkWhitelist(alarm):
+                subject = 'Alarm: ' + data['ric'] + data['functionChar']
             
-            mailtext = ''
-            mailtext += 'Datum: ' + time.strftime('%d.%m.%Y') + ' ' + time.strftime('%H:%M:%S') + '\n'
-            mailtext += 'Einsatz-Nr: ' + alarm['alarmnumber'] + '\n'
-            mailtext += 'Kategorie: ' + alarm['category'] + '\n'
-            mailtext += 'Stichwort: ' + alarm['keyword'] + '\n'
-            mailtext += 'Nachricht: ' + alarm['message'] + '\n'
-            mailtext += 'Strasse: ' + alarm['street'] + ' ' + alarm['street_addition'] + '\n'
-            mailtext += 'Ort: ' + alarm['country'] + '\n'
-            mailtext += 'Anrufer : ' + alarm['caller'] + '\n'
+                mailtext = ''
+                mailtext += 'Datum: ' + time.strftime('%d.%m.%Y') + ' ' + time.strftime('%H:%M:%S') + '\n'
+                mailtext += 'Einsatz-Nr: ' + alarm['alarmnumber'] + '\n'
+                mailtext += 'Kategorie: ' + alarm['category'] + '\n'
+                mailtext += 'Stichwort: ' + alarm['keyword'] + '\n'
+                mailtext += 'Nachricht: ' + alarm['message'] + '\n'
+                mailtext += 'Strasse: ' + alarm['street'] + ' ' + alarm['street_addition'] + '\n'
+                mailtext += 'Ort: ' + alarm['country'] + '\n'
+                mailtext += 'Anrufer : ' + alarm['caller'] + '\n'
             
-            #cat = data['msg'].split('/')[0][-1:].strip() 
-            # if cat == 'B' or cat == 'H' or cat == 'S' or cat == 'P' or cat == 'T': 
+                #cat = data['msg'].split('/')[0][-1:].strip() 
+                # if cat == 'B' or cat == 'H' or cat == 'S' or cat == 'P' or cat == 'T': 
             
-            try:
-                msg = MIMEText(mailtext)
-                msg['From'] = globals.sender
-                msg['To'] = globals.reciever
-                msg['Subject'] = subject
-                msg['Date'] = formatdate()
-                msg['Message-Id'] = make_msgid()
-                server.sendmail(globals.sender, globals.reciever.split(), msg.as_string())
-            except:
-                logging.error('send email failed')
-                logging.debug('send email failed', exc_info=True)
-                raise
+                try:
+                    msg = MIMEText(mailtext)
+                    msg['From'] = globals.sender
+                    msg['To'] = globals.reciever
+                    msg['Subject'] = subject
+                    msg['Date'] = formatdate()
+                    msg['Message-Id'] = make_msgid()
+                    if any(alarm['category'] in s for s in {'B', 'H', 'S', 'P', 'T'}):
+                        msg['Priority'] = 'urgent'
+                    else:
+                        msg['Priority'] = 'normal'
+                    server.sendmail(globals.sender, globals.reciever.split(), msg.as_string())
+                except:
+                    logging.error('send email failed')
+                    logging.debug('send email failed', exc_info=True)
+                    raise
         except:
             logging.error('poc to email failed')
             logging.debug('poc to email failed', exc_info=True)
