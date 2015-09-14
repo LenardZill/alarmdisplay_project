@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: cp1252 -*-
+# -*- coding: utf-8 -*-
 
 import logging
 import logging.handlers
@@ -227,11 +227,11 @@ try:
             #get line data from multimon stdout
             decoded = str(multimon_ng.stdout.readline())
         else:
-            decoded = 'POCSAG1200: Address: 1694466  Function: 0  Alpha:   01142B/Testeinsatz) 00:00/Zuhause:Kreuzungbereich(Max Mustermann)/Teststra�e(1)//Testeinsatz zum Programmieren<NUL><NUL>'
+            decoded = 'POCSAG1200: Address: 1694466  Function: 0  Alpha:   01142B/Testeinsatz) 00:00/Zuhause:Öhne zÜsÄtz(Max Mustermann)/Teststraße(1)//Testeinsatz züm Prögrämmieren<NUL><NUL>'
             time.sleep(1)
                         
         from includes import decoder
-        decoder.decode(args.freq,decoded)
+        decoder.decode(args.freq,decoded.decode('utf-8'))
                         
 except KeyboardInterrupt:
     logging.warning('Keyboard Interrupt')
