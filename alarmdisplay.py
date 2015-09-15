@@ -225,13 +225,13 @@ try:
     while True:
         if not args.test:
             #get line data from multimon stdout
-            decoded = multimon_ng.stdout.readline().decode('utf-8')
+            decoded = multimon_ng.stdout.readline()
         else:
-            decoded = 'POCSAG1200: Address: 1694466  Function: 0  Alpha:   01142B/Testeinsatz) 00:00/Zuhause:öhne züsätz(Max Mustermann)/Teststraße(1)//Testeinsatz züm Prögrämmieren<NUL><NUL>'.decode('utf-8')
+            decoded = 'POCSAG1200: Address: 1694466  Function: 0  Alpha:   01142B/Testeinsatz) 00:00/Zuhause:öhne züsätz(Max Mustermann)/Teststraße(1)//Testeinsatz züm Prögrämmieren<NUL><NUL>'
             time.sleep(1)
                         
         from includes import decoder
-        decoder.decode(args.freq,decoded)
+        decoder.decode(args.freq,decoded.decode('utf-8'))
                         
 except KeyboardInterrupt:
     logging.warning('Keyboard Interrupt')
