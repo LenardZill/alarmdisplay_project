@@ -11,6 +11,7 @@ import logging
 import smtplib
 
 from includes import globals
+from email.mime.multipart import MIMEMultipart
 import time
 from email.utils import formatdate # need for confirm to RFC2822 standard
 from email.utils import make_msgid # need for confirm to RFC2822 standard        
@@ -43,16 +44,31 @@ def run(typ,freq,data):
                 mailtext += 'Ort: ' + alarm['country'] + '\n'
                 mailtext += 'Anrufer : ' + alarm['caller'] + '\n'
             
+                mailtext = '''\
+                <html>
+                    <head>
+                        <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"> 
+                    </head>
+                    <body>
+                        <p>
+                        Datum: Test <br>
+                        Einsatz-Art: TÄÖÜßäöüST
+                        </p>
+                    </body>
+                </html>
+                '''
+                
                 #cat = data['msg'].split('/')[0][-1:].strip() 
                 # if cat == 'B' or cat == 'H' or cat == 'S' or cat == 'P' or cat == 'T': 
             
                 try:
-                    msg = MIMEText(mailtext)
+                    msg =MIMEMultipart('alternative')
                     msg['From'] = globals.sender
                     msg['Bcc'] = globals.reciever
                     msg['Subject'] = subject
-                    msg['Date'] = formatdate()
-                    msg['Message-Id'] = make_msgid()
+                    
+                    msg.attach(MIMEText(mailtext, 'html'))
+                    
                     if any(alarm['category'] in s for s in {'B', 'H', 'S', 'P', 'T'}):
                         logging.debug('sending email with URGENT priority')
                         msg['Priority'] = 'urgent'
