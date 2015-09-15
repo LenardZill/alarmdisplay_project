@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: iso-8859-1 -*-
+# -*- coding: cp1252 -*-
 
 '''
 Email Plugin send an alarm via Email.
@@ -43,31 +43,17 @@ def run(typ,freq,data):
                 mailtext += 'Strasse: ' + alarm['street'] + ' ' + alarm['street_addition'] + '\n'
                 mailtext += 'Ort: ' + alarm['country'] + '\n'
                 mailtext += 'Anrufer : ' + alarm['caller'] + '\n'
-            
-                mailtext = '''\
-                <html>
-                    <head>
-                        <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"> 
-                    </head>
-                    <body>
-                        <p>
-                        Datum: Test <br>
-                        Einsatz-Art: TÄÖÜßäöüST
-                        </p>
-                    </body>
-                </html>
-                '''
                 
                 #cat = data['msg'].split('/')[0][-1:].strip() 
                 # if cat == 'B' or cat == 'H' or cat == 'S' or cat == 'P' or cat == 'T': 
             
                 try:
-                    msg =MIMEMultipart('alternative')
+                    msg = MIMEText(mailtext)
                     msg['From'] = globals.sender
                     msg['Bcc'] = globals.reciever
                     msg['Subject'] = subject
-                    
-                    msg.attach(MIMEText(mailtext, 'html'))
+                    msg['Date'] = formatdate()
+                    msg['Message-Id'] = make_msgid()
                     
                     if any(alarm['category'] in s for s in {'B', 'H', 'S', 'P', 'T'}):
                         logging.debug('sending email with URGENT priority')
@@ -75,6 +61,7 @@ def run(typ,freq,data):
                     else:
                         logging.debug('sending email with NORMAL priority')
                         msg['Priority'] = 'normal'
+                        
                     server.sendmail(globals.sender, globals.reciever.split(), msg.as_string())
                 except:
                     logging.error('send email failed')
