@@ -230,10 +230,10 @@ try:
             decoded = 'POCSAG1200: Address: 1694466  Function: 0  Alpha:   01142B/Testeinsatz) 00:00/Zuhause:öhne züsätz(Max Mustermann)/Teststraße(1)//Testeinsatz züm Prögrämmieren<NUL><NUL>'
             time.sleep(1)
         
-        decoded = decoded.encode('utf-8')
+        output = decoded.decode('utf-8')
                         
         from includes import decoder
-        decoder.decode(args.freq,decoded)
+        decoder.decode(args.freq,output)
                         
 except KeyboardInterrupt:
     logging.warning('Keyboard Interrupt')
