@@ -48,7 +48,7 @@ def run(typ,freq,data):
                 # if cat == 'B' or cat == 'H' or cat == 'S' or cat == 'P' or cat == 'T': 
             
                 try:
-                    msg = MIMEText(mailtext.encode('utf-8'), 'plain', 'utf-8')
+                    msg = MIMEText(mailtext, 'plain', 'utf-8')
                     msg['From'] = globals.sender
                     msg['Bcc'] = globals.reciever
                     msg['Subject'] = Header(subject, 'utf-8')

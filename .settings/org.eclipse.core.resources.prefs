@@ -7,6 +7,7 @@ encoding//includes/decoders/poc.py=cp1252
 encoding//includes/globals.py=cp1252
 encoding//includes/helper/alarmHelper.py=cp1252
 encoding//includes/pluginLoader.py=cp1252
+encoding//plugins/display/display.py=cp1252
 encoding//plugins/push/push.py=cp1252
 encoding//plugins/sqlite/sqlite.py=cp1252
 encoding/alarmdisplay.py=cp1252
