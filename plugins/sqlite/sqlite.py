@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*-
+# -*- coding: iso-8859-1 -*-
 
 '''
 SQLite Plugin to dispatch POCSAG messages to a SQLite database

@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*-
+# -*- coding: iso-8859-1 -*-
 
 '''
 Email Plugin send an alarm via Email.
