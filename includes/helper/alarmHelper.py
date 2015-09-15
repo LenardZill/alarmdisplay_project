@@ -47,11 +47,11 @@ def convertAlarm(alarmLine):
     
 def checkBlacklist(alarm):
     try:
-        if not globals.whitelist:
+        if not globals.blacklist:
             logging.debug('there is no Blacklist')
-            return True
+            return False
         
-        if any(alarm['category']in s for s in globals.whitelist):
+        if any(alarm['category']in s for s in globals.blacklist):
             logging.debug('Alarm is on Blacklist')
             return True
         else:

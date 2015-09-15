@@ -34,4 +34,4 @@ poc_time_old = 0
 pluginList = {}
 
 #alarmHelper
-whitelist = {}
+blacklist = {}

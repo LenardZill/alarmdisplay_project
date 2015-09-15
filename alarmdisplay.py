@@ -153,7 +153,7 @@ try:
         globals.database_table = 'alarmitems'
         
         # Alarmhandler
-        globals.whitelist = config.get('alarmhandler', 'whitelist').split()
+        globals.blacklist = config.get('alarmhandler', 'blacklist').split()
     except:
         logging.critical('cannot read config file')
         logging.debug('cannot read config file', exc_info=True)
