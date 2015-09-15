@@ -11,10 +11,10 @@ import logging
 import smtplib
 
 from includes import globals
-from email.mime.multipart import MIMEMultipart
 import time
 from email.utils import formatdate # need for confirm to RFC2822 standard
 from email.utils import make_msgid # need for confirm to RFC2822 standard        
+from email.header import Header
 from email.mime.text import MIMEText
 from includes.helper import alarmHelper
 
@@ -48,10 +48,10 @@ def run(typ,freq,data):
                 # if cat == 'B' or cat == 'H' or cat == 'S' or cat == 'P' or cat == 'T': 
             
                 try:
-                    msg = MIMEText(mailtext)
+                    msg = MIMEText(mailtext.encode('utf-8', 'plain', 'utf-8'))
                     msg['From'] = globals.sender
                     msg['Bcc'] = globals.reciever
-                    msg['Subject'] = subject
+                    msg['Subject'] = Header(subject, 'utf-8')
                     msg['Date'] = formatdate()
                     msg['Message-Id'] = make_msgid()
                     
