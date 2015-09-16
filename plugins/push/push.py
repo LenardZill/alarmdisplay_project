@@ -10,7 +10,6 @@ Email Plugin send an alarm via Email.
 import logging
 import smtplib
 
-from includes import globals
 import time
 from email.utils import formatdate # need for confirm to RFC2822 standard
 from email.utils import make_msgid # need for confirm to RFC2822 standard        
@@ -18,6 +17,7 @@ from email.header import Header
 from email.mime.text import MIMEText
 from includes.helper import alarmHelper
 
+from includes import globals
 
 def onLoad():
     try:
@@ -27,64 +27,70 @@ def onLoad():
         logging.debug("unknown error", exc_info=True)
         raise
 
+def isAllowed(category):
+    if globals.config.get('push', 'blacklist'):
+        if not category in globals.config.get('push', 'blacklist'):
+            logging.info('Category %s is allowed', category)
+            return True
+        else:
+            logging.info('Category %s is not allowed', category)
+            return False
+    return True
 
 def run(typ,freq,data):
     try:
-        server = smtplib.SMTP(globals.smtp_server)
-        server.starttls()
-        server.login(globals.user, globals.password)
-    except:
-        logging.error('cannot connect to email')
-        logging.debug('cannot connect to email', exc_info=True)
-        return
-    else:
         try:
-            alarm = alarmHelper.convertAlarm(data['msg'])
-            
-            if not alarmHelper.checkBlacklist(alarm):
-                subject = 'Alarm: ' + data['ric'] + data['functionChar']
-            
-                mailtext = ''
-                mailtext += 'Datum: ' + time.strftime('%d.%m.%Y') + ' ' + time.strftime('%H:%M:%S') + '\n'
-                mailtext += 'Einsatz-Nr: ' + alarm['alarmnumber'] + '\n'
-                mailtext += 'Kategorie: ' + alarm['category'] + '\n'
-                mailtext += 'Stichwort: ' + alarm['keyword'] + '\n'
-                mailtext += 'Nachricht: ' + alarm['message'] + '\n'
-                mailtext += 'Strasse: ' + alarm['street'] + ' ' + alarm['street_addition'] + '\n'
-                mailtext += 'Ort: ' + alarm['country'] + '\n'
-                mailtext += 'Anrufer : ' + alarm['caller'] + '\n'
-                
-                #cat = data['msg'].split('/')[0][-1:].strip() 
-                # if cat == 'B' or cat == 'H' or cat == 'S' or cat == 'P' or cat == 'T': 
-            
-                try:
-                    msg = MIMEText(mailtext, 'plain', 'utf-8')
-                    msg['From'] = globals.sender
-                    msg['Bcc'] = globals.reciever
-                    msg['Subject'] = Header(subject, 'utf-8')
-                    msg['Date'] = formatdate()
-                    msg['Message-Id'] = make_msgid()
-                    
-                    if any(alarm['category'] in s for s in {'B', 'H', 'S', 'P', 'T'}):
-                        logging.debug('sending email with URGENT priority')
-                        msg['Priority'] = 'urgent'
-                    else:
-                        logging.debug('sending email with NORMAL priority')
-                        msg['Priority'] = 'normal'
-                        
-                    server.sendmail(globals.sender, globals.reciever.split(), msg.as_string())
-                except:
-                    logging.error('send email failed')
-                    logging.debug('send email failed', exc_info=True)
-                    raise
+            server = smtplib.SMTP(globals.config.get("push", "smtp_server"), globals.config.get("push", "smtp_port"))
+            server.set_debuglevel(0)
+            if globals.config.get("push", "tls"):
+                        server.starttls()
+            if globals.config.get("push", "user"):
+                        server.login(globals.config.get("push", "user"), globals.config.get("push", "password"))
         except:
-            logging.error('poc to email failed')
-            logging.debug('poc to email failed', exc_info=True)
+            logging.error("cannot connect to push")
+            logging.debug("cannot connect to push", exc_info=True)
             return
-        
-    finally:
-        logging.debug("close email connection")
-        try:
-            server.quit()
-        except:
-            pass
+        else:
+            try:
+                alarm = alarmHelper.convertAlarm(data['msg'])
+                if isAllowed(alarm['category']):
+                    logging.debug("Start POC to eMail")
+                
+                    subject = 'Alarm: ' + data['ric'] + data['functionChar']
+                
+                    mailtext = ''
+                    mailtext += 'Datum: ' + time.strftime('%d.%m.%Y') + ' ' + time.strftime('%H:%M:%S') + '\n'
+                    mailtext += 'Einsatz-Nr: ' + alarm['alarmnumber'] + '\n'
+                    mailtext += 'Kategorie: ' + alarm['category'] + '\n'
+                    mailtext += 'Stichwort: ' + alarm['keyword'] + '\n'
+                    mailtext += 'Nachricht: ' + alarm['message'] + '\n'
+                    mailtext += 'Strasse: ' + alarm['street'] + ' ' + alarm['street_addition'] + '\n'
+                    mailtext += 'Ort: ' + alarm['country'] + '\n'
+                    mailtext += 'Anrufer : ' + alarm['caller'] + '\n'
+                    
+                    try:
+                        msg = MIMEText(mailtext)
+                        msg['From'] = globals.config.get('push', 'from')
+                        msg['To'] = globals.config.get('push', 'to')
+                        msg['Subject'] = subject
+                        msg['Date'] = formatdate()
+                        msg['Message-Id'] = make_msgid()
+                        msg['Priority'] = globals.config.get('push', 'priority')
+                        server.sendmail(globals.config.get('push', 'from'), globals.config.get('push', 'to').split(), msg.as_string())
+                    except:
+                        logging.error('send push failed')
+                        logging.debug('send push failed', exc_info=True)
+                        raise
+            except:
+                logging.error('POC to push failed')
+                logging.debug('POC to push failed', exc_info=True)
+                return
+        finally:
+            logging.debug('close push-connection')
+            try:
+                server.quit()
+            except:
+                pass
+    except:
+        logging.error("unknown error")
+        logging.debug("unknown error", exc_info=True)
