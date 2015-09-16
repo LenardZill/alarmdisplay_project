@@ -1,9 +1,10 @@
 eclipse.preferences.version=1
-encoding//de/lzill/import.py=cp1252
+encoding//includes/MyTimedRotatingFileHandler.py=cp1252
 encoding//includes/alarmHandler.py=cp1252
 encoding//includes/checkSubprocesses.py=cp1252
 encoding//includes/decoder.py=cp1252
 encoding//includes/decoders/poc.py=cp1252
+encoding//includes/doubleFilter.py=cp1252
 encoding//includes/globals.py=cp1252
 encoding//includes/helper/alarmHelper.py=cp1252
 encoding//includes/pluginLoader.py=cp1252

@@ -12,6 +12,14 @@ import sqlite3
 
 from includes import globals
 
+def onLoad():
+    try:
+        pass
+    except:
+        logging.error("unknown error")
+        logging.debug("unknown error", exc_info=True)
+        raise
+
 def run(typ,freq,data):
     try:
         try:

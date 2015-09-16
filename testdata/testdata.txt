@@ -1,0 +1,49 @@
+# Testdata for the BOSWatch Test Mode function
+# Data in Multimon-NG Raw Format
+# Data is alternately passed to the decoder to simulate an used Radio-Frequency
+
+
+# bitrate
+POCSAG1200: Address: 1001200  Function: 1  Alpha:   BOSWatch-Test: okay
+
+# function-code
+POCSAG1200: Address: 1000000  Function: 0  Alpha:   BOSWatch-Test: okay
+POCSAG1200: Address: 1000001  Function: 1  Alpha:   BOSWatch-Test: okay
+POCSAG1200: Address: 1000002  Function: 2  Alpha:   BOSWatch-Test: okay
+POCSAG1200: Address: 1000003  Function: 3  Alpha:   BOSWatch-Test: okay
+
+# german special sign
+POCSAG1200: Address: 1200001  Function: 1  Alpha:   BOSWatch-Test ÖÄÜß: okay
+POCSAG1200: Address: 1200001  Function: 1  Alpha:   BOSWatch-Test öäü: okay
+
+# OHNE TEXT????
+POCSAG1200: Address: 1100000  Function: 0
+POCSAG1200: Address: 1100000  Function: 1
+POCSAG1200: Address: 1100000  Function: 2
+POCSAG1200: Address: 1100000  Function: 3
+
+# duplicate with same and other msg
+POCSAG1200: Address: 2000001  Function: 2  Alpha:   BOSWatch-Test: second is a duplicate
+POCSAG1200: Address: 2000001  Function: 2  Alpha:   BOSWatch-Test: second is a duplicate
+POCSAG1200: Address: 2000001  Function: 2  Alpha:   BOSWatch-Testing: okay
+
+# duplicate in different order
+POCSAG1200: Address: 2100000  Function: 2
+POCSAG1200: Address: 2100001  Function: 2
+POCSAG1200: Address: 2100002  Function: 2
+POCSAG1200: Address: 2100000  Function: 2
+POCSAG1200: Address: 2100001  Function: 2
+POCSAG1200: Address: 2100002  Function: 2
+POCSAG1200: Address: 2100000  Function: 2  Alpha:   BOSWatch-Test: second is a duplicate
+POCSAG1200: Address: 2100001  Function: 2  Alpha:   BOSWatch-Test: second is a duplicate
+POCSAG1200: Address: 2100002  Function: 2  Alpha:   BOSWatch-Test: second is a duplicate
+POCSAG1200: Address: 2100000  Function: 2  Alpha:   BOSWatch-Test: second is a duplicate
+POCSAG1200: Address: 2100001  Function: 2  Alpha:   BOSWatch-Test: second is a duplicate
+POCSAG1200: Address: 2100002  Function: 2  Alpha:   BOSWatch-Test: second is a duplicate
+
+# denied
+POCSAG1200: Address: 7777777  Function: 1  Alpha:   BOSWatch-Test: denied
+
+# out of filter Range
+POCSAG1200: Address: 0000004  Function: 1  Alpha:   BOSWatch-Test: out of filter start
+POCSAG1200: Address: 9000000  Function: 1  Alpha:   BOSWatch-Test: out of filter end

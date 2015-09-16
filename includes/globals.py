@@ -12,6 +12,10 @@ config = 0
 script_path = ''
 log_path = ''
 
+
+# double alarm
+doubleList = []
+
 # sqlite
 database_path = ''
 database_table = 'alarmitems'
@@ -26,12 +30,14 @@ password = ''
 sender = ''
 reciever = ''
 
-# double alarm
-poc_id_old = 0
-poc_time_old = 0
-
 # pluginLoader
 pluginList = {}
 
 #alarmHelper
 blacklist = {}
+
+def getVers(mode="vers"):
+    if mode == "vers":
+        return "1.0"
+    elif mode == "date":
+        return " 2015/09/16"

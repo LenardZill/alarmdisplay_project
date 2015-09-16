@@ -18,6 +18,16 @@ from email.header import Header
 from email.mime.text import MIMEText
 from includes.helper import alarmHelper
 
+
+def onLoad():
+    try:
+        pass
+    except:
+        logging.error("unknown error")
+        logging.debug("unknown error", exc_info=True)
+        raise
+
+
 def run(typ,freq,data):
     try:
         server = smtplib.SMTP(globals.smtp_server)
