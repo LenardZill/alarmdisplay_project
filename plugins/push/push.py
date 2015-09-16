@@ -28,8 +28,8 @@ def onLoad():
         raise
 
 def isAllowed(category):
-    if globals.config.get('push', 'blacklist'):
-        if not category in globals.config.get('push', 'blacklist'):
+    if globals.config.get('POC', 'blacklist_categories'):
+        if not category in globals.config.get('POC', 'blacklist_categories'):
             logging.info('Category %s is allowed', category)
             return True
         else:
@@ -55,7 +55,7 @@ def run(typ,freq,data):
                 if alarmHelper.isValid(data['msg']):
                     alarm = alarmHelper.convertAlarm(data['msg'])
                     if isAllowed(alarm['category']):
-                        logging.debug("Start POC to eMail")
+                        logging.debug("Start POC to push")
                 
                         subject = 'Alarm: ' + data['ric'] + data['functionChar']
                 

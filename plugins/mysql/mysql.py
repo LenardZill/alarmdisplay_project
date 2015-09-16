@@ -14,6 +14,7 @@ import MySQLdb
 from includes import globals
 from includes.helper import alarmHelper
 
+
 def onLoad():
     try:
         pass
@@ -21,6 +22,17 @@ def onLoad():
         logging.error("unknown error")
         logging.debug("unknown error", exc_info=True)
         raise
+
+
+def isAllowed(category):
+    if globals.config.get('POC', 'blacklist_categories'):
+        if not category in globals.config.get('POC', 'blacklist_categories'):
+            logging.info('Category %s is allowed', category)
+            return True
+        else:
+            logging.info('Category %s is not allowed', category)
+            return False
+    return True
 
 
 def run(typ,freq,data):
@@ -35,8 +47,12 @@ def run(typ,freq,data):
         else:
             try:
                 if alarmHelper.isValid(data['msg']):
-                    logging.debug('Insert POC')
-                    cursor.execute("INSERT INTO "+globals.config.get("MySQL","table")+" (time,ric,funktion,funktionChar,msg,bitrate,description) VALUES (NOW(),%s,%s,%s,%s,%s,%s)",(data["ric"],data["function"],data["functionChar"],data["msg"],data["bitrate"],data["description"]))
+                    alarm = data['msg]']
+                    if isAllowed(alarm['category']):
+                        logging.debug('Insert POC')
+                        cursor.execute("INSERT INTO "+globals.config.get("MySQL","table")+" (time,ric,funktion,funktionChar,msg,bitrate,description) VALUES (NOW(),%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                                       (data["ric"],data["function"],data["functionChar"],data["msg"],data["bitrate"],data["description"],
+                                        alarm['alarmnumber'],alarm['category'],alarm['keyword'],alarm['street'],alarm['street_addition'],alarm['country'],alarm['caller'],alarm['message']))
             except:
                 logging.error('cannot Insert POC')
                 logging.debug('cannot Insert POC')
