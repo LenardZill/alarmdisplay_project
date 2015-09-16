@@ -53,34 +53,35 @@ def run(typ,freq,data):
         else:
             try:
                 alarm = alarmHelper.convertAlarm(data['msg'])
-                if isAllowed(alarm['category']):
-                    logging.debug("Start POC to eMail")
+                if alarm is not None:
+                    if isAllowed(alarm['category']):
+                        logging.debug("Start POC to eMail")
                 
-                    subject = 'Alarm: ' + data['ric'] + data['functionChar']
+                        subject = 'Alarm: ' + data['ric'] + data['functionChar']
                 
-                    mailtext = ''
-                    mailtext += 'Datum: ' + time.strftime('%d.%m.%Y') + ' ' + time.strftime('%H:%M:%S') + '\n'
-                    mailtext += 'Einsatz-Nr: ' + alarm['alarmnumber'] + '\n'
-                    mailtext += 'Kategorie: ' + alarm['category'] + '\n'
-                    mailtext += 'Stichwort: ' + alarm['keyword'] + '\n'
-                    mailtext += 'Nachricht: ' + alarm['message'] + '\n'
-                    mailtext += 'Strasse: ' + alarm['street'] + ' ' + alarm['street_addition'] + '\n'
-                    mailtext += 'Ort: ' + alarm['country'] + '\n'
-                    mailtext += 'Anrufer : ' + alarm['caller'] + '\n'
+                        mailtext = ''
+                        mailtext += 'Datum: ' + time.strftime('%d.%m.%Y') + ' ' + time.strftime('%H:%M:%S') + '\n'
+                        mailtext += 'Einsatz-Nr: ' + alarm['alarmnumber'] + '\n'
+                        mailtext += 'Kategorie: ' + alarm['category'] + '\n'
+                        mailtext += 'Stichwort: ' + alarm['keyword'] + '\n'
+                        mailtext += 'Nachricht: ' + alarm['message'] + '\n'
+                        mailtext += 'Strasse: ' + alarm['street'] + ' ' + alarm['street_addition'] + '\n'
+                        mailtext += 'Ort: ' + alarm['country'] + '\n'
+                        mailtext += 'Anrufer : ' + alarm['caller'] + '\n'
                     
-                    try:
-                        msg = MIMEText(mailtext)
-                        msg['From'] = globals.config.get('push', 'from')
-                        msg['To'] = globals.config.get('push', 'to')
-                        msg['Subject'] = subject
-                        msg['Date'] = formatdate()
-                        msg['Message-Id'] = make_msgid()
-                        msg['Priority'] = globals.config.get('push', 'priority')
-                        server.sendmail(globals.config.get('push', 'from'), globals.config.get('push', 'to').split(), msg.as_string())
-                    except:
-                        logging.error('send push failed')
-                        logging.debug('send push failed', exc_info=True)
-                        raise
+                        try:
+                            msg = MIMEText(mailtext)
+                            msg['From'] = globals.config.get('push', 'from')
+                            msg['To'] = globals.config.get('push', 'to')
+                            msg['Subject'] = subject
+                            msg['Date'] = formatdate()
+                            msg['Message-Id'] = make_msgid()
+                            msg['Priority'] = globals.config.get('push', 'priority')
+                            server.sendmail(globals.config.get('push', 'from'), globals.config.get('push', 'to').split(), msg.as_string())
+                        except:
+                            logging.error('send push failed')
+                            logging.debug('send push failed', exc_info=True)
+                            raise
             except:
                 logging.error('POC to push failed')
                 logging.debug('POC to push failed', exc_info=True)

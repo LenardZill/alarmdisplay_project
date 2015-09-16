@@ -42,7 +42,9 @@ def decode(freq,decoded):
             poc_sub = str(int(decoded[40])+1)
         
             if 'Alpha:' in decoded:
-                poc_text = decoded.split('Alpha:   ')[1].strip().rstrip('<EOT>').strip()
+                poc_text = decoded.split('Alpha:   ')[1].strip()
+                if '<NUL>' in poc_text:
+                    poc_text = poc_text.split('<NUL>')[0].strip() 
             else:
                 poc_text = ''
                 
