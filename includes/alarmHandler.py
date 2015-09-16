@@ -5,16 +5,17 @@ import logging
 
 from includes import globals
 
-def processAlarm(typ,freq,data):
+
+def processalarm(typ, freq, data):
     try:
         logging.debug('[    ALARM    ]')
         for pluginName, plugin in globals.pluginList.items():
-            logging.debug("call Plugin: %s", pluginName)
+            logging.debug('call Plugin: %s', pluginName)
             try:
-                plugin.run(typ,freq,data)
-                logging.debug("return from: %s", pluginName)
+                plugin.run(typ, freq, data)
+                logging.debug('return from: %s', pluginName)
             except:
                 pass
-        logging.debug("[END ALARM]")
+        logging.debug('[END ALARM]')
     except:
-        logging.exception("Error in alarm processing")
+        logging.exception('Error in alarm processing')

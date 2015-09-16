@@ -1,45 +1,41 @@
 #!/usr/bin/python
 # -*- coding: cp1252 -*-
 
-'''
-SQLite Plugin to dispatch POCSAG messages to a SQLite database
-
-@author: Lenard Zill
-'''
-
 import logging
 import sqlite3
 
 from includes import globals
 from includes.helper import alarmHelper
 
-def onLoad():
+
+def onload():
     try:
         pass
     except:
-        logging.error("unknown error")
-        logging.debug("unknown error", exc_info=True)
+        logging.error('unknown error')
+        logging.debug('unknown error', exc_info=True)
         raise
 
 
-def run(typ,freq,data):
+def run(typ, freq, data):
     try:
         try:
             logging.debug('connect to sqlite')
-            connection = sqlite3.connect(globals.config.get("sqlite", "dbpath"))
+            connection = sqlite3.connect(globals.config.get('sqlite', 'dbpath'))
             connection.text_factory = str
             cursor = connection.cursor()
-             
-            cursor.execute('CREATE TABLE IF NOT EXISTS ' + globals.config.get("sqlite", "dbtable") + '(ric TEXT, function TEXT, message TEXT)')
+            cursor.execute('CREATE TABLE IF NOT EXISTS ' + globals.config.get('sqlite', 'dbtable') +
+                           '(ric TEXT, function TEXT, message TEXT)')
             connection.commit()
         except:
             logging.error('cannot connect to sqlite')
             logging.debug('cannot connect to sqlite', exc_info=True)
         else:
             try:
-                if alarmHelper.isValid(data['msg']):
+                if alarmHelper.isvalid(data['msg']):
                     logging.debug('Insert POC')
-                    cursor.execute('INSERT INTO ' +globals.config.get("sqlite", "dbtable") + ' VALUES(?,?,?)', (data['ric'], data['function'], data['msg']))
+                    cursor.execute('INSERT INTO ' + globals.config.get('sqlite', 'dbtable') +
+                                   ' VALUES(?,?,?)', (data['ric'], data['function'], data['msg']))
                     connection.commit()
             except:
                 logging.error('cannot insert POC')
@@ -53,5 +49,5 @@ def run(typ,freq,data):
             except:
                 pass
     except:
-        logging.error("unknown error")
-        logging.debug("unknown error", exc_info=True)
+        logging.error('unknown error')
+        logging.debug('unknown error', exc_info=True)

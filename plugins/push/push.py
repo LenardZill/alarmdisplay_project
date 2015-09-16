@@ -1,35 +1,30 @@
 #!/usr/bin/python
 # -*- coding: cp1252 -*-
 
-'''
-Email Plugin send an alarm via Email.
-
-@author: Lenard Zill
-'''
-
 import logging
 import smtplib
 
 import time
-from email.utils import formatdate # need for confirm to RFC2822 standard
-from email.utils import make_msgid # need for confirm to RFC2822 standard        
-from email.header import Header
+from email.utils import formatdate
+from email.utils import make_msgid
 from email.mime.text import MIMEText
 from includes.helper import alarmHelper
 
 from includes import globals
 
-def onLoad():
+
+def onload():
     try:
         pass
     except:
-        logging.error("unknown error")
-        logging.debug("unknown error", exc_info=True)
+        logging.error('unknown error')
+        logging.debug('unknown error', exc_info=True)
         raise
 
-def isAllowed(category):
+
+def isallowed(category):
     if globals.config.get('POC', 'blacklist_categories'):
-        if not category in globals.config.get('POC', 'blacklist_categories'):
+        if category not in globals.config.get('POC', 'blacklist_categories'):
             logging.info('Category %s is allowed', category)
             return True
         else:
@@ -37,28 +32,26 @@ def isAllowed(category):
             return False
     return True
 
-def run(typ,freq,data):
+def run(typ, freq, data):
     try:
         try:
-            server = smtplib.SMTP(globals.config.get("push", "smtp_server"), globals.config.get("push", "smtp_port"))
+            server = smtplib.SMTP(globals.config.get('push', 'smtp_server'), globals.config.get('push', 'smtp_port'))
             server.set_debuglevel(0)
-            if globals.config.get("push", "tls"):
+            if globals.config.get('push', 'tls'):
                         server.starttls()
-            if globals.config.get("push", "user"):
-                        server.login(globals.config.get("push", "user"), globals.config.get("push", "password"))
+            if globals.config.get('push', 'user'):
+                        server.login(globals.config.get('push', 'user'), globals.config.get('push', 'password'))
         except:
-            logging.error("cannot connect to push")
-            logging.debug("cannot connect to push", exc_info=True)
+            logging.error('cannot connect to push')
+            logging.debug('cannot connect to push', exc_info=True)
             return
         else:
             try:
-                if alarmHelper.isValid(data['msg']):
-                    alarm = alarmHelper.convertAlarm(data['msg'])
-                    if isAllowed(alarm['category']):
-                        logging.debug("Start POC to push")
-                
+                if alarmHelper.isvalid(data['msg']):
+                    alarm = alarmHelper.convertalarm(data['msg'])
+                    if isallowed(alarm['category']):
+                        logging.debug('Start POC to push')
                         subject = 'Alarm: ' + data['ric'] + data['functionChar']
-                
                         mailtext = ''
                         mailtext += 'Datum: ' + time.strftime('%d.%m.%Y') + ' ' + time.strftime('%H:%M:%S') + '\n'
                         mailtext += 'Einsatz-Nr: ' + alarm['alarmnumber'] + '\n'
@@ -68,7 +61,6 @@ def run(typ,freq,data):
                         mailtext += 'Strasse: ' + alarm['street'] + ' ' + alarm['street_addition'] + '\n'
                         mailtext += 'Ort: ' + alarm['country'] + '\n'
                         mailtext += 'Anrufer : ' + alarm['caller'] + '\n'
-                    
                         try:
                             msg = MIMEText(mailtext, 'plain', 'utf-8')
                             msg['From'] = globals.config.get('push', 'from')
@@ -77,7 +69,9 @@ def run(typ,freq,data):
                             msg['Date'] = formatdate()
                             msg['Message-Id'] = make_msgid()
                             msg['Priority'] = globals.config.get('push', 'priority')
-                            server.sendmail(globals.config.get('push', 'from'), globals.config.get('push', 'to').split(), msg.as_string())
+                            server.sendmail(globals.config.get('push', 'from'),
+                                            globals.config.get('push', 'to').split(),
+                                            msg.as_string())
                         except:
                             logging.error('send push failed')
                             logging.debug('send push failed', exc_info=True)
@@ -93,5 +87,5 @@ def run(typ,freq,data):
             except:
                 pass
     except:
-        logging.error("unknown error")
-        logging.debug("unknown error", exc_info=True)
+        logging.error('unknown error')
+        logging.debug('unknown error', exc_info=True)

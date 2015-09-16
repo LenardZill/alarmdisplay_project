@@ -34,8 +34,7 @@ except:
 try:
     rtl_fm = None
     multimon_ng = None
-    
-    
+
     try:
         globals.script_path = os.path.dirname(os.path.abspath(__file__))
         globals.log_path = globals.script_path + '/log/'
@@ -45,15 +44,15 @@ try:
     except:
         print 'ERROR: cannot initialize paths'
         exit(1)
-    
 
-    try:                
+    try:
         myLogger = logging.getLogger()
         myLogger.setLevel(logging.DEBUG)
         
         formatter = logging.Formatter('%(asctime)s - %(module)-15s [%(levelname)-8s] %(message)s', '%d.%m.%Y %H:%M:%S')
 
-        fh = MyTimedRotatingFileHandler.MyTimedRotatingFileHandler(globals.log_path+'alarmdisplay.log', 'midnight', interval=1, backupCount=999)
+        fh = MyTimedRotatingFileHandler.MyTimedRotatingFileHandler(globals.log_path+'alarmdisplay.log', 'midnight',
+                                                                   interval=1, backupCount=999)
 
         fh.setLevel(logging.DEBUG) 
         fh.setFormatter(formatter)
@@ -72,7 +71,6 @@ try:
     except:
         print "ERROR: cannot create logger"
         exit(1)
-    
 
     try:
         fh.doRollover()
@@ -88,11 +86,10 @@ try:
         logging.error('cannot clear logfiles')
         logging.debug("cannot clear Logfiles", exc_info=True)
         pass
-    
 
     try:
-        logging.debug('SW Version:    %s', globals.getVers('vers'))
-        logging.debug('Build Date:    %s', globals.getVers('date'))
+        logging.debug('SW Version:    %s', globals.getvers('vers'))
+        logging.debug('Build Date:    %s', globals.getvers('date'))
         logging.debug('Alarmdisplay givven arguments')
         
         if args.test:
@@ -111,14 +108,13 @@ try:
         logging.critical('cannot display/log args')
         logging.debug('cannot display/log args', exc_info=True)
         exit(1)
-    
 
     try:
         logging.debug('reading config file')
         globals.config = ConfigParser.ConfigParser()
         globals.config.read(globals.script_path + '/config/config.ini')
         
-        if globals.config.getint('Alarmdisplay','loglevel') == 10:
+        if globals.config.getint('Alarmdisplay', 'loglevel') == 10:
             logging.debug(' - Alarmdisplay:')
             for key, val in globals.config.items('Alarmdisplay'):
                 logging.debug(' -- %s = %s', key, val)
@@ -129,64 +125,59 @@ try:
         logging.critical('cannot read config file')
         logging.debug('cannot read config file', exc_info=True)
         exit(1)
-    
 
     try:
-        logging.debug('set loglevel of fileHandler to: %s', globals.config.getint("Alarmdisplay","loglevel"))
-        fh.setLevel(globals.config.getint("Alarmdisplay","loglevel"))
-        logging.debug("set backupCount of fileHandler to: %s", globals.config.getint("Alarmdisplay","backupCount"))
-        fh.setBackupCount(globals.config.getint("Alarmdisplay","backupCount"))
+        logging.debug('set loglevel of fileHandler to: %s', globals.config.getint("Alarmdisplay", "loglevel"))
+        fh.setLevel(globals.config.getint("Alarmdisplay", "loglevel"))
+        logging.debug("set backupCount of fileHandler to: %s", globals.config.getint("Alarmdisplay", "backupCount"))
+        fh.setBackupCount(globals.config.getint("Alarmdisplay", "backupCount"))
     except:
         logging.error('cannot set loglevel of fileHandler')
         logging.debug('cannot set loglevel of fileHandler', exc_info=True)
         pass
-        
    
     try:
         from includes import pluginLoader
-        pluginLoader.loadPlugins()
+        pluginLoader.loadplugins()
     except:
         logging.critical("cannot load plugins")
         logging.debug("cannot load plugins", exc_info=True)
         exit(1) 
-    
-   
+
     try:
         if not args.test:
             logging.debug('starting rtl_fm')
             command = 'rtl_fm -d 0 -f ' + args.freq + ' -M fm -s 22050 -p 0 -E DC -F 0 -l 0 -g 100'
             rtl_fm = subprocess.Popen(command.split(),
-                            stdout=subprocess.PIPE,
-                            stderr=open(globals.log_path + 'rtl_fm.log', 'a'),
-                            shell=False)
+                                      stdout=subprocess.PIPE,
+                                      stderr=open(globals.log_path + 'rtl_fm.log', 'a'),
+                                      shell=False)
             time.sleep(3)
-            checkSubprocesses.checkRTL()
+            checkSubprocesses.checkrtl()
         else:
             logging.warning('! Test-Mode: rtl_fm not started !')
     except:
         logging.critical('cannot start rtl_fm')
         logging.debug('cannot start rtl_fm', exc_info=True)
         exit(1)
-         
     
     try:
         if not args.test:
             logging.debug('starting multimon-ng')
             command = 'multimon-ng -a POCSAG1200 -f alpha -t raw /dev/stdin - '
             multimon_ng = subprocess.Popen(command.split(),
-                            stdin=rtl_fm.stdout,
-                            stdout=subprocess.PIPE,
-                            stderr=open(globals.log_path + 'multimon.log', 'a'),
-                            shell=False)
+                                           stdin=rtl_fm.stdout,
+                                           stdout=subprocess.PIPE,
+                                           stderr=open(globals.log_path + 'multimon.log', 'a'),
+                                           shell=False)
             time.sleep(3)
-            checkSubprocesses.checkMultimon()
+            checkSubprocesses.checkmultimon()
         else:
             logging.warning('! Test-Mode: multimon-ng not started !')
     except:
         logging.critical('cannot start multimon-ng')
         logging.debug('cannot start multimon-ng', exc_info=True)
         exit(1)
-
 
     if not args.test:
         logging.debug('start decoding')
@@ -196,7 +187,7 @@ try:
             decoder.decode(args.freq, decoded.decode('utf-8'))
     else:
         logging.debug('start testing')
-        testFile = open(globals.script_path+"/testdata/testdata.txt","r")
+        testFile = open(globals.script_path+"/testdata/testdata.txt", "r")
         for testData in testFile:
             if (len(testData.rstrip(' \t\n\r')) > 1) and ("#" not in testData[0]):
                 logging.info("Testdata: %s", testData.rstrip(' \t\n\r'))
