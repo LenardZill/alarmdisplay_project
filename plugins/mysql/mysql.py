@@ -44,10 +44,11 @@ def run(typ,freq,data):
         except:
             logging.error("cannot connect to MySQL")
             logging.debug("cannot connect to MySQL", exc_info=True)
+            return
         else:
             try:
                 if alarmHelper.isValid(data['msg']):
-                    alarm = data['msg]']
+                    alarm = alarmHelper.convertAlarm(data['msg]'])
                     if isAllowed(alarm['category']):
                         logging.debug('Insert POC')
                         cursor.execute("INSERT INTO "+globals.config.get("MySQL","table")+" (time,ric,funktion,funktionChar,msg,bitrate,description) VALUES (NOW(),%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
