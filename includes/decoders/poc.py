@@ -57,6 +57,7 @@ def decode(freq,decoded):
                         
                         try:
                             from includes import alarmHandler
+                            #!!!!!!!! Gegebenenfalls hier direkt Daten prüfen und umwandeln... Ersparrt das Ändern in jedem Plugin
                             alarmHandler.processAlarm("POC", freq, data)
                         except:
                             logging.error("processing alarm failed")

@@ -48,7 +48,7 @@ def run(typ,freq,data):
         else:
             try:
                 if alarmHelper.isValid(data['msg']):
-                    alarm = alarmHelper.convertAlarm(data['msg]'])
+                    alarm = alarmHelper.convertAlarm(data['msg'])
                     if isAllowed(alarm['category']):
                         logging.debug('Insert POC')
                         cursor.execute("INSERT INTO "+globals.config.get("MySQL","table")+" (time,ric,funktion,funktionChar,msg,bitrate,description) VALUES (NOW(),%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
