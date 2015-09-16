@@ -52,8 +52,8 @@ def run(typ,freq,data):
             return
         else:
             try:
-                alarm = alarmHelper.convertAlarm(data['msg'])
-                if alarm is not None:
+                if alarmHelper.isValid(data['msg']):
+                    alarm = alarmHelper.convertAlarm(data['msg'])
                     if isAllowed(alarm['category']):
                         logging.debug("Start POC to eMail")
                 
@@ -70,7 +70,7 @@ def run(typ,freq,data):
                         mailtext += 'Anrufer : ' + alarm['caller'] + '\n'
                     
                         try:
-                            msg = MIMEText(mailtext)
+                            msg = MIMEText(mailtext, 'plain', 'utf-8')
                             msg['From'] = globals.config.get('push', 'from')
                             msg['To'] = globals.config.get('push', 'to')
                             msg['Subject'] = subject

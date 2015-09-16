@@ -10,6 +10,12 @@ Created on 14.09.2015
 import logging
 from includes import globals
 
+def isValid(alarmLine):
+    if convertAlarm(alarmLine) is None:
+        return False
+    else:
+        return True
+
 def convertAlarm(alarmLine):
     try:
             logging.debug('start to convertAlarm')

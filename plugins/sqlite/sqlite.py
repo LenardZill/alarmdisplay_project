@@ -11,7 +11,7 @@ import logging
 import sqlite3
 
 from includes import globals
-
+from includes.helper import alarmHelper
 
 def onLoad():
     try:
@@ -37,9 +37,10 @@ def run(typ,freq,data):
             logging.debug('cannot connect to sqlite', exc_info=True)
         else:
             try:
-                logging.debug('Insert POC')
-                cursor.execute('INSERT INTO ' +globals.config.get("sqlite", "dbtable") + ' VALUES(?,?,?)', (data['ric'], data['function'], data['msg']))
-                connection.commit()
+                if alarmHelper.isValid(data['msg']):
+                    logging.debug('Insert POC')
+                    cursor.execute('INSERT INTO ' +globals.config.get("sqlite", "dbtable") + ' VALUES(?,?,?)', (data['ric'], data['function'], data['msg']))
+                    connection.commit()
             except:
                 logging.error('cannot insert POC')
                 logging.debug('cannot insert POC', exc_info=True)
