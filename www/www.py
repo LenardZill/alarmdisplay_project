@@ -26,7 +26,7 @@ def show_alarm():
     db = connect_db()
     if db is not None:
         cur = db.cursor()
-        for result in cur.execute('select * from alarmitems where ric=%s order by id desc limit 1',('',)):
+        for result in cur.execute('select * from alarmitems worder by id desc limit 1'):
             print("Rows produced by statement '{}':".format(result.statement))
             print(result.fetchall())
         else:
