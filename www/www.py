@@ -5,7 +5,6 @@ import logging
 import MySQLdb
 
 from flask import Flask, render_template
-from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
@@ -30,8 +29,10 @@ def show_alarm():
         
         for row in cur:
             print(row)
+    else:
+        alarm = ["1","2015-09-16 09:15","169447","1","a","09263R/chir. Notfall) 16:16/Schoenningstedt:Bismarck Seniorenstift(Schmanz)/Muehlenweg(8 -10)//Koplawu","12000","1694474","09263","B","Feuer Gross","Trittauer Strasse 15","", "Grossensee", "", "Brennt Gebauude ca 200 Quadratmeter"]
+    return render_template('display.html', alarm=alarm)
     
     
 if __name__ == '__main__':
-    show_alarm()
     app.run(host='0.0.0.0', port=88, debug=True)
