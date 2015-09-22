@@ -26,11 +26,10 @@ def show_alarm():
     db = connect_db()
     if db is not None:
         cur = db.cursor()
-        for result in cur.execute('SELECT * FROM alarmitems'):
-            print("Rows produced by statement '{}':".format(result.statement))
-            print(result.fetchall())
-        else:
-            print("Number of rows affected by statement '{}': {}".format(result.statement, result.rowcount))
+        cur.execute('SELECT * FROM alarmitems ORDER BY id DESC LIMIT 1')
+        
+        for row in cur:
+            print(row)
     
     
 if __name__ == '__main__':
