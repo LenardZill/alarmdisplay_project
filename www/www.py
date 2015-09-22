@@ -6,16 +6,15 @@ import MySQLdb
 
 from flask import Flask, render_template
 from datetime import datetime, timedelta
-from includes import globals
 
 app = Flask(__name__)
 
 def connect_db():
     try:
-        connection = MySQLdb.connect(host=globals.config.get('MySQL', 'dbserver'),
-                                            user=globals.config.get('MySQL', 'dbuser'),
-                                            passwd=globals.config.get('MySQL', 'dbpassword'),
-                                            db=globals.config.get('MySQL', 'database'))
+        connection = MySQLdb.connect(host='localhost',
+                                            user='root',
+                                            passwd='root',
+                                            db='alarmdisplay')
         return connection
     except:
         logging.error('cannot connect to MySQL')
