@@ -22,7 +22,7 @@ def loadplugins():
             else:
                 try:
                     logging.debug('call %s.onload()', i['name'])
-                    plugin.onLoad()
+                    plugin.onload()
                     globals.pluginList[i['name']] = plugin
                 except:
                     logging.error('error calling %s.onload()', i['name'])

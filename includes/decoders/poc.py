@@ -42,7 +42,7 @@ def decode(freq, decoded):
                 poc_text = ''
             if re.search('[0-9]{7}', poc_id) and re.search('[1-4]{1}', poc_sub):
                 if isallowed(poc_id):
-                    if doubleFilter.checkID('POC', poc_id+poc_sub, poc_text):
+                    if doubleFilter.checkid('POC', poc_id+poc_sub, poc_text):
                         logging.info('POCSAG%s: %s %s %s ', bitrate, poc_id, poc_sub, poc_text)
                         data = {'ric': poc_id, 'function': poc_sub, 'msg': poc_text,
                                 'bitrate': bitrate, 'description': poc_id}
@@ -51,12 +51,12 @@ def decode(freq, decoded):
                         try:
                             from includes import alarmHandler
 # !!!!!!!! Gegebenenfalls hier direkt Daten prüfen und umwandeln... Ersparrt das Ändern in jedem Plugin
-                            alarmHandler.processAlarm('POC', freq, data)
+                            alarmHandler.processalarm('POC', freq, data)
                         except:
                             logging.error('processing alarm failed')
                             logging.debug('processing alarm failed', exc_info=True)
                             pass
-                    doubleFilter.newEntry(poc_id+poc_sub, poc_text)
+                    doubleFilter.newentry(poc_id+poc_sub, poc_text)
                 else:
                     logging.debug('POCSAG%s: %s is not allowed', bitrate, poc_id)
             else:
