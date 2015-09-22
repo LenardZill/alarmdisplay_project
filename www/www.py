@@ -25,13 +25,15 @@ def connect_db():
 @app.route('/')
 def show_alarm():
     db = connect_db()
-    cur = db.cursor()
-    for result in cur.excecute('select * from alarmitems where ric=%s order by id desc limit 1',('',)):
-        print("Rows produced by statement '{}':".format(result.statement))
-        print(result.fetchall())
-    else:
-        print("Number of rows affected by statement '{}': {}".format(result.statement, result.rowcount))
+    if db is not None:
+        cur = db.cursor()
+        for result in cur.excecute('select * from alarmitems where ric=%s order by id desc limit 1',('',)):
+            print("Rows produced by statement '{}':".format(result.statement))
+            print(result.fetchall())
+        else:
+            print("Number of rows affected by statement '{}': {}".format(result.statement, result.rowcount))
     
     
 if __name__ == '__main__':
+    show_alarm()
     app.run(host='0.0.0.0', port=88, debug=True)
