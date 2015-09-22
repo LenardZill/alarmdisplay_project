@@ -12,5 +12,6 @@ encoding//plugins/display/display.py=cp1252
 encoding//plugins/mysql/mysql.py=cp1252
 encoding//plugins/push/push.py=cp1252
 encoding//plugins/sqlite/sqlite.py=cp1252
+encoding//www/www.py=cp1252
 encoding/alarmdisplay.py=cp1252
 encoding/test.py=cp1252
