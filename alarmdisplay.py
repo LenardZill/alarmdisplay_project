@@ -130,7 +130,7 @@ try:
         logging.debug('set loglevel of fileHandler to: %s', globals.config.getint("Alarmdisplay", "loglevel"))
         fh.setLevel(globals.config.getint("Alarmdisplay", "loglevel"))
         logging.debug("set backupCount of fileHandler to: %s", globals.config.getint("Alarmdisplay", "backupCount"))
-        fh.setBackupCount(globals.config.getint("Alarmdisplay", "backupCount"))
+        fh.setbackupcount(globals.config.getint("Alarmdisplay", "backupCount"))
     except:
         logging.error('cannot set loglevel of fileHandler')
         logging.debug('cannot set loglevel of fileHandler', exc_info=True)
