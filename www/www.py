@@ -35,7 +35,7 @@ def show_alarm():
     alarm = []
     if db is not None:
         cur = db.cursor()
-        cur.execute('SELECT * FROM alarmitems WHERE 1=2 ORDER BY id DESC LIMIT 1')
+        cur.execute('SELECT * FROM alarmitems ORDER BY id DESC LIMIT 1')
         
         for row in cur:
             alarm = row
