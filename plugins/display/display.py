@@ -1,37 +1,39 @@
 #!/usr/bin/python
 # -*- coding: cp1252 -*-
 
-from Tkinter import *
-from time import sleep    
 import logging
+import MySQLdb
 
-main = Tk()
-test = StringVar()
+from flask import Flask, render_template
+from includes import globals
 
+app = Flask(__name__)
 
 def onload():
-    try:
-        test.set('testvariable')
-        w, h = main.winfo_screenwidth(), main.winfo_screenheight()
-        main.overrideredirect(1)
-        main.geometry('%dx%d+0+0' % (w, h))
-        main.focus_set()
-        main.bind('<Escape>', lambda e: e.widget.quit())
-        Label(main,
-              textvariable=test,
-              font='Arial 10').pack()
-        main.mainloop()
-    except:
-        logging.error('unknown error')
-        logging.debug('unknown error', exc_info=True)
-        raise
+    app.run(host='0.0.0.0', port=88, debug=True)
 
-
-def run(typ, freq, data):
+def connect_db():
     try:
-        sleep(1)
-        test.set(data['msg'])
-        main.update_idletasks()
+        connection = MySQLdb.connect(host=globals.config.get('MySQL', 'dbserver'),
+                                         user=globals.config.get('MySQL', 'dbuser'),
+                                         passwd=globals.config.get('MySQL', 'dbpassword'),
+                                         db=globals.config.get('MySQL', 'database'))
+        return connection
     except:
-        logging.error('unknown error')
-        logging.debug('unknown error', exc_info=True)
+        logging.error('cannot connect to MySQL')
+        logging.debug('cannot connect to MySQL', exc_info=True)
+        return
+    
+@app.route('/')
+def show_alarm():
+    db = connect_db()
+    if db is not None:
+        cur = db.cursor()
+        cur.execute('SELECT * FROM alarmitems ORDER BY id DESC LIMIT 1')
+        
+        for row in cur:
+            alarm = row
+            print(row)
+    else:
+        alarm = ["1","2015-09-16 09:15","169447","1","a","09263R/chir. Notfall) 16:16/Schoenningstedt:Bismarck Seniorenstift(Schmanz)/Muehlenweg(8 -10)//Koplawu","12000","1694474","09263","B","Feuer Gross","Trittauer Strasse 15","", "Grossensee", "", "Brennt Gebauude ca 200 Quadratmeter"]
+    return render_template('display.html', alarm=alarm)
