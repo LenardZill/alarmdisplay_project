@@ -32,11 +32,10 @@ def run(typ, freq, data):
             logging.debug('cannot connect to sqlite', exc_info=True)
         else:
             try:
-                if alarmHelper.isvalid(data['msg']):
-                    logging.debug('Insert POC')
-                    cursor.execute('INSERT INTO ' + globals.config.get('sqlite', 'dbtable') +
-                                   ' VALUES(?,?,?)', (data['ric'], data['function'], data['msg']))
-                    connection.commit()
+                logging.debug('Insert POC')
+                cursor.execute('INSERT INTO ' + globals.config.get('sqlite', 'dbtable') +
+                                ' VALUES(?,?,?)', (data['ric'], data['function'], data['msg']))
+                connection.commit()
             except:
                 logging.error('cannot insert POC')
                 logging.debug('cannot insert POC', exc_info=True)

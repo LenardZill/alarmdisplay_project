@@ -43,18 +43,17 @@ def run(typ, freq, data):
             return
         else:
             try:
-                if alarmHelper.isvalid(data['msg']):
-                    alarm = alarmHelper.convertalarm(data['msg'])
-                    if isallowed(alarm['category']):
-                        logging.debug('Insert POC')
-                        cursor.execute('INSERT INTO '+globals.config.get('MySQL', 'table') +
-                                       ' (time,ric,funktion,funktionChar,msg,bitrate,description,'
-                                       'alarmnumber,category,keyword,street,street_addition,country,caller,message) '
-                                       'VALUES (NOW(),%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)',
-                                       (data['ric'], data['function'], data['functionChar'], data['msg'],
-                                        data['bitrate'], data['description'],
-                                        alarm['alarmnumber'], alarm['category'], alarm['keyword'], alarm['street'],
-                                        alarm['street_addition'], alarm['country'], alarm['caller'], alarm['message']))
+                alarm = alarmHelper.convertalarm(data['msg'])
+                if isallowed(alarm['category']):
+                    logging.debug('Insert POC')
+                    cursor.execute('INSERT INTO '+globals.config.get('MySQL', 'table') +
+                                    ' (time,ric,funktion,funktionChar,msg,bitrate,description,'
+                                    'alarmnumber,category,keyword,street,street_addition,country,caller,message) '
+                                    'VALUES (NOW(),%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)',
+                                    (data['ric'], data['function'], data['functionChar'], data['msg'],
+                                    data['bitrate'], data['description'],
+                                    alarm['alarmnumber'], alarm['category'], alarm['keyword'], alarm['street'],
+                                    alarm['street_addition'], alarm['country'], alarm['caller'], alarm['message']))
             except:
                 logging.error('cannot Insert POC')
                 logging.debug('cannot Insert POC')

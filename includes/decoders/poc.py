@@ -6,6 +6,7 @@ import re
 
 from includes import globals
 from includes import doubleFilter
+from includes.helper.alarmHelper import isvalid
 
 
 def isallowed(poc_id):
@@ -49,9 +50,9 @@ def decode(freq, decoded):
                         data['functionChar'] = data['function'].replace('1', 'a').replace('2', 'b')\
                             .replace('3', 'c').replace('4', 'd')
                         try:
-                            from includes import alarmHandler
-# !!!!!!!! Gegebenenfalls hier direkt Daten prüfen und umwandeln... Ersparrt das Ändern in jedem Plugin
-                            alarmHandler.processalarm('POC', freq, data)
+                            if(isvalid(data['msg'])):
+                                from includes import alarmHandler
+                                alarmHandler.processalarm('POC', freq, data)
                         except:
                             logging.error('processing alarm failed')
                             logging.debug('processing alarm failed', exc_info=True)
