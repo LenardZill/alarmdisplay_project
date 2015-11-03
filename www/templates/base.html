@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+    	<title>Alarmdisplay</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-8">
+        <meta http-equiv="refresh" content="20">
+        
+        <script type="text/javascript">
+			function uhr() 
+				{
+				var Jetzt = new Date();
+				var Tag = Jetzt.getDate();
+				var Monat = Jetzt.getMonth();
+				var Jahr = Jetzt.getFullYear();
+				var Stunden = Jetzt.getHours();
+				var Minuten = Jetzt.getMinutes();
+				var Sekunden = Jetzt.getSeconds();
+				
+				Tag = ((Tag < 10)? "0" + Tag : Tag);
+				Monat = ((Monat < 10)? "0" + Monat : Monat);
+				Stunden = ((Stunden < 10)? "0" + Stunden : Stunden);
+				Minuten = ((Minuten < 10)? "0" + Minuten : Minuten);
+				Sekunden = ((Sekunden < 10)? "0" + Sekunden : Sekunden);
+				
+				document.getElementById("uhr").innerHTML = Tag + "." + Monat + "." + Jahr + " " + Stunden + ":" + Minuten + ":" + Sekunden;
+				}
+			window.setInterval("uhr()", 1000)
+		</script>
+    </head>
+    <body>
+    	<div class="container-fluid">
+        	<div class="page-header">
+  				{% if alarm %}
+  					<h1><font color="red">Freiwillige Feuerwehr Grande <small id="uhr"></font></small></h1>
+  				{% else %}
+  					<h1>Freiwillige Feuerwehr Grande <small id="uhr"></small></h1>
+  				{% endif %}
+  			</div>
+  			{% block content %}{% endblock %}
+  		</div>
+  		<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script> 
+	</body>
+</html>
