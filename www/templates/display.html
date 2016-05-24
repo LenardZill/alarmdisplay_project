@@ -1,9 +1,61 @@
+<<<<<<< .mine
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+    	<title>Alarmdisplay</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-8"> 
+        {% if not alarm %}
+        	<meta http-equiv="refresh" content="10">
+        {% endif %}
+    </head>
+    <body>
+        <div class="container-fluid">
+            {% if alarm %}
+            <div class="row">
+            	<div class="col-md-12">
+            		<div class="jumbotron">
+            			<h1><span class="label label-danger">{{ alarm[10] }}</span></h1>
+           				<h1><span class="label label-danger">{{ alarm[15] }}</span></h1>
+           			</div>
+            	</div>
+                <!--
+				<div class="col-md-6">
+            		<div class="jumbotron">
+						<iframe width="800" height="600" frameborder="0" style="border:0"
+							src="https://www.google.com/maps/embed/v1/directions?origin=place_id:ChIJJ2fCCwT3sUcRdl4Bq7UqldE&destination=place_id:ChIJA2bvM2z2sUcRWp02FUFc_Aw&key=..." allowfullscreen></iframe> </div>
+            	</div>
+            	-->
+            	<div class="col-md-12">
+            	    <div class="jumbotron">
+            	    	<h1><span class="label label-danger">{{ alarm[11] }}</span></h1>
+           				<h1><span class="label label-danger">{{ alarm[12] }}</span></h1>
+           				<h1><span class="label label-danger">{{ alarm[13] }}</span></h1>
+            			<br>
+            			<h1><span class="label label-danger">{{ alarm[1] }}</span></h1>
+           				<h1><span class="label label-danger">{{ alarm[14] }}</span></h1>
+           			</div>
+            	</div>
+            </div>
+            {% else %}
+            <div class="row">
+            	<div class="col-md-12">
+            		<div class="jumbotron">
+            			<h1><span class="label label-success">Freiwillige Feuerwehr Grande</span></h1>
+           				<h1><span class="label label-success">Aktuell kein Einsatz</span></h1>
+           			</div>
+            	</div>
+            </div>
+            {% endif %}
+=======
 {% extends "base.html" %}
 {% block content %}
 	<div class="col-md-12">
 		<div class="jumbotron">
 			<h1><b><font color="red">{{ alarm[4] }}</font></b></h1>
            	<h1><b><font color="red">{{ alarm[9] }}</font></b></h1>
+>>>>>>> .r181
 		</div>
 	</div>
 	<div class="col-md-6">

@@ -10,8 +10,16 @@ def isvalid(alarmline):
     else:
         return True
 
+def converalarm(alarmLine):
+    try:
+        alarm = {'message': alarmLine}
+    except:
+        logging.error('unknown error')
+        logging.debug("unknown error", exc_info=True)
+        return None
 
-def convertalarm(alarmline):
+
+def convertalarm_old(alarmline):
     try:
         try:
             split = alarmline.split('/')

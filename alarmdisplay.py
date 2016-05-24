@@ -3,9 +3,8 @@
 
 import logging
 import logging.handlers
-
 import argparse
-import ConfigParser 
+import ConfigParser
 import os
 import time
 import subprocess
@@ -13,7 +12,6 @@ import subprocess
 from includes import globals
 from includes import MyTimedRotatingFileHandler
 from includes import checkSubprocesses
-
 
 try:
     parser = argparse.ArgumentParser(prog='alarmdisplay.py',
@@ -183,8 +181,8 @@ try:
         logging.debug('start decoding')
         while True:
             decoded = multimon_ng.stdout.readline()
-            from includes import decoder
-            decoder.decode(args.freq, decoded.decode('utf-8'))
+            from includes import poc
+            poc.decode(args.freq, decoded.decode('utf-8'))
     else:
         logging.debug('start testing')
         testFile = open(globals.script_path+"/testdata/testdata.txt", "r")
