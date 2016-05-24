@@ -47,7 +47,6 @@ def run(typ, freq, data):
             return
         else:
             try:
-<<<<<<< .mine
                 if alarmHelper.isvalid(data['msg']):
                     alarm = alarmHelper.convertalarm(data['msg'])
                     if isallowed(alarm['category']):
