@@ -181,7 +181,7 @@ try:
         logging.debug('start decoding')
         while True:
             decoded = multimon_ng.stdout.readline()
-            # logging.debug(decoded)
+            logging.debug(decoded)
             from includes import poc
             poc.decode(args.freq, decoded.decode('utf-8'))
     else:
