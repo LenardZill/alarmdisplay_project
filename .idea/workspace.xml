@@ -31,10 +31,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="alarmdisplay.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="alarmdisplay.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/alarmdisplay.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.15172414">
+            <state vertical-scroll-proportion="0.0">
               <caret line="183" column="12" selection-start-line="183" selection-start-column="12" selection-end-line="183" selection-end-column="12" />
               <folding>
                 <element signature="e#44#58#0" expanded="true" />
@@ -43,11 +43,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="push.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="push.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/plugins/push/push.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="51" column="52" selection-start-line="51" selection-start-column="52" selection-end-line="51" selection-end-column="52" />
+            <state vertical-scroll-proportion="0.39310345">
+              <caret line="52" column="54" selection-start-line="52" selection-start-column="54" selection-end-line="52" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -71,10 +71,10 @@
         <option value="$PROJECT_DIR$/www/templates/display.html" />
         <option value="$PROJECT_DIR$/includes/decoder.py" />
         <option value="$PROJECT_DIR$/includes/decoders/poc.py" />
-        <option value="$PROJECT_DIR$/plugins/push/push.py" />
         <option value="$PROJECT_DIR$/includes/helper/alarmHelper.py" />
         <option value="$PROJECT_DIR$/includes/poc.py" />
         <option value="$PROJECT_DIR$/alarmdisplay.py" />
+        <option value="$PROJECT_DIR$/plugins/push/push.py" />
       </list>
     </option>
   </component>
@@ -605,14 +605,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/plugins/push/push.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="51" column="52" selection-start-line="51" selection-start-column="52" selection-end-line="51" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/includes/poc.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -623,11 +615,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/alarmdisplay.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15172414">
+        <state vertical-scroll-proportion="0.0">
           <caret line="183" column="12" selection-start-line="183" selection-start-column="12" selection-end-line="183" selection-end-column="12" />
           <folding>
             <element signature="e#44#58#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugins/push/push.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.39310345">
+          <caret line="52" column="54" selection-start-line="52" selection-start-column="54" selection-end-line="52" selection-end-column="54" />
+          <folding />
         </state>
       </provider>
     </entry>
