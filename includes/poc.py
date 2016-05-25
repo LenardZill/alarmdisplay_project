@@ -37,7 +37,9 @@ def decode(freq, decoded):
                 poc_text = decoded.split('Alpha:   ')[1].strip()
                 if '<NUL>' in poc_text:
                     poc_text = poc_text.split('<NUL>')[0].strip()
-                if '<FF>' in poc_text[0:4]:
+                if '<' == poc_text[1]:
+                    poc_text = ''
+                if '<FF>' in poc_text:
                     poc_text = ''
             else:
                 poc_text = ''
