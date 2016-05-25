@@ -10,9 +10,11 @@ def isvalid(alarmline):
     else:
         return True
 
-def converalarm(alarmLine):
+
+def convertalarm(alarmLine):
     try:
         alarm = {'message': alarmLine}
+        return alarm
     except:
         logging.error('unknown error')
         logging.debug("unknown error", exc_info=True)
