@@ -8,7 +8,7 @@ import time
 from email.utils import formatdate
 from email.utils import make_msgid
 from email.mime.text import MIMEText
-from includes.helper import alarmHelper
+from includes.helper import alarmHelper, ric_list
 
 from includes import globals
 
@@ -50,18 +50,14 @@ def run(typ, freq, data):
             try:
                 if alarmHelper.isvalid(data['msg']):
                     alarm = alarmHelper.convertalarm(data['msg'])
+                    fire_station = ric_list.decode_ric(data['ric'])
+
                     # if isallowed(alarm['category']):
                     logging.debug('Start POC to push')
-                    subject = 'Alarm: ' + data['ric'] + data['functionChar']
+                    subject = 'Alarm: ' + data['ric'] + data['functionChar'] + ' (' + fire_station + ')'
                     mailtext = ''
                     mailtext += 'Datum: ' + time.strftime('%d.%m.%Y') + ' ' + time.strftime('%H:%M:%S') + '\n'
-                    #mailtext += 'Einsatz-Nr: ' + alarm['alarmnumber'] + '\n'
-                    #mailtext += 'Kategorie: ' + alarm['category'] + '\n'
-                    #mailtext += 'Stichwort: ' + alarm['keyword'] + '\n'
                     mailtext += 'Nachricht: ' + alarm['message'] + '\n'
-                    #mailtext += 'Strasse: ' + alarm['street'] + ' ' + alarm['street_addition'] + '\n'
-                    #mailtext += 'Ort: ' + alarm['country'] + '\n'
-                    #mailtext += 'Anrufer : ' + alarm['caller'] + '\n'
                     try:
                         msg = MIMEText(mailtext, 'plain', 'utf-8')
                         msg['From'] = globals.config.get('push', 'from')
