@@ -6,8 +6,10 @@ script_path = ''
 log_path = ''
 
 doubleList = []
-
 pluginList = {}
+filterList = []
+
+ricDescribtionList = {}
 
 
 def getvers(mode='vers'):

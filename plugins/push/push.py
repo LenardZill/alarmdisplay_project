@@ -8,7 +8,7 @@ import time
 from email.utils import formatdate
 from email.utils import make_msgid
 from email.mime.text import MIMEText
-from includes.helper import alarmHelper, ric_list
+from includes.helper import alarmHelper
 
 from includes import globals
 
@@ -20,17 +20,6 @@ def onload():
         logging.error('unknown error')
         logging.debug('unknown error', exc_info=True)
         raise
-
-
-def isallowed(category):
-    if globals.config.get('POC', 'blacklist_categories'):
-        if category not in globals.config.get('POC', 'blacklist_categories'):
-            logging.info('Category %s is allowed', category)
-            return True
-        else:
-            logging.info('Category %s is not allowed', category)
-            return False
-    return True
 
 
 def run(typ, freq, data):
@@ -49,15 +38,11 @@ def run(typ, freq, data):
         else:
             try:
                 if alarmHelper.isvalid(data['msg']):
-                    alarm = alarmHelper.convertalarm(data['msg'])
-                    fire_station = ric_list.decode_ric(data['ric'])
-
-                    # if isallowed(alarm['category']):
                     logging.debug('Start POC to push')
-                    subject = 'Alarm: ' + data['ric'] + data['functionChar'] + ' (' + fire_station + ')'
+                    subject = ('Alarm: ' + data['ric'] + data['functionChar'] + ' ' + data["description"]).strip()
                     mailtext = ''
                     mailtext += 'Datum: ' + time.strftime('%d.%m.%Y') + ' ' + time.strftime('%H:%M:%S') + '\n'
-                    mailtext += 'Nachricht: ' + alarm['message'] + '\n'
+                    mailtext += 'Nachricht: ' + data['msg'] + '\n'
                     try:
                         msg = MIMEText(mailtext, 'plain', 'utf-8')
                         msg['From'] = globals.config.get('push', 'from')

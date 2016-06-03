@@ -1,49 +1,9 @@
-# Testdata for the BOSWatch Test Mode function
-# Data in Multimon-NG Raw Format
-# Data is alternately passed to the decoder to simulate an used Radio-Frequency
+POCSAG1200: Address: 1694330  Function: 0  Alpha:   01588 SR Fußverletzung (658) (NOTF 01) Bargfeld-Stegen,Bargfeld-Stegen,Nienwohlder Straße 5 E  Fahle (59) Info:Knöchel - Unterschenkel nach Sturz
+POCSAG1200: Address: 1694474  Function: 0  Alpha:   01599 SR Kreislauferkrankung, allgemein (100) (NOTF 01) Börnsen,Börnsen,Feldkamp 15/EFH  Peuker (56) Info:Fieber 40,5,Kopfschmerzen
+POCSAG1200: Address: 1712009  Function: 0  Alpha:   B<ENQ><SOH>ßUufIßijj<RS>(<BEL>uÖ<SO>ÄZa><RS>q-hXqfTH-=_+H<N<CR>a!*<ENQ>b8<NUL>0hyRV#@,?R:R<SYN>Kk<EOT>!<ETX><ACK><ESC>h?<ACK>2G./2<SOH>UoK"^ÖI<DEL>L5Zwz@4<SUB>_qIQAXr<ESC>D<ACK>iZ,L#z5L_<EM>,ST<HT>N"P<EOT>/#AfKK<ESC>21=<STX><DLE>2TWc<RS>I<RS>0f
+POCSAG1200: 1694506 1 01581 SR Akutes Koronarsyndrom (112) (NOTF 11) Wentorf bei Hamburg,Wentorf bei Hamburg,Fritz-Specht-Weg 1  Alabboud (27
+POCSAG1200: Address: 1694474  Function: 1  Alpha:   01140 Dialysetransport Zurück(852) (KBF) Reinbek,Reinbek,Am Ladenzentrum 8:Dialyse Reinbek  Kock (0) Info:keine Keime mehr,Termin 13:00 >Glinde,Seniorenzentrum An der alten Wache GmbH<NUL><NUL>
+POCSAG1200: Address: 1694474  Function: 1  Alpha:   01140 Dialysetransport Zurück(852) (KBF VERL) Reinbek,Reinbek,Am Ladenzentrum 8:Dialyse Reinbek  Kock (0) Info:keine Keime mehr,Termin 13:00 >Glinde,Seniorenzentrum An der alten Wache GmbH<NUL><NUL>
+POCSAG1200: Address: 1694410  Function: 0  Alpha:   01572 SR (NOTF 01) Hoisdorf,Hoisdorf,Oetjendorfer Landstraße   Re OD 60-83-01 (0) Info:Sportplatz, Fußverletzung<NUL><NUL>
+POCSAG1200: Address: 1234567  Function: 1  Alpha:   01140 TEST (TEST) Zuhause, Info:Muss da mal was testen..<NUL>
 
-
-# bitrate
-POCSAG1200: Address: 1001200  Function: 1  Alpha:   BOSWatch-Test: okay
-
-# function-code
-POCSAG1200: Address: 1000000  Function: 0  Alpha:   BOSWatch-Test: okay
-POCSAG1200: Address: 1000001  Function: 1  Alpha:   BOSWatch-Test: okay
-POCSAG1200: Address: 1000002  Function: 2  Alpha:   BOSWatch-Test: okay
-POCSAG1200: Address: 1000003  Function: 3  Alpha:   BOSWatch-Test: okay
-
-# german special sign
-POCSAG1200: Address: 1200001  Function: 1  Alpha:   BOSWatch-Test ÖÄÜß: okay
-POCSAG1200: Address: 1200001  Function: 1  Alpha:   BOSWatch-Test öäü: okay
-
-# OHNE TEXT????
-POCSAG1200: Address: 1100000  Function: 0
-POCSAG1200: Address: 1100000  Function: 1
-POCSAG1200: Address: 1100000  Function: 2
-POCSAG1200: Address: 1100000  Function: 3
-
-# duplicate with same and other msg
-POCSAG1200: Address: 2000001  Function: 2  Alpha:   BOSWatch-Test: second is a duplicate
-POCSAG1200: Address: 2000001  Function: 2  Alpha:   BOSWatch-Test: second is a duplicate
-POCSAG1200: Address: 2000001  Function: 2  Alpha:   BOSWatch-Testing: okay
-
-# duplicate in different order
-POCSAG1200: Address: 2100000  Function: 2
-POCSAG1200: Address: 2100001  Function: 2
-POCSAG1200: Address: 2100002  Function: 2
-POCSAG1200: Address: 2100000  Function: 2
-POCSAG1200: Address: 2100001  Function: 2
-POCSAG1200: Address: 2100002  Function: 2
-POCSAG1200: Address: 2100000  Function: 2  Alpha:   BOSWatch-Test: second is a duplicate
-POCSAG1200: Address: 2100001  Function: 2  Alpha:   BOSWatch-Test: second is a duplicate
-POCSAG1200: Address: 2100002  Function: 2  Alpha:   BOSWatch-Test: second is a duplicate
-POCSAG1200: Address: 2100000  Function: 2  Alpha:   BOSWatch-Test: second is a duplicate
-POCSAG1200: Address: 2100001  Function: 2  Alpha:   BOSWatch-Test: second is a duplicate
-POCSAG1200: Address: 2100002  Function: 2  Alpha:   BOSWatch-Test: second is a duplicate
-
-# denied
-POCSAG1200: Address: 7777777  Function: 1  Alpha:   BOSWatch-Test: denied
-
-# out of filter Range
-POCSAG1200: Address: 0000004  Function: 1  Alpha:   BOSWatch-Test: out of filter start
-POCSAG1200: Address: 9000000  Function: 1  Alpha:   BOSWatch-Test: out of filter end

@@ -1,0 +1,17 @@
+ric,description
+#
+# BOSWatch CSV file for describing POCSAG-Addresses
+#
+# For each RIC-Address you could set a description-text
+# Use the structure: ric,"Description-Text"
+#
+# !!! DO NOT delete the first line !!!
+#
+1234567,"POCSAG testdata"
+1684978, 'FF Trittau'
+1685474, 'FF Grande'
+1685402, 'FF Witzhave'
+1685330, 'FF Rausdorf'
+1685185, 'FF Luetjensee'
+1685258, 'FF Grossensee'
+1685618, 'FF Koethel'

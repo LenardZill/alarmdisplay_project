@@ -143,6 +143,25 @@ try:
         exit(1) 
 
     try:
+        if globals.config.getboolean("Alarmdisplay", "useRegExFilter"):
+            from includes import filter
+            filter.loadFilters()
+    except:
+		logging.error("cannot load filters")
+		logging.debug("cannot load filters", exc_info=True)
+		pass
+
+    try:
+        if globals.config.getboolean('POC', 'idDescribed'):
+            from includes import description_list
+            description_list.load_description_list()
+    except:
+        logging.error("cannot load description lists")
+        logging.debug("cannot load description lists", exc_info=True)
+        pass
+
+
+    try:
         if not args.test:
             logging.debug('starting rtl_fm')
             command = 'rtl_fm -d 0 -f ' + args.freq + ' -M fm -s 22050 -p 0 -E DC -F 0 -l 0 -g 100'
@@ -181,9 +200,8 @@ try:
         logging.debug('start decoding')
         while True:
             decoded = multimon_ng.stdout.readline()
-            logging.debug(decoded)
-            from includes import poc
-            poc.decode(args.freq, decoded.decode('utf-8'))
+            from includes import decoder
+            decoder.decode(args.freq, decoded.decode('utf-8'))
     else:
         logging.debug('start testing')
         testFile = open(globals.script_path+"/testdata/testdata.txt", "r")

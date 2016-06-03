@@ -1,0 +1,72 @@
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ] Alarmdisplay has started
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ] Logfiles cleared
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ] SW Version:    1.0
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ] Build Date:    2015/09/16
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ] Alarmdisplay givven arguments
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ]  - Test-Mode!
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ]  - Frequency: 123
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ]  - Demod: POC1200
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ]  - Verbose Mode: False
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ]  - Quiet Mode: False
+03.06.2016 22:10:30 - alarmdisplay    [WARNING ] !!! We are in Test-Mode !!!
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ] reading config file
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ]  - Alarmdisplay:
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ]  -- loglevel = 10
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ]  -- backupcount = 7
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ]  -- useregexfilter = 1
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ]  -- doublefilter_ignore_entries = 10
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ]  -- doublefilter_ignore_time = 5
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ]  -- doublefilter_check_msg = 1
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ]  - POC:
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ]  -- allow_ric = 
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ]  -- deny_ric = 
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ]  -- filter_range_start = 0000000
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ]  -- filter_range_end = 9999999
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ]  -- iddescribed = 1
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ] set loglevel of fileHandler to: 10
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ] set backupCount of fileHandler to: 7
+03.06.2016 22:10:30 - pluginLoader    [DEBUG   ] loading plugins
+03.06.2016 22:10:30 - pluginLoader    [DEBUG   ] Search in plugin folder
+03.06.2016 22:10:30 - pluginLoader    [DEBUG   ] Plugin [DISABLED] mysql 
+03.06.2016 22:10:30 - pluginLoader    [DEBUG   ] Plugin [ENABLED ] push
+03.06.2016 22:10:30 - pluginLoader    [DEBUG   ] Plugin [DISABLED] sqlite 
+03.06.2016 22:10:30 - pluginLoader    [DEBUG   ] load plugin: push
+03.06.2016 22:10:30 - pluginLoader    [DEBUG   ] call push.onload()
+03.06.2016 22:10:30 - filter          [DEBUG   ] loading filters
+03.06.2016 22:10:30 - filter          [DEBUG   ]  - nokbf = POC;msg;*;*;^((?!\(KBF.*\)).)*$
+03.06.2016 22:10:30 - description_list [DEBUG   ] loading description list
+03.06.2016 22:10:30 - description_list [DEBUG   ] - load pocsag description list
+03.06.2016 22:10:30 - description_list [DEBUG   ] -- loading poc.csv
+03.06.2016 22:10:30 - description_list [DEBUG   ] {'ric': '#', 'description': None}
+03.06.2016 22:10:30 - description_list [DEBUG   ] {'ric': '# BOSWatch CSV file for describing POCSAG-Addresses', 'description': None}
+03.06.2016 22:10:30 - description_list [DEBUG   ] {'ric': '#', 'description': None}
+03.06.2016 22:10:30 - description_list [DEBUG   ] {'ric': '# For each RIC-Address you could set a description-text', 'description': None}
+03.06.2016 22:10:30 - description_list [DEBUG   ] {'ric': '# Use the structure: ric', 'description': 'Description-Text'}
+03.06.2016 22:10:30 - description_list [DEBUG   ] {'ric': '#', 'description': None}
+03.06.2016 22:10:30 - description_list [DEBUG   ] {'ric': '# !!! DO NOT delete the first line !!!', 'description': None}
+03.06.2016 22:10:30 - description_list [DEBUG   ] {'ric': '#', 'description': None}
+03.06.2016 22:10:30 - description_list [DEBUG   ] {'ric': '1234567', 'description': 'POCSAG testdata'}
+03.06.2016 22:10:30 - description_list [DEBUG   ] -- loading csv finished
+03.06.2016 22:10:30 - alarmdisplay    [WARNING ] ! Test-Mode: rtl_fm not started !
+03.06.2016 22:10:30 - alarmdisplay    [WARNING ] ! Test-Mode: multimon-ng not started !
+03.06.2016 22:10:30 - alarmdisplay    [DEBUG   ] start testing
+03.06.2016 22:10:30 - alarmdisplay    [INFO    ] Testdata: POCSAG1200: Address: 1234567  Function: 1  Alpha:   01140 TEST (TEST) Zuhause, Info:Muss da mal was testen..<NUL>
+03.06.2016 22:10:30 - decoder         [DEBUG   ] POCSAG Bitrate: 1200
+03.06.2016 22:10:30 - decoder         [INFO    ] POCSAG1200: 1234567 2 01140 TEST (TEST) Zuhause, Info:Muss da mal was testen.. 
+03.06.2016 22:10:30 - description_list [DEBUG   ] look up description lists
+03.06.2016 22:10:30 - description_list [DEBUG   ]  - result for 1234567: POCSAG testdata
+03.06.2016 22:10:30 - alarmHandler    [DEBUG   ] [    ALARM    ]
+03.06.2016 22:10:30 - filter          [DEBUG   ] search Filter for POC to push at 123 Hz
+03.06.2016 22:10:30 - filter          [DEBUG   ] found Filter: nokbf = ^((?!\(KBF.*\)).)*$
+03.06.2016 22:10:30 - filter          [DEBUG   ] Filter passed: nokbf
+03.06.2016 22:10:30 - alarmHandler    [DEBUG   ] call Plugin: push
+03.06.2016 22:10:31 - push            [DEBUG   ] Start POC to push
+03.06.2016 22:10:32 - push            [DEBUG   ] close push-connection
+03.06.2016 22:10:32 - alarmHandler    [DEBUG   ] return from: push
+03.06.2016 22:10:32 - alarmHandler    [DEBUG   ] [END ALARM]
+03.06.2016 22:10:32 - doubleFilter    [DEBUG   ] Added 12345672 to doubleList
+03.06.2016 22:10:33 - alarmdisplay    [DEBUG   ] test finished
+03.06.2016 22:10:33 - alarmdisplay    [DEBUG   ] Alarmdisplay shutting down
+03.06.2016 22:10:33 - alarmdisplay    [DEBUG   ] exiting Alarmdisplay
+03.06.2016 22:10:33 - alarmdisplay    [DEBUG   ] closing logging
+03.06.2016 22:10:33 - alarmdisplay    [INFO    ] Alarmdisplay exit()

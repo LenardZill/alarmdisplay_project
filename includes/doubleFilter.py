@@ -7,7 +7,7 @@ import time
 from includes import globals
 
 
-def checkid(typ, id, msg=''):
+def check_id(typ, id, msg=''):
     timestamp = int(time.time())
     for i in range(len(globals.doubleList)):
         (xid, xtimestamp, xmsg) = globals.doubleList[i]
@@ -22,7 +22,7 @@ def checkid(typ, id, msg=''):
     return True
 
 
-def newentry(id, msg=''):
+def new_entry(id, msg=''):
     timestamp = int(time.time())
     globals.doubleList.append((id, timestamp, msg))
     logging.debug('Added %s to doubleList', id)
