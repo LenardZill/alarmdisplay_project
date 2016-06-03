@@ -200,6 +200,7 @@ try:
         logging.debug('start decoding')
         while True:
             decoded = multimon_ng.stdout.readline()
+            logging.debug(decoded)
             from includes import decoder
             decoder.decode(args.freq, decoded.decode('utf-8'))
     else:
