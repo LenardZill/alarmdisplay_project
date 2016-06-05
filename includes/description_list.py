@@ -47,7 +47,6 @@ def get_description(typ, id):
 			resultStr = globals.ricDescribtionList[id]
 		else:
 			logging.warning("Invalid Typ: %s", typ)
-
 	except KeyError:
 		pass
 

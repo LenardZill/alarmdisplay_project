@@ -39,7 +39,7 @@ def run(typ, freq, data):
             try:
                 if alarmHelper.isvalid(data['msg']):
                     logging.debug('Start POC to push')
-                    subject = ('Alarm: ' + data['ric'] + data['functionChar'] + ' ' + data["description"]).strip()
+                    subject = 'Alarm: ' + data['description']
                     mailtext = ''
                     mailtext += 'Datum: ' + time.strftime('%d.%m.%Y') + ' ' + time.strftime('%H:%M:%S') + '\n'
                     mailtext += 'Nachricht: ' + data['msg'] + '\n'
