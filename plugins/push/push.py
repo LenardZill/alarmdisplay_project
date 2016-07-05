@@ -42,6 +42,7 @@ def run(typ, freq, data):
                     subject = 'Alarm: ' + data['description']
                     mailtext = ''
                     mailtext += 'Datum: ' + time.strftime('%d.%m.%Y') + ' ' + time.strftime('%H:%M:%S') + '\n'
+                    mailtext += 'Einsatzstichwort: ' + data['keyword'] + '\n'
                     mailtext += 'Nachricht: ' + data['msg'] + '\n'
                     try:
                         msg = MIMEText(mailtext, 'plain', 'utf-8')

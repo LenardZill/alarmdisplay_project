@@ -65,7 +65,16 @@ def decode(freq, decoded):
                             if globals.config.getint("POC", "idDescribed"):
                                 from includes import description_list
                                 data["description"] = description_list.get_description("POC", poc_id)
-
+                            
+                            if globals.config.getint('POC', 'keywordDescribed'):
+                                from includes import keyword_list
+                                s = data['msg']
+                                keywords = re.findall('\((.*?)\)',s)
+                                for key in keywords:
+                                    if re.findall('^[A-Z].*', key):
+                                        data['keyword'] = keyword_list.get_description(key)
+                                        break
+                            
                             try:
                                 from includes import alarmHandler
                                 alarmHandler.processalarm("POC", freq, data)

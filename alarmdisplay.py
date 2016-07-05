@@ -9,7 +9,7 @@ import os
 import time
 import subprocess
 
-from includes import globals
+from includes import globals, keyword_list
 from includes import MyTimedRotatingFileHandler
 from includes import checkSubprocesses
 
@@ -18,6 +18,7 @@ try:
                                      description='no description',
                                      epilog='More options yous can find in the extern config.ini file')
     parser.add_argument("-f", "--freq", help="Frequency you want to listen", required=True)
+    parser.add_argument("-u", "--usevarlog", help="Use '/var/log/boswatch' for logfiles instead of subdir 'log' in BOSWatch directory", action="store_true")
     parser.add_argument("-v", "--verbose", help="Shows more information", action="store_true")
     parser.add_argument("-q", "--quiet", help="Shows no information. Only logfiles", action="store_true")
     parser.add_argument("-t", "--test", help=argparse.SUPPRESS, action="store_true")
@@ -35,7 +36,11 @@ try:
 
     try:
         globals.script_path = os.path.dirname(os.path.abspath(__file__))
-        globals.log_path = globals.script_path + '/log/'
+        
+        if args.usevarlog:
+            globals.log_path = "/var/log/Alarmdisplay/"
+        else:
+            globals.log_path = globals.script_path + "/log/"
         
         if not os.path.exists(globals.log_path):
             os.mkdir(globals.log_path)
@@ -97,6 +102,7 @@ try:
         
         logging.debug(' - Demod: POC1200')
         
+        logging.debug(" - Use /var/log: %s", args.usevarlog)
         logging.debug(' - Verbose Mode: %s', args.verbose)
         logging.debug(' - Quiet Mode: %s', args.quiet)
         
@@ -147,9 +153,9 @@ try:
             from includes import filter
             filter.loadFilters()
     except:
-		logging.error("cannot load filters")
-		logging.debug("cannot load filters", exc_info=True)
-		pass
+        logging.error("cannot load filters")
+        logging.debug("cannot load filters", exc_info=True)
+        pass
 
     try:
         if globals.config.getboolean('POC', 'idDescribed'):
@@ -158,6 +164,15 @@ try:
     except:
         logging.error("cannot load description lists")
         logging.debug("cannot load description lists", exc_info=True)
+        pass
+    
+    try:
+        if globals.config.getboolean('POC', 'keywordDescribed'):
+            from includes import keyword_list
+            keyword_list.load_description_list()
+    except:
+        logging.error("cannot load keyword description lists")
+        logging.debug("cannot load keyword description lists", exc_info=True)
         pass
 
 

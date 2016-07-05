@@ -10,10 +10,11 @@ pluginList = {}
 filterList = []
 
 ricDescribtionList = {}
+keywordDescribtionList = {}
 
 
 def getvers(mode='vers'):
     if mode == 'vers':
-        return '1.0'
+        return '1.5'
     elif mode == 'date':
-        return '2015/09/16'
+        return '2016/07/05'

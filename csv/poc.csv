@@ -1,6 +1,6 @@
 ric,description
 #
-# BOSWatch CSV file for describing POCSAG-Addresses
+# CSV file for describing POCSAG-Addresses
 #
 # For each RIC-Address you could set a description-text
 # Use the structure: ric,"Description-Text"
