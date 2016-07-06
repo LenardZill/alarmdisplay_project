@@ -1,72 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 	<div class="col-md-12">
-    	<div class="jumbotron">
-    		<h1><b>Aktuell kein Einsatz</b></h1>
+    	<div class="jumbotron" align="center">
+    		<h1>Es liegen derzeit keine Einsatzdaten vor.</h1>
+			<h1 id="uhr"></h1>
 		</div>
 	</div>
-    <div class="col-md-6">
-		<div class="jumbotron">
-        	{% if alarm_list %}
-            	<h2><b>Aktuelle Einsätze im Amt</b></h2>
-            	<div class="table-responsive">
-            		<table class="table">
-    					<thead>
-    						<tr>
-    							<th>POC ID</th>
-    							<th>Uhrzeit</th>
-    							<th>Kategorie</th>
-    							<th>Meldung</th>
-    							<th>Ort</th>
-    						</tr>
-    					</thead>
-    					<tbody>
-            				{% for alarm in alarm_list %}
-            					<tr>
-            						<td><p>{{ alarm[1] }}</p></td>
-            						<td><p>{{ alarm[0] }}</p></td>
-            						<td><p>{{ alarm[4] }}</p></td>
-            						<td><p>{{ alarm[9] }}</p></td>
-            						<td><p>{{ alarm[7] }}</p></td>
-            					</tr>
-            				{% endfor %}
-            			</tbody>
-            		</table>
-            	</div>
-            {% else %}
-            	<p align="center"><b>Aktuell noch keine Einsätze erfasst.</b></p>
-            {% endif %}
-		</div>
-	</div>
-    <div class="col-md-6">
-		<div class="jumbotron">
-        	{% if recend_alarm_list %}
-            	<h2><b>Vergangene Einsätze</b></h2>
-            	<div class="table-responsive">
-            		<table class="table">
-    					<thead>
-    						<tr>
-    							<th>Uhrzeit</th>
-    							<th>Kategorie</th>
-    							<th>Meldung</th>
-    							<th>Ort</th>
-    						</tr>
-    					</thead>
-    					<tbody>
-            				{% for alarm in recend_alarm_list %}
-            					<tr>
-            						<td><p>{{ alarm[0] }}</p></td>
-            						<td><p>{{ alarm[4] }}</p></td>
-            						<td><p>{{ alarm[9] }}</p></td>
-            						<td><p>{{ alarm[7] }}</p></td>
-            					</tr>
-            				{% endfor %}
-            			</tbody>
-            		</table>
-            	</div>
-            {% else %}
-            	<p align="center"><b>Aktuell noch keine Einsätze erfasst.</b></p>
-            {% endif %}
-		</div>
-	</div>
-{% endblock %}                 
+{% endblock %}

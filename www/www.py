@@ -72,8 +72,8 @@ def get_alarm_list():
     return alarm_list
 
 
-@app.route('/')
-def index():
+@app.route('/alt/')
+def index_alt():
     alarm = get_alarm()
     recend_alarm_list = get_recend_alarm_list()
     alarm_list = get_alarm_list()
@@ -84,18 +84,24 @@ def index():
         return render_template('idle.html', alarm_list=alarm_list, recend_alarm_list=recend_alarm_list)
 
 
-@app.route('/display')  
-def display():
+@app.route('/alt/display')  
+def display_alt():
     alarm = get_alarm()
     return render_template('display.html', alarm=alarm)
 
 
-@app.route('/idle')
-def idle():
+@app.route('/alt/idle')
+def idle_alt():
     recend_alarm_list = get_recend_alarm_list()
     alarm_list = get_alarm_list()
     return render_template('idle.html', alarm_list=alarm_list, recend_alarm_list=recend_alarm_list)
 
+
+@app.route('/')
+def display():
+    alarm = get_alarm()
+    
+    return render_template('idle.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=88, debug=True)

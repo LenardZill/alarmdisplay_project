@@ -3,14 +3,28 @@
 	<head>
     	<title>Alarmdisplay</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-8">
         <meta http-equiv="refresh" content="20">
-        
-        <script type="text/javascript">
+    </head>
+    <body>
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+			<div class="navbar-header"> 
+			<a class="navbar-brand" href="#">Freiwillige Feuerwehr Grande <span class="glyphicon glyphicon-fire" aria-hidden="true"></span> Alarmdisplay</a>
+			</div>
+		</nav>
+		<div class="container-fluid">
+			{% block content %}{% endblock content %}
+		</div>
+  		<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+		<script type="text/javascript">
 			function uhr() 
 				{
 				var Jetzt = new Date();
+				var Dow = Jetzt.getDay()
 				var Tag = Jetzt.getDate();
 				var Monat = Jetzt.getMonth();
 				var Jahr = Jetzt.getFullYear();
@@ -24,23 +38,18 @@
 				Minuten = ((Minuten < 10)? "0" + Minuten : Minuten);
 				Sekunden = ((Sekunden < 10)? "0" + Sekunden : Sekunden);
 				
-				document.getElementById("uhr").innerHTML = Tag + "." + Monat + "." + Jahr + " " + Stunden + ":" + Minuten + ":" + Sekunden;
+				var weekday = new Array(7);
+				weekday[0]=  "Sonntag";
+				weekday[1] = "Montag";
+				weekday[2] = "Dienstag";
+				weekday[3] = "Mittwoch";
+				weekday[4] = "Donnerstag";
+				weekday[5] = "Freitag";
+				weekday[6] = "Samstag";
+				
+				document.getElementById("uhr").innerHTML = weekday[Dow] + " " + Tag + "." + Monat + "." + Jahr + " " + Stunden + ":" + Minuten + ":" + Sekunden;
 				}
 			window.setInterval("uhr()", 1000)
 		</script>
-    </head>
-    <body>
-    	<div class="container-fluid">
-        	<div class="page-header">
-  				{% if alarm %}
-  					<h1><font color="red">Freiwillige Feuerwehr Grande <small id="uhr"></font></small></h1>
-  				{% else %}
-  					<h1>Freiwillige Feuerwehr Grande <small id="uhr"></small></h1>
-  				{% endif %}
-  			</div>
-  			{% block content %}{% endblock %}
-  		</div>
-  		<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script> 
 	</body>
 </html>
