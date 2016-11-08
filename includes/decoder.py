@@ -3,6 +3,7 @@
 
 import logging
 import re
+import datetime
 from includes import globals
 from includes import doubleFilter
 
@@ -59,8 +60,11 @@ def decode(freq, decoded):
 
                         if doubleFilter.check_id("POC", poc_id+poc_sub, poc_text):
                             logging.info("POCSAG%s: %s %s %s ", bitrate, poc_id, poc_sub, poc_text)
-                            data = {"ric":poc_id, "function":poc_sub, "msg":poc_text, "bitrate":bitrate, "description":poc_id}
-                            data["functionChar"] = data["function"].replace("1", "a").replace("2", "b").replace("3", "c").replace("4", "d")
+                            data = {"ric": poc_id, "function": poc_sub, "msg": poc_text, "bitrate": bitrate, "description": poc_id}
+                            data["functionChar"] = \
+                                data["function"].replace("1", "a").replace("2", "b").replace("3", "c").replace("4", "d")
+                            data['date'] = datetime.datetime.now()
+                            data['alarmid'] = data['msg'].lstrip()[:5]
 
                             if globals.config.getint("POC", "idDescribed"):
                                 from includes import description_list
@@ -68,13 +72,39 @@ def decode(freq, decoded):
                             
                             if globals.config.getint('POC', 'keywordDescribed'):
                                 from includes import keyword_list
-                                s = data['msg']
-                                keywords = re.findall('\((.*?)\)',s)
+                                s = data['msg'].strip()
+                                keywords = re.findall('\((.*?)\)', s)
                                 for key in keywords:
                                     if re.findall('^[A-Z].*', key):
-                                        data['keyword'] = keyword_list.get_description(key)
+                                        data['keyword_org'] = key.strip()
+                                        data['keyword'] = keyword_list.get_description(key).strip()
                                         break
-                            
+
+                            data['info'] = ''
+                            data['firestations'] = ''
+
+                            info_index = data['msg'].find('Info:')
+                            firestations_index = data['msg'].find('Bet-Wachen:')
+
+                            if info_index > 0:
+                                if firestations_index > 0:
+                                    data['info'] = data['msg'][info_index + 5: firestations_index].strip()
+                                else:
+                                    data['info'] = data['msg'][info_index + 5:].strip()
+
+                            if firestations_index > 0:
+                                data['firestations'] = data['msg'][firestations_index + 11:].strip()
+
+                            data['msg_trimmed'] = data['msg']\
+                                .replace(data['alarmid'], '')\
+                                .replace(data['info'], '')\
+                                .replace(data['firestations'], '')\
+                                .replace('Info:', '')\
+                                .replace('Bet-Wachen:', '')\
+                                .replace('(' + data['keyword_org'] + ')', '')
+
+                            data['msg_trimmed'] = re.sub(' +', ' ', data['msg_trimmed']).strip()
+
                             try:
                                 from includes import alarmHandler
                                 alarmHandler.processalarm("POC", freq, data)

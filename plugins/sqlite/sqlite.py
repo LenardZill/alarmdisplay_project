@@ -5,7 +5,6 @@ import logging
 import sqlite3
 
 from includes import globals
-from includes.helper import alarmHelper
 
 
 def onload():

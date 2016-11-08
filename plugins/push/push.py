@@ -3,8 +3,8 @@
 
 import logging
 import smtplib
+from datetime import date
 
-import time
 from email.utils import formatdate
 from email.utils import make_msgid
 from email.mime.text import MIMEText
@@ -41,9 +41,13 @@ def run(typ, freq, data):
                     logging.debug('Start POC to push')
                     subject = 'Alarm: ' + data['description']
                     mailtext = ''
-                    mailtext += 'Datum: ' + time.strftime('%d.%m.%Y') + ' ' + time.strftime('%H:%M:%S') + '\n'
+                    mailtext += 'Datum: ' + date.strftime(data['date'], '%d.%m.%Y %H:%M:%S')
                     mailtext += 'Einsatzstichwort: ' + data['keyword'] + '\n'
+                    mailtext += 'Info: ' + data['info'] + '\n'
+                    mailtext += 'Betroffene Wachen: ' + data['firestations'] + '\n'
+                    mailtext += 'Nachricht beschnitten: ' + data['msg_trimmed'] + '\n' + '\n'
                     mailtext += 'Nachricht: ' + data['msg'] + '\n'
+
                     try:
                         msg = MIMEText(mailtext, 'plain', 'utf-8')
                         msg['From'] = globals.config.get('push', 'from')

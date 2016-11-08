@@ -4,7 +4,7 @@
 import logging
 import csv
 from includes import globals
-from __builtin__ import any as b_any
+import re
 
 
 def load_csv():
@@ -43,7 +43,7 @@ def get_description(keyword):
 	resultStr = '' #keyword
 	logging.debug("look up keyword description lists")
 	try:
-		keys = keyword.split(' ')
+		keys = re.sub('(?<!\d)\d{2}(?!\d)', '', keyword).split(' ')
 		addition = {'AUS', 'K', 'G','2', '3', '4', '5', '6', '7', 'WAL'}
 		
 		list = []
@@ -52,11 +52,11 @@ def get_description(keyword):
 				list[-1] = list[-1] + ' ' + key
 			else:
 				list.append(key)
-		
-		
-		
+
 		for key in list:
 			resultStr += ' ' + globals.keywordDescribtionList[key][0]
+
+		resultStr += ' (' + keyword + ')'
 	except KeyError:
 		pass
 

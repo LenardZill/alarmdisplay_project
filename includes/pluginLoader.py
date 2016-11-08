@@ -5,7 +5,7 @@ import logging
 import imp
 import os
 
-from ConfigParser import NoOptionError
+from configparser import NoOptionError
 from includes import globals
 
 

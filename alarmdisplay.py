@@ -4,12 +4,12 @@
 import logging
 import logging.handlers
 import argparse
-import ConfigParser
+import configparser
 import os
 import time
 import subprocess
 
-from includes import globals, keyword_list
+from includes import globals
 from includes import MyTimedRotatingFileHandler
 from includes import checkSubprocesses
 
@@ -26,7 +26,7 @@ try:
 except SystemExit:
     exit(0)
 except:
-    print "ERROR: cannot parsing the arguments"
+    print("ERROR: cannot parsing the arguments")
     exit(1)
 
 
@@ -45,7 +45,7 @@ try:
         if not os.path.exists(globals.log_path):
             os.mkdir(globals.log_path)
     except:
-        print 'ERROR: cannot initialize paths'
+        print('ERROR: cannot initialize paths')
         exit(1)
 
     try:
@@ -72,7 +72,7 @@ try:
         ch.setFormatter(formatter)
         myLogger.addHandler(ch)
     except:
-        print "ERROR: cannot create logger"
+        print("ERROR: cannot create logger")
         exit(1)
 
     try:
@@ -115,7 +115,7 @@ try:
 
     try:
         logging.debug('reading config file')
-        globals.config = ConfigParser.ConfigParser()
+        globals.config = configparser.ConfigParser()
         globals.config.read(globals.script_path + '/config/config.ini')
         
         if globals.config.getint('Alarmdisplay', 'loglevel') == 10:
@@ -215,7 +215,6 @@ try:
         logging.debug('start decoding')
         while True:
             decoded = multimon_ng.stdout.readline()
-            logging.debug(decoded)
             from includes import decoder
             decoder.decode(args.freq, decoded.decode('utf-8'))
     else:

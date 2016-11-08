@@ -13,21 +13,21 @@ def processalarm(typ, freq, data):
 
             if globals.config.getint("Alarmdisplay","useRegExFilter"):
                 from includes import filter
-                if filter.checkFilters(typ,data,pluginName,freq):
+                if filter.checkFilters(typ, data, pluginName, freq):
                     logging.debug("call Plugin: %s", pluginName)
                     try:
-                        plugin.run(typ,freq,data)
+                        plugin.run(typ, freq, data)
                         logging.debug("return from: %s", pluginName)
                     except:
                         pass
             else:
                 logging.debug("call Plugin: %s", pluginName)
                 try:
-					plugin.run(typ,freq,data)
-					logging.debug("return from: %s", pluginName)
+                    plugin.run(typ,freq,data)
+                    logging.debug("return from: %s", pluginName)
                 except:
-					# call next plugin, if one has thrown an exception
-					pass
+                    # call next plugin, if one has thrown an exception
+                    pass
         logging.debug('[END ALARM]')
     except:
         logging.exception('Error in alarm processing')
